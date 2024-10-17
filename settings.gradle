@@ -1,0 +1,3 @@
+rootProject.name = 'documentation-generator'
+
+include 'documentation-generator-api'

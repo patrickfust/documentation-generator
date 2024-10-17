@@ -1,0 +1,63 @@
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'maven-publish'
+}
+
+allprojects {
+    group = 'dk.fust.docgen'
+    version = '0.0.1-SNAPSHOT'
+
+    plugins.withType(JavaPlugin).whenPluginAdded {
+        tasks.withType(Test).configureEach {
+            // Using JUnitPlatform for running tests
+            useJUnitPlatform()
+        }
+    }
+
+    plugins.withType(MavenPublishPlugin).whenPluginAdded {
+        if (project.name != 'documentation-generator-gradle') {
+            publishing {
+                publications {
+                    maven(MavenPublication) {
+                        groupId = group
+                        artifactId = project.name
+                        version = version
+
+                        from components.java
+
+                        pom {
+                            name = 'Documentation Generator'
+                            description = 'Generates documentation based upon a yaml-file'
+                            url = 'https://github.com/patrickfust/documentation-generator'
+                            licenses {
+                                license {
+                                    name = 'The Apache License, Version 2.0'
+                                    url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                                }
+                            }
+                            developers {
+                                developer {
+                                    id = 'patrickfust'
+                                    name = 'Patrick Fust'
+                                    email = 'patrick.fust@gmail.com'
+                                }
+                            }
+                            scm {
+                                connection = 'scm:git:git://github.com/patrickfust/documentation-generator.git'
+                                developerConnection = 'scm:git:git://github.com/patrickfust/documentation-generator.git'
+                                url = 'https://github.com/patrickfust/documentation-generator'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+}
