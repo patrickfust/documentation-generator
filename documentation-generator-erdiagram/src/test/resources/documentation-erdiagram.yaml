@@ -1,0 +1,23 @@
+$schema: ../../../../documentation-generator-core/src/main/resources/documentation-schema.json
+documentationTitle: The documentation title
+databaseName: The database name
+schemaName: xxx
+tables:
+  - name: something
+    group: domain-model
+    fields:
+      - name: name
+        comment: some comment
+        dataType: bigint
+  - name: table_a
+    group: domain-model
+    fields:
+      - name: field_a
+        dataType: int
+        foreignKey:
+          tableName: table_b
+          columnName: field_b
+  - name: table_b
+    fields:
+      - name: field_b
+        dataType: int

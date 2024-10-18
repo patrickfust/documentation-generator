@@ -2,4 +2,6 @@ rootProject.name = 'documentation-generator'
 
 include 'documentation-generator-api',
         'documentation-generator-core',
+        'documentation-generator-gradle',
+        'documentation-generator-erdiagram',
         'documentation-generator-test-utilities'
