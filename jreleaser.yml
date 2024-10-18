@@ -21,10 +21,22 @@ release:
     owner: patrickfust
     overwrite: true
 
-#distributions:
-#  maven-central:
-#    artifacts:
-#      - path: documentation-generator-api/build/libs/documentation-generator-api-{{projectVersion}}.jar
+distributions:
+  documentation-generator-api:
+    artifacts:
+      - path: documentation-generator-api/build/libs/documentation-generator-api-{{projectVersion}}.jar
+  documentation-generator-core:
+    artifacts:
+      - path: documentation-generator-core/build/libs/documentation-generator-core-{{projectVersion}}.jar
+  documentation-generator-gradle:
+    artifacts:
+      - path: documentation-generator-gradle/build/libs/documentation-generator-gradle-{{projectVersion}}.jar
+  documentation-generator-erdiagram:
+    artifacts:
+      - path: documentation-generator-erdiagram/build/libs/documentation-generator-erdiagram-{{projectVersion}}.jar
+  documentation-generator-sqlscript:
+    artifacts:
+      - path: documentation-generator-sqlscript/build/libs/documentation-generator-sqlscript-{{projectVersion}}.jar
 
 # File signing is always active
 signing:

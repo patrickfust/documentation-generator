@@ -18,7 +18,7 @@ This document covers:
 #### gradle.properties
 Add the version of documentation-generator you want to use in `gradle.properties`.
 ```groovy
-documentationGeneratorVersion = '0.0.3'
+documentationGeneratorVersion = 0.0.3
 ```
 
 #### build.gradle
@@ -38,6 +38,14 @@ For example:
 ```
 classpath("dk.fust:documentation-generator-erdiagram:${documentationGeneratorVersion}")
 ```
+
+### Gradle task
+
+To generate documentation, run:
+```shell
+gradle generateDocumentation
+```
+
 
 ---
 

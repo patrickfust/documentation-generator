@@ -1,0 +1,53 @@
+import dk.fust.docgen.erdiagram.GenerateKey
+import dk.fust.docgen.erdiagram.generators.UMLGenerator
+import dk.fust.docgen.destination.MarkdownDestination
+import dk.fust.docgen.erdiagram.ERDiagramConfiguration
+
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("dk.fust.docgen:documentation-generator-gradle:${documentationGeneratorVersion}")
+        classpath("dk.fust.docgen:documentation-generator-erdiagram:${documentationGeneratorVersion}")
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+apply plugin: dk.fust.docgen.gradle.DocumentationGeneratorPlugin
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+documentationGenerator {
+    generatorConfigurations = [
+            new ERDiagramConfiguration(
+                documentationFile: new File(projectDir, 'documentation.yaml'),
+                umlGenerator : UMLGenerator.MERMAID, // Can be omitted because it's default
+                generateKeys: [
+                        // Empty group means all groups
+                        new GenerateKey(destinationKey: 'MODEL_MERMAID_PLACEHOLDER'),
+                        new GenerateKey(destinationKey: 'MODEL_MERMAID_GROUP_PLACEHOLDER', group: 'my_group')
+                ],
+                destination: new MarkdownDestination(
+                        file: new File('README.md'),
+                )
+            ),
+            new ERDiagramConfiguration(
+                documentationFile: new File(projectDir, 'documentation.yaml'),
+                umlGenerator : UMLGenerator.PLANTUML,
+                generateKeys: [
+                        new GenerateKey(destinationKey: 'MODEL_PLANTUML_PLACEHOLDER')
+                ],
+                destination: new MarkdownDestination(
+                        file: new File('README.md'),
+                )
+            ),
+    ]
+}

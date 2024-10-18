@@ -1,0 +1,21 @@
+$schema:  ../documentation-generator/src/main/resources/documentation-schema.json
+documentationTitle: My database
+schemaName: theSchema
+tables:
+  - name: table_a
+    createTableScript: create_table_a.sql
+    fields:
+      - name: field_a
+        dataType: int
+        foreignKey:
+          tableName: table_b
+          columnName: field_b
+  - name: table_b
+    fields:
+      - name: field_b
+        dataType: int
+  - name: table_in_group
+    group: my_group
+    fields:
+      - name: field_b
+        dataType: int
