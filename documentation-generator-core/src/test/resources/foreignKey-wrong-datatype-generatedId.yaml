@@ -1,0 +1,18 @@
+$schema: ../../main/resources/documentation-schema.json
+documentationTitle: My database
+schemaName: theSchema
+generation:
+  generateId: true
+tables:
+  - name: table_a
+    createTableScript: create_table_a.sql
+    fields:
+      - name: field_a
+        dataType: bigint
+        foreignKey:
+          tableName: table_b
+          columnName: table_b_id  # the generated id
+  - name: table_b
+    fields:
+      - name: field_b
+        dataType: uuid

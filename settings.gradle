@@ -1,3 +1,5 @@
 rootProject.name = 'documentation-generator'
 
-include 'documentation-generator-api'
+include 'documentation-generator-api',
+        'documentation-generator-core',
+        'documentation-generator-test-utilities'
