@@ -2,16 +2,22 @@ plugins {
     id 'java'
     id 'groovy'
     id 'maven-publish'
+    id 'org.jreleaser' version '1.14.0'
 }
 
 allprojects {
     group = 'dk.fust.docgen'
-    version = '0.0.1-SNAPSHOT'
+    version = '0.0.1'
 
     plugins.withType(JavaPlugin).whenPluginAdded {
         tasks.withType(Test).configureEach {
             // Using JUnitPlatform for running tests
             useJUnitPlatform()
+
+        }
+        java {
+            withSourcesJar()
+            withJavadocJar()
         }
     }
 
@@ -60,4 +66,8 @@ allprojects {
         mavenCentral()
     }
 
+}
+
+jreleaser {
+    configFile = 'jreleaser.yml'
 }
