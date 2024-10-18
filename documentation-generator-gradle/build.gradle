@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'com.gradle.plugin-publish' version '1.2.1'
+}
+
+dependencies {
+    implementation project(':documentation-generator-api')
+    implementation project(':documentation-generator-core')
+    implementation gradleApi()
+}
+
+gradlePlugin {
+    website = 'https://fust.dk'
+    plugins {
+        documentationGeneratorPlugin {
+            id = 'dk.fust.documentation-generator-gradle.DocumentationGeneratorPlugin'
+            displayName = 'Document generator'
+            description = 'Generates different types of documentation based upon a yaml-configurationfile'
+            tags.set(['documentation', 'plugins'])
+            implementationClass = 'dk.fust.docgen.gradle.DocumentationGeneratorPlugin'
+        }
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            name = 'staging-deploy-gradle-plugin'
+            url = new File(rootDir, 'build/staging-deploy')
+        }
+    }
+}
