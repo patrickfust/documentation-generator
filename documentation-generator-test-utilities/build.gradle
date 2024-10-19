@@ -11,5 +11,4 @@ dependencies {
 
     implementation platform('org.spockframework:spock-bom:2.3-groovy-4.0')
     implementation 'org.spockframework:spock-core'
-
 }

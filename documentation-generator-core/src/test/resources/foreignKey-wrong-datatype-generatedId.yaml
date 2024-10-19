@@ -1,4 +1,4 @@
-$schema: ../../main/resources/documentation-schema.json
+$schema: ../../../../documentation-generator-api/src/main/resources/documentation-schema.json
 documentationTitle: My database
 schemaName: theSchema
 generation:
