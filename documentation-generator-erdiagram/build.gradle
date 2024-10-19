@@ -26,4 +26,11 @@ publishing {
             url = new File(rootDir, 'build/staging-deploy')
         }
     }
+    publications {
+        maven(MavenPublication) {
+            pom {
+                description = 'Document Generator - Plugin - ER diagram'
+            }
+        }
+    }
 }
