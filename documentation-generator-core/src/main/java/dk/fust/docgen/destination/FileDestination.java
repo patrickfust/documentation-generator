@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 /**
- * Can write documents to files
+ * Can write documents to separate files in the directory
  */
 @Data
 public class FileDestination implements Destination {
