@@ -1,0 +1,154 @@
+{
+  "$schema" : "https://json-schema.org/draft/2020-12/schema",
+  "$defs" : {
+    "Generation" : {
+      "type" : "object",
+      "properties" : {
+        "addCreatedAt" : {
+          "type" : "boolean",
+          "description" : "Adds `columnNameCreatedAt` column, that is populated with `now()`"
+        },
+        "addUpdatedAt" : {
+          "type" : "boolean",
+          "description" : "Adds `columnNameUpdatedAt` column, that is populated with `now()`"
+        },
+        "columnNameCreatedAt" : {
+          "type" : "string",
+          "description" : "If `addCreatedAt`, this will be the columnName"
+        },
+        "columnNameUpdatedAt" : {
+          "type" : "string",
+          "description" : "If `addUpdatedAt`, this will be the columnName"
+        },
+        "generateId" : {
+          "type" : "boolean",
+          "description" : "Automatically generate id on the form `tablename_id`"
+        },
+        "generateIdDataType" : {
+          "enum" : [ "int", "date", "timestamptz", "numeric", "bool", "bigint", "text", "uuid" ],
+          "description" : "Type of the generated id of the table"
+        }
+      }
+    }
+  },
+  "type" : "object",
+  "properties" : {
+    "documentationTitle" : {
+      "type" : "string"
+    },
+    "generation" : {
+      "$ref" : "#/$defs/Generation",
+      "description" : "Default configuration on how the generation should appear - Can be overridden per table"
+    },
+    "schemaName" : {
+      "type" : "string",
+      "description" : "Schema name"
+    },
+    "tables" : {
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "properties" : {
+          "comment" : {
+            "type" : "string",
+            "description" : "Comment to be added to the table"
+          },
+          "createTableScript" : {
+            "type" : "string",
+            "description" : "Filename of sql-script-file to be generated. If left out, no files are generated"
+          },
+          "fields" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "check" : {
+                  "description" : "Constraint on the values",
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string",
+                    "description" : "Constraint on the values"
+                  }
+                },
+                "comment" : {
+                  "type" : "string"
+                },
+                "dataType" : {
+                  "enum" : [ "int", "date", "timestamptz", "numeric", "bool", "bigint", "text", "uuid" ],
+                  "description" : "Data type of the column"
+                },
+                "defaultValue" : {
+                  "type" : "string",
+                  "description" : "Default value when inserting in the database"
+                },
+                "foreignKey" : {
+                  "type" : "object",
+                  "properties" : {
+                    "columnName" : {
+                      "type" : "string"
+                    },
+                    "enforceReference" : {
+                      "type" : "boolean",
+                      "description" : "Should the database enforce the reference?",
+                      "default" : false
+                    },
+                    "tableName" : {
+                      "type" : "string"
+                    }
+                  },
+                  "description" : "Is this a foreign key to another table"
+                },
+                "name" : {
+                  "type" : "string",
+                  "description" : "Name of the column"
+                },
+                "nullable" : {
+                  "type" : "boolean",
+                  "description" : "May the field be null?",
+                  "default" : true
+                },
+                "primaryKey" : {
+                  "type" : "boolean"
+                },
+                "source" : {
+                  "type" : "string"
+                },
+                "transformation" : {
+                  "type" : "string"
+                },
+                "unique" : {
+                  "type" : "boolean"
+                }
+              },
+              "required" : [ "dataType", "name" ]
+            }
+          },
+          "generation" : {
+            "$ref" : "#/$defs/Generation",
+            "description" : "Configuration on how the generation should appear - Overrides the general generation on `Documentation`"
+          },
+          "group" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "views" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "name" : {
+                  "type" : "string"
+                },
+                "sql" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
