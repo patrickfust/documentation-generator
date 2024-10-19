@@ -1,0 +1,55 @@
+---
+name: Publish Documentation Generator to GitHub Pages
+
+on: [push]
+#on:
+#  push:
+#    branches: [master]
+#  pull_request:
+#    branches: [master]
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Copy Document Generator Schema to site
+        run: cp -Rv documentation-generator-api/src/main/resources/documentation-schema.json site/documentation-schema.json
+
+      - name: Check GitHub Pages status
+        uses: crazy-max/ghaction-github-status@v3
+        with:
+          pages_threshold: major_outage
+
+      - name: GitHub Pages
+        # You may pin to the exact commit or the version.
+        uses: crazy-max/ghaction-github-pages@v4
+        # uses: crazy-max/ghaction-github-pages@c0d7ff0487ee0415efb7f32dab10ea880330b1dd
+        # uses: crazy-max/ghaction-github-pages@v3.1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          target_branch: gh-pages
+          # Git branch where assets will be deployed
+          # target_branch: gh-pages # optional, default is gh-pages
+          # Build directory to deploy
+          build_dir: site
+          # Whether to treat build_dir as an absolute path
+          # absolute_build_dir: # optional, default is false
+          # Allow Jekyll to build your site
+          # jekyll: # optional, default is true
+          # If enabled, nothing will be pushed
+          dry_run: false # optional, default is false
+          # Enable verbose output
+          verbose: true # optional, default is false
