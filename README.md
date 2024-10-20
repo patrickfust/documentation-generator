@@ -189,7 +189,7 @@ Everything in between will be substituted.
 #### gradle.properties
 Add the version of documentation-generator you want to use in `gradle.properties`.
 ```groovy
-documentationGeneratorVersion = 0.0.4
+documentationGeneratorVersion = 0.0.5
 ```
 
 #### build.gradle
