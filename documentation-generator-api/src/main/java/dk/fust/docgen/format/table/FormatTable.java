@@ -5,13 +5,14 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * Main POJO for at table
+ * Main POJO for at table to be formatted
  */
 @Data
-public class Table {
+public class FormatTable {
 
     private String tableClass;
 
     private List<Row> rows;
 
+    private ColGroup colGroup;
 }

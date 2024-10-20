@@ -5,17 +5,17 @@ import dk.fust.docgen.util.Assert;
 /**
  * Converts from model of a Table to the way Markdown writes tables
  */
-public class MarkdownTableFormat implements TableFormat {
+public class MarkdownTableFormatter implements TableFormatter {
 
     /**
      * Convert to Markdown
-     * @param table table to convert
+     * @param formatTable table to convert
      * @return markdown table
      */
     @Override
-    public String generateTable(Table table) {
+    public String formatTable(FormatTable formatTable) {
         StringBuilder stringBuilder = new StringBuilder(512);
-        for (Row row : table.getRows()) {
+        for (Row row : formatTable.getRows()) {
             boolean header = false;
             for (Cell cell : row.getCells()) {
                 stringBuilder.append(generateCell(cell));
