@@ -27,6 +27,10 @@
         "generateIdDataType" : {
           "enum" : [ "int", "date", "timestamptz", "numeric", "bool", "bigint", "text", "uuid" ],
           "description" : "Type of the generated id of the table"
+        },
+        "triggerForUpdates" : {
+          "type" : "string",
+          "description" : "If this is non-empty, a trigger will be called with this name"
         }
       }
     }
@@ -129,6 +133,26 @@
           },
           "group" : {
             "type" : "string"
+          },
+          "indexes" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "fields" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                },
+                "name" : {
+                  "type" : "string"
+                },
+                "unique" : {
+                  "type" : "boolean"
+                }
+              }
+            }
           },
           "name" : {
             "type" : "string"

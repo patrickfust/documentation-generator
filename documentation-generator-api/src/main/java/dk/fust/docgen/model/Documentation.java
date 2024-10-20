@@ -84,6 +84,9 @@ public class Documentation {
             if (from.getColumnNameUpdatedAt() != null && !from.getColumnNameUpdatedAt().isEmpty()) {
                 to.setColumnNameUpdatedAt(from.getColumnNameUpdatedAt());
             }
+            if (from.getTriggerForUpdates() != null && !from.getTriggerForUpdates().isEmpty()) {
+                to.setTriggerForUpdates(from.getTriggerForUpdates());
+            }
         }
     }
 }

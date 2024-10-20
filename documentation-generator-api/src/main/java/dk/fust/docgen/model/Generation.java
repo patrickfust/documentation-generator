@@ -26,6 +26,9 @@ public class Generation {
     @Description(value = "If `addUpdatedAt`, this will be the columnName", defaultValue = "updated_at")
     private String columnNameUpdatedAt;
 
+    @Description(value = "If this is non-empty, a trigger will be called with this name", defaultValue = "")
+    private String triggerForUpdates;
+
     /**
      * Has specified generateId. See generateId
      * @return true if generateId is present

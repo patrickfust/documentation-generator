@@ -36,6 +36,7 @@ class ModelValidatorSpec extends Specification {
         'foreignKey-table-column-not-exists.yaml'    | 'TableName table_b and columnName field_x does not exist'
         'foreignKey-wrong-datatype.yaml'             | 'TableName table_b and columnName field_b has different data types (TEXT and UUID)'
         'foreignKey-wrong-datatype-generatedId.yaml' | 'TableName table_b and columnName table_b_id has different data types (BIGINT and INT)'
+        'index-with-non-existing-field.yaml'         | 'Index idx_that_is_pointless points to non-existing field does_not_exist'
     }
 
 }

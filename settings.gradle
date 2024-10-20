@@ -4,5 +4,6 @@ include 'documentation-generator-api',
         'documentation-generator-core',
         'documentation-generator-gradle',
         'documentation-generator-erdiagram',
-        'documentation-generator-test-utilities'
+        'documentation-generator-sqlscript',
+        'documentation-generator-test-utilities',
         'schema-generator'

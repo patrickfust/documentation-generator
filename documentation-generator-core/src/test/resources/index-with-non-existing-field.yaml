@@ -1,0 +1,11 @@
+$schema: ../../../../documentation-generator-api/src/main/resources/documentation-schema.json
+tables:
+  - name: something
+    fields:
+      - name: name
+        comment: some comment
+        dataType: bigint
+    indexes:
+      - name: idx_that_is_pointless
+        fields:
+          - does_not_exist

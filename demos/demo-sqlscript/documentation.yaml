@@ -1,0 +1,33 @@
+$schema:  https://patrickfust.github.io/documentation-generator/documentation-schema.json
+documentationTitle: My database
+schemaName: theSchema
+tables:
+  - name: table_a
+    createTableScript: V2__create-table_a.sql
+    fields:
+      - name: field_a
+        dataType: int
+        foreignKey:
+          enforceReference: true
+          tableName: table_b
+          columnName: field_b
+  - name: table_b
+    createTableScript: V1__create-table_b.sql
+    fields:
+      - name: field_b
+        dataType: int
+    views:
+      - name: my_view
+        sql: "select * from somewhere"
+    indexes:
+      - name: my_unique_idx
+        unique: true
+        fields:
+          - field_b
+
+  - name: table_in_group
+    createTableScript: V3__create-table_in_group.sql
+    group: my_group
+    fields:
+      - name: field_b
+        dataType: int

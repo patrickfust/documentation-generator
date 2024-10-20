@@ -24,6 +24,8 @@ public class Table {
 
     private List<View> views;
 
+    private List<Index> indexes;
+
     @Description("Configuration on how the generation should appear - Overrides the general generation on `Documentation`")
     private Generation generation;
 
