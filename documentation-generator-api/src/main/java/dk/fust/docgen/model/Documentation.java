@@ -89,4 +89,18 @@ public class Documentation {
             }
         }
     }
+
+    /**
+     * Return those tables that have a tag that is equal to the filter
+     * @param filter filter to search for
+     * @return only matching tables
+     */
+    public List<Table> filterTables(String filter) {
+        if (filter != null && !filter.isEmpty()) {
+            // Only those with the filer
+            return tables.stream().filter(t -> t.getTags() != null && t.getTags().contains(filter)).toList();
+        }
+        return tables;
+    }
+
 }

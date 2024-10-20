@@ -15,7 +15,8 @@ public class Table {
 
     @Description("Comment to be added to the table")
     private String comment;
-    private String group;
+
+    private List<String> tags;
 
     @Description(value = "Filename of sql-script-file to be generated. If left out, no files are generated")
     private String createTableScript;

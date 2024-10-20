@@ -96,7 +96,6 @@ tables:
       - name: field_b
         dataType: int
   - name: table_in_group
-    group: my_group
     fields:
       - name: field_b
         dataType: int
@@ -134,7 +133,6 @@ or as JSON:
         },
         {
             "name": "table_in_group",
-            "group": "my_group",
             "fields": [
                 {
                     "name": "field_b",

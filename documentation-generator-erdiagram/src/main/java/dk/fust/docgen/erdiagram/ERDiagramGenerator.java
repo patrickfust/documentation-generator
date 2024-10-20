@@ -24,7 +24,7 @@ public class ERDiagramGenerator implements Generator {
             erDiagramConfiguration.getDestination().validate();
             ERGenerator generator = ERGeneratorFactory.getGenerator(erDiagramConfiguration.getUmlGenerator());
             for (GenerateKey generateKey : erDiagramConfiguration.getGenerateKeys()) {
-                String uml = generator.generateUML(generateKey.getGroup(), documentation, generatorConfiguration);
+                String uml = generator.generateUML(generateKey.getFilter(), documentation, generatorConfiguration);
                 String document = """
 ```%s
 %s

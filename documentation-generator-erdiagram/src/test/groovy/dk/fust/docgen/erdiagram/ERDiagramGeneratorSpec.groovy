@@ -21,7 +21,7 @@ Trailing stuff
         ERDiagramConfiguration erDiagramConfiguration = new ERDiagramConfiguration(
                 destination: new MarkdownDestination(file: markdownFile),
                 generateKeys: [
-                        new GenerateKey(group: 'domain-model', destinationKey: 'SOME_PLACEHOLDER')
+                        new GenerateKey(filter: 'domain-model', destinationKey: 'SOME_PLACEHOLDER')
                 ]
         )
 

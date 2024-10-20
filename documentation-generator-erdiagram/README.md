@@ -6,19 +6,20 @@ This generator can generate entity-relation diagrams in the format of [PlantUML]
 
 To use the entity-relation diagram generator, you must configure it with `dk.fust.docgen.erdiagram.ERDiagramConfiguration`
 
-| Setting           | 	Type             | Description                                                         | 	Default |
-|-------------------|-------------------|---------------------------------------------------------------------|----------|
-| documentationFile | File              | Location of the documentation file                                  |          |
-| destination       | Destination       | Where to send the generated documentation                           |          | 
-| umlGenerator      | UMLGenerator      | Which type of ER-diagram to generate. Can be MERMAID and PLANTUML   | MERMAID  |
-| generateKeys      | List<GenerateKey> | List of model-group and the placeholder to replace in documentation |          | 
+| Setting           | 	Type             | Description                                                        | 	Default |
+|-------------------|-------------------|--------------------------------------------------------------------|----------|
+| documentationFile | File              | Location of the documentation file                                 |          |
+| destination       | Destination       | Where to send the generated documentation                          |          | 
+| umlGenerator      | UMLGenerator      | Which type of ER-diagram to generate. Can be MERMAID and PLANTUML  | MERMAID  |
+| generateKeys      | List<GenerateKey> | List of model-tags and the placeholder to replace in documentation |          | 
 
 ### GenerateKey
 
 `GenerateKey` identifies a sub-set of the tables to generate an ER-diagram for.
-You can group them for instance into domain-model and external-reference and so forth.
+You can group them for instance into domain-model and external-reference and so forth, by adding a filter.
+Only tables with a tag matching the filter will be used.
 
-If the `group` is `null`, then all tables are selected.
+If the `filter` is `null`, then all tables are selected.
 
 The `destinationKey` tells which part of the destination that needs replacing.
 
@@ -33,9 +34,9 @@ new ERDiagramConfiguration(
     documentationFile: new File(projectDir, 'documentation.yaml'),
     umlGenerator : UMLGenerator.MERMAID, // Can be omitted because it's default
     generateKeys: [
-            // Empty group means all groups
+            // Empty filter means all groups
             new GenerateKey(destinationKey: 'MODEL_MERMAID_PLACEHOLDER'),
-            new GenerateKey(destinationKey: 'MODEL_MERMAID_GROUP_PLACEHOLDER', group: 'my_group')
+            new GenerateKey(destinationKey: 'MODEL_MERMAID_GROUP_PLACEHOLDER', filter: 'my_group')
     ],
     destination: new MarkdownDestination(
             file: new File('README.md'),

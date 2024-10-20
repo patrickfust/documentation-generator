@@ -131,9 +131,6 @@
             "$ref" : "#/$defs/Generation",
             "description" : "Configuration on how the generation should appear - Overrides the general generation on `Documentation`"
           },
-          "group" : {
-            "type" : "string"
-          },
           "indexes" : {
             "type" : "array",
             "items" : {
@@ -156,6 +153,12 @@
           },
           "name" : {
             "type" : "string"
+          },
+          "tags" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
           },
           "views" : {
             "type" : "array",

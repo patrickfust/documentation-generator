@@ -27,7 +27,8 @@ tables:
 
   - name: table_in_group
     createTableScript: V3__create-table_in_group.sql
-    group: my_group
+    tags:
+      - my_group
     fields:
       - name: field_b
         dataType: int
