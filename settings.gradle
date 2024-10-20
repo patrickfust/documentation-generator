@@ -5,3 +5,4 @@ include 'documentation-generator-api',
         'documentation-generator-gradle',
         'documentation-generator-erdiagram',
         'documentation-generator-test-utilities'
+        'schema-generator'
