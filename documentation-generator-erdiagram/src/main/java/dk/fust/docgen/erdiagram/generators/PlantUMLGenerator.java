@@ -38,11 +38,9 @@ public class PlantUMLGenerator implements ERGenerator {
     }
 
     @Override
-    public String generateUML(String group, Documentation documentation, GeneratorConfiguration generatorConfiguration) {
+    public String generateUML(String filter, Documentation documentation, GeneratorConfiguration generatorConfiguration) {
         StringBuilder stringBuilder = new StringBuilder(1024);
-
-        List<Table> tables = findTables(group, documentation);
-
+        List<Table> tables = documentation.filterTables(filter);
         stringBuilder.append("""
 @startuml
 
@@ -64,15 +62,6 @@ hide empty methods
         stringBuilder.append(generateForeignKeys(tables, documentation));
         stringBuilder.append("@enduml");
         return stringBuilder.toString();
-    }
-
-    private List<Table> findTables(String group, Documentation documentation) {
-        List<Table> tables = documentation.getTables();
-        if (group != null && !group.isEmpty()) {
-            // Only those with the group
-            tables = tables.stream().filter(t -> group.equals(t.getGroup())).toList();
-        }
-        return tables;
     }
 
     private String generateTables(List<Table> tables, Documentation documentation) {

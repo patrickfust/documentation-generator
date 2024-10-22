@@ -2,13 +2,13 @@ package dk.fust.docgen;
 
 import dk.fust.docgen.model.Documentation;
 import dk.fust.docgen.model.Field;
+import dk.fust.docgen.model.Generation;
 import dk.fust.docgen.model.Index;
 import dk.fust.docgen.model.Table;
 import dk.fust.docgen.model.View;
 import dk.fust.docgen.util.Assert;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -54,13 +54,15 @@ public class ModelValidator {
     private void validateField(Field field, Table table) {
         Assert.isNotNull(field.getName(), "Field without a name in table " + table.getName());
         Assert.isNotNull(field.getDataType(), "Field " + field.getName() + " has no data type in table " + table.getName());
-        Assert.isTrue(!(field.isPrimaryKey() && documentation.getGenerationForTable(table).isGenerateId()), "Field " + field.getName() + " has primary key and is generating id");
+        Generation generationForTable = documentation.getGenerationForTable(table);
+        Assert.isTrue(!(field.isPrimaryKey() && generationForTable.isGenerateId()), "Field " + field.getName() + " has primary key and is generating id");
+
         if (field.getForeignKey() != null) {
             String tableName = field.getForeignKey().getTableName();
             String columnName = field.getForeignKey().getColumnName();
             Assert.isNotNull(tableName, "Field " + field.getName() + " has foreign key without table name");
             Assert.isNotNull(columnName, "Field " + field.getName() + " has foreign key without column name");
-            Field foreignTablesField = documentation.getField(tableName, columnName, documentation.getGenerationForTable(table).getGenerateIdDataType());
+            Field foreignTablesField = documentation.getField(tableName, columnName, generationForTable.getGenerateIdDataType());
             String tableNameColumnName = "TableName " + tableName + " and columnName " + columnName;
             Assert.isNotNull(foreignTablesField, tableNameColumnName + " does not exist");
             Assert.isEquals(field.getDataType(), foreignTablesField.getDataType(), tableNameColumnName + " has different data types " +

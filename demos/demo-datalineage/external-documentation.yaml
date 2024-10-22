@@ -1,0 +1,8 @@
+$schema:  https://patrickfust.github.io/documentation-generator/documentation-schema.json
+documentationTitle: My external database
+databaseName: External DB name
+tables:
+  - name: external_table_a
+    fields:
+      - name: ext_a
+        dataType: int

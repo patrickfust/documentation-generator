@@ -15,7 +15,8 @@ tables:
       - name: field_b
         dataType: int
   - name: table_in_group
-    group: my_group
+    tags:
+      - my_group
     fields:
       - name: field_b
         dataType: int

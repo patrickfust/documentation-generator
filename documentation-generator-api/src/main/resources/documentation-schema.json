@@ -37,6 +37,9 @@
   },
   "type" : "object",
   "properties" : {
+    "databaseName" : {
+      "type" : "string"
+    },
     "documentationTitle" : {
       "type" : "string"
     },
@@ -115,10 +118,12 @@
                   "type" : "boolean"
                 },
                 "source" : {
-                  "type" : "string"
+                  "type" : "string",
+                  "description" : "Points to another table and field. Must be on the form 'table.field'"
                 },
                 "transformation" : {
-                  "type" : "string"
+                  "type" : "string",
+                  "description" : "If the field is transformed, this is the documentation on how it's transformed"
                 },
                 "unique" : {
                   "type" : "boolean"
@@ -130,9 +135,6 @@
           "generation" : {
             "$ref" : "#/$defs/Generation",
             "description" : "Configuration on how the generation should appear - Overrides the general generation on `Documentation`"
-          },
-          "group" : {
-            "type" : "string"
           },
           "indexes" : {
             "type" : "array",
@@ -156,6 +158,12 @@
           },
           "name" : {
             "type" : "string"
+          },
+          "tags" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
           },
           "views" : {
             "type" : "array",

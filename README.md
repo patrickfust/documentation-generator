@@ -96,7 +96,6 @@ tables:
       - name: field_b
         dataType: int
   - name: table_in_group
-    group: my_group
     fields:
       - name: field_b
         dataType: int
@@ -134,7 +133,6 @@ or as JSON:
         },
         {
             "name": "table_in_group",
-            "group": "my_group",
             "fields": [
                 {
                     "name": "field_b",
@@ -191,7 +189,7 @@ Everything in between will be substituted.
 #### gradle.properties
 Add the version of documentation-generator you want to use in `gradle.properties`.
 ```groovy
-documentationGeneratorVersion = 0.0.4
+documentationGeneratorVersion = 0.0.5
 ```
 
 #### build.gradle

@@ -1,7 +1,7 @@
 package dk.fust.docgen.destination;
 
-import dk.fust.docgen.util.Assert;
 import dk.fust.docgen.service.FileService;
+import dk.fust.docgen.util.Assert;
 import lombok.Data;
 
 import java.io.File;

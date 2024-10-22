@@ -4,13 +4,15 @@ databaseName: The database name
 schemaName: xxx
 tables:
   - name: something
-    group: domain-model
+    tags:
+      - domain-model
     fields:
       - name: name
         comment: some comment
         dataType: bigint
   - name: table_a
-    group: domain-model
+    tags:
+      - domain-model
     fields:
       - name: field_a
         dataType: int

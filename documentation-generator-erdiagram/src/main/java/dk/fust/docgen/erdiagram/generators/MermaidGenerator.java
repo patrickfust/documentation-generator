@@ -6,6 +6,7 @@ import dk.fust.docgen.model.Field;
 import dk.fust.docgen.model.Generation;
 import dk.fust.docgen.model.Table;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -21,7 +22,7 @@ public class MermaidGenerator implements ERGenerator {
     }
 
     @Override
-    public String generateUML(String group, Documentation documentation, GeneratorConfiguration generatorConfiguration) {
+    public String generateUML(String filter, Documentation documentation, GeneratorConfiguration generatorConfiguration) {
         StringBuilder uml = new StringBuilder(INITIAL_CAPACITY);
         if (documentation.getDocumentationTitle() != null && !documentation.getDocumentationTitle().isEmpty()) {
             uml.append("""
@@ -31,15 +32,15 @@ title: %s
 """.formatted(documentation.getDocumentationTitle()));
         }
         uml.append("erDiagram\n");
-        String tables = generateTables(group, documentation);
+        String tables = generateTables(filter, documentation);
         uml.append(tables);
         return uml.toString();
     }
 
-    private String generateTables(String group, Documentation documentation) {
+    private String generateTables(String filter, Documentation documentation) {
         StringBuilder uml = new StringBuilder(INITIAL_CAPACITY);
 
-        Stream<Table> tables = filterTables(group, documentation);
+        List<Table> tables = documentation.filterTables(filter);
         tables.forEach(table -> {
             uml.append(generateTableForeignKeys(table));
 
@@ -68,15 +69,6 @@ title: %s
         });
 
         return uml.toString();
-    }
-
-    /**
-     * Find tables that needs processing. Can be filtered using group
-     * @param group filter. If null all is returned
-     */
-    private Stream<Table> filterTables(String group, Documentation documentation) {
-        return documentation.getTables().stream().filter(t -> group == null || group.isEmpty() ||
-                group.equals(t.getGroup()));
     }
 
     private String generateTableForeignKeys(Table table) {

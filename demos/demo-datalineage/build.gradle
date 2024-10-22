@@ -1,0 +1,40 @@
+import dk.fust.docgen.gradle.DocumentationGeneratorPlugin
+import dk.fust.docgen.datalineage.DataLineageConfiguration
+import dk.fust.docgen.destination.MarkdownDestination
+import dk.fust.docgen.format.table.MarkdownTableFormatter
+
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("dk.fust.docgen:documentation-generator-gradle:${documentationGeneratorVersion}")
+        classpath("dk.fust.docgen:documentation-generator-datalineage:${documentationGeneratorVersion}")
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+apply plugin: DocumentationGeneratorPlugin
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+documentationGenerator {
+    generatorConfigurations = [
+            new DataLineageConfiguration(
+                    key: 'my-data-lineage',
+                    documentationFile: new File(projectDir, 'documentation.yaml'),
+                    destination: new MarkdownDestination(
+                            file: new File('README.md'),
+                    ),
+                    tableFormatter: new MarkdownTableFormatter(),
+                    sourceDocumentationFiles: ['external' : new File(projectDir, 'external-documentation.yaml')]
+            )
+    ]
+}

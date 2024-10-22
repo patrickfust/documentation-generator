@@ -18,6 +18,8 @@ public class Documentation {
 
     private String documentationTitle;
 
+    private String databaseName;
+
     @Description("Schema name")
     private String schemaName;
     private List<Table> tables = new ArrayList<>();
@@ -88,5 +90,30 @@ public class Documentation {
                 to.setTriggerForUpdates(from.getTriggerForUpdates());
             }
         }
+    }
+
+    /**
+     * Return those tables that have a tag that is equal to the filter
+     * @param filter filter to search for
+     * @return only matching tables
+     */
+    public List<Table> filterTables(String filter) {
+        if (filter != null && !filter.isEmpty()) {
+            // Only those with the filer
+            return tables.stream().filter(t -> t.getTags() != null && t.getTags().contains(filter)).toList();
+        }
+        return tables;
+    }
+
+    /**
+     * Finds the first table with the table name
+     * @param tableName searching for table name
+     * @return found table or null
+     */
+    public Table getTable(String tableName) {
+        if (getTables() != null) {
+            return getTables().stream().filter(t -> t.getName().equals(tableName)).findFirst().orElse(null);
+        }
+        return null;
     }
 }

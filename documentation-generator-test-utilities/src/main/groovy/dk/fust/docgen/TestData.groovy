@@ -1,15 +1,18 @@
 package dk.fust.docgen
 
 import dk.fust.docgen.format.table.Cell
+import dk.fust.docgen.format.table.Col
+import dk.fust.docgen.format.table.ColGroup
 import dk.fust.docgen.format.table.Row
-import dk.fust.docgen.format.table.Table
+import dk.fust.docgen.format.table.FormatTable
 import dk.fust.docgen.model.DataType
 
 class TestData {
 
-    static Table generateTable() {
-        return new Table(
+    static FormatTable generateTable() {
+        return new FormatTable(
                 tableClass: 'myTableClass',
+                colGroup: new ColGroup(cols: [new Col(), new Col()]),
                 rows: [
                         new Row(
                                 cells: [
@@ -31,14 +34,14 @@ class TestData {
                         ),
                         new Row(
                                 cells: [
-                                        new Cell(content: '<h5>Table Name</h5>'),
-                                        new Cell(content: '<h5>Column Name</h5>'),
-                                        new Cell(content: '<h5>Data Type</h5>'),
+                                        new Cell(content: '<strong>Table Name</strong>'),
+                                        new Cell(content: '<strong>Column Name</strong>'),
+                                        new Cell(content: '<strong>Data Type</strong>'),
 
-                                        new Cell(content: '<h5>Database Name</h5>'),
-                                        new Cell(content: '<h5>Table Name</h5>'),
-                                        new Cell(content: '<h5>Column Name</h5>'),
-                                        new Cell(content: '<h5>Data Type</h5>'),
+                                        new Cell(content: '<strong>Database Name</strong>'),
+                                        new Cell(content: '<strong>Table Name</strong>'),
+                                        new Cell(content: '<strong>Column Name</strong>'),
+                                        new Cell(content: '<strong>Data Type</strong>'),
                                 ]
                         ),
                         new Row(

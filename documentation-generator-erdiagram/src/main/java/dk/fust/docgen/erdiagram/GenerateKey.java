@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class GenerateKey {
 
-    private String group;
+    private String filter;
     private String destinationKey;
 
 }
