@@ -18,6 +18,8 @@ public class Documentation {
 
     private String documentationTitle;
 
+    private String databaseName;
+
     @Description("Schema name")
     private String schemaName;
     private List<Table> tables = new ArrayList<>();
@@ -103,4 +105,15 @@ public class Documentation {
         return tables;
     }
 
+    /**
+     * Finds the first table with the table name
+     * @param tableName searching for table name
+     * @return found table or null
+     */
+    public Table getTable(String tableName) {
+        if (getTables() != null) {
+            return getTables().stream().filter(t -> t.getName().equals(tableName)).findFirst().orElse(null);
+        }
+        return null;
+    }
 }

@@ -17,21 +17,20 @@ import java.io.IOException;
 public class ERDiagramGenerator implements Generator {
     @Override
     public void generate(Documentation documentation, GeneratorConfiguration generatorConfiguration) throws IOException {
+        Assert.isTrue(generatorConfiguration instanceof ERDiagramConfiguration, "generatorConfiguration is not a ERDiagramConfiguration");
         ERDiagramConfiguration erDiagramConfiguration = (ERDiagramConfiguration) generatorConfiguration;
-        if (erDiagramConfiguration != null) {
-            log.info("Generating ERDiagram...");
-            Assert.isNotNull(erDiagramConfiguration.getDestination(), "destination must not be null");
-            erDiagramConfiguration.getDestination().validate();
-            ERGenerator generator = ERGeneratorFactory.getGenerator(erDiagramConfiguration.getUmlGenerator());
-            for (GenerateKey generateKey : erDiagramConfiguration.getGenerateKeys()) {
-                String uml = generator.generateUML(generateKey.getFilter(), documentation, generatorConfiguration);
-                String document = """
+        log.info("Generating ERDiagram...");
+        Assert.isNotNull(erDiagramConfiguration.getDestination(), "destination must not be null");
+        erDiagramConfiguration.getDestination().validate();
+        ERGenerator generator = ERGeneratorFactory.getGenerator(erDiagramConfiguration.getUmlGenerator());
+        for (GenerateKey generateKey : erDiagramConfiguration.getGenerateKeys()) {
+            String uml = generator.generateUML(generateKey.getFilter(), documentation, generatorConfiguration);
+            String document = """
 ```%s
 %s
 ```
 """.formatted(generator.getMarkdownType(), uml);
-                erDiagramConfiguration.getDestination().sendDocumentToDestination(document, generateKey.getDestinationKey());
-            }
+            erDiagramConfiguration.getDestination().sendDocumentToDestination(document, generateKey.getDestinationKey());
         }
 
     }

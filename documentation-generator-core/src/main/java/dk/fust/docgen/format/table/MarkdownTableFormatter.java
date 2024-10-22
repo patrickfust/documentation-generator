@@ -17,6 +17,7 @@ public class MarkdownTableFormatter implements TableFormatter {
         StringBuilder stringBuilder = new StringBuilder(512);
         for (Row row : formatTable.getRows()) {
             boolean header = false;
+            stringBuilder.append("| ");
             for (Cell cell : row.getCells()) {
                 stringBuilder.append(generateCell(cell));
                 header = header || cell.isHeader();
@@ -24,9 +25,9 @@ public class MarkdownTableFormatter implements TableFormatter {
             stringBuilder.append(" |\n");
             if (header) {
                 for (Cell cell : row.getCells()) {
-                    stringBuilder.append(" | --".repeat(cell.getColspan()));
+                    stringBuilder.append("|--".repeat(cell.getColspan()));
                 }
-                stringBuilder.append(" |\n");
+                stringBuilder.append("|--|\n");
             }
         }
 
@@ -36,9 +37,9 @@ public class MarkdownTableFormatter implements TableFormatter {
     private String generateCell(Cell cell) {
         Assert.isTrue(cell.getColspan() > 0, "Colspan must be greater than 0");
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(" | ");
         stringBuilder.append(cell.getContent());
         stringBuilder.append(" | ".repeat(cell.getColspan() - 1));
+        stringBuilder.append(" | ");
         return stringBuilder.toString();
     }
 
