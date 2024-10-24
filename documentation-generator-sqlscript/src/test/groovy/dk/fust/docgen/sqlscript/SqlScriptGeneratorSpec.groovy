@@ -1,11 +1,9 @@
 package dk.fust.docgen.sqlscript
 
 import dk.fust.docgen.TestHelper
-import dk.fust.docgen.destination.FileDestination
+import dk.fust.docgen.destination.DirectoryDestination
 import spock.lang.Specification
 import spock.lang.Unroll
-
-import java.nio.file.Files
 
 @Unroll
 class SqlScriptGeneratorSpec extends Specification {
@@ -13,7 +11,7 @@ class SqlScriptGeneratorSpec extends Specification {
     def "create script for #documentationFile"() {
         when:
         SqlScriptConfiguration scriptConfiguration = new SqlScriptConfiguration(
-                destination: new FileDestination(directory: new File(directory), createParentDirectories: true),
+                destination: new DirectoryDestination(directory: new File(directory), createParentDirectories: true),
                 documentationFile: new File("src/test/resources/${documentationFile}")
         )
         scriptConfiguration.validate()

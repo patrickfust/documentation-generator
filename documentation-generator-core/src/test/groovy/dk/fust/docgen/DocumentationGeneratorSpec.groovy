@@ -1,5 +1,6 @@
 package dk.fust.docgen
 
+import dk.fust.docgen.destination.MockDestination
 import spock.lang.Specification
 
 class DocumentationGeneratorSpec extends Specification {
@@ -15,6 +16,9 @@ class DocumentationGeneratorSpec extends Specification {
             }
             1 * getGenerator() >> {
                 return generator
+            }
+            _ * getDestination() >> {
+                return new MockDestination()
             }
         }
         DocumentationGenerator documentationGenerator = new DocumentationGenerator()

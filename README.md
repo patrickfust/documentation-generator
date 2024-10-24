@@ -7,7 +7,7 @@ This document covers:
 - [Idea of the documentaion generator](#idea)
 - [Documentation structure](#documentation-structure)
 - [Destinations](#destinations)
-  - [FileDestination](#dkfustdocgendestinationfiledestination)
+  - [DirectoryDestination](#dkfustdocgendestinationdirectoryDestination)
 - [Usage in Gradle](#usage-in-gradle)
 - [Documentation types](#documentation-types)
   - [Types supported](#types-supported)
@@ -151,7 +151,7 @@ or as JSON:
 Destination is the where Documentation Generator will send the documentation.
 You can implement you own if you want or use these.
 
-### dk.fust.docgen.destination.FileDestination
+### dk.fust.docgen.destination.DirectoryDestination
 
 Sends to separate files in the directory
 
@@ -179,6 +179,20 @@ Everything in between will be substituted.
 [//]: #MY_KEY_END ()
 ```
 
+### dk.fust.docgen.confluence.destination.ConfluenceDestination
+
+In order to use Confluence as destination, you'll need to add the module: 
+[documentation-generator-confluence](documentation-generator-confluence/)
+
+| Setting             | Type   | Description             | Exanple                                 |
+|---------------------|--------|-------------------------|-----------------------------------------|
+| baseUrl             | String | Base URL to Confluence. | https://xxx.atlassian.net/wiki/rest/api |
+| documentationPageId | String | Id of the parent page.  | 123456                                  |
+| spaceKey            | String | Confluence space key    | ABC                                     |
+| parentPageTitle     | String |                         | My Parent Page                          |
+| pageTitle           | String |                         | My Page                                 | 
+
+Username and personal access token for Confluence will be promptet .
 
 ---
 

@@ -6,5 +6,6 @@ include 'documentation-generator-api',
         'documentation-generator-erdiagram',
         'documentation-generator-sqlscript',
         'documentation-generator-datalineage',
+        'documentation-generator-confluence',
         'documentation-generator-test-utilities',
         'schema-generator'

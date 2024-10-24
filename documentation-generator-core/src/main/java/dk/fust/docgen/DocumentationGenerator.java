@@ -32,7 +32,9 @@ public class DocumentationGenerator {
      */
     public void generate(GeneratorConfiguration generatorConfiguration) {
         Assert.isNotNull(generatorConfiguration, "DocumentationGenerator: Missing configuration");
+        Assert.isNotNull(generatorConfiguration.getDestination(), "DocumentationGenerator: Missing configuration's destination");
         generatorConfiguration.validate();
+        generatorConfiguration.getDestination().validate();
         try {
             Documentation documentation = documentationService.loadDocumentation(generatorConfiguration.getDocumentationFile());
             validateModel(documentation);

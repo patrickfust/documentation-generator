@@ -1,5 +1,5 @@
 import dk.fust.docgen.sqlscript.SqlScriptConfiguration
-import dk.fust.docgen.destination.FileDestination
+import dk.fust.docgen.destination.DirectoryDestination
 
 buildscript {
     repositories {
@@ -27,7 +27,7 @@ documentationGenerator {
     generatorConfigurations = [
             new SqlScriptConfiguration(
                     documentationFile: new File(projectDir, 'documentation.yaml'),
-                    destination: new FileDestination(
+                    destination: new DirectoryDestination(
                             directory: new File('scripts'),
                             createParentDirectories: true
                     )
