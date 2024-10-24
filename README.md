@@ -159,6 +159,14 @@ Sends to separate files in the directory
 | directory               | File    | Where the files will be stored                                  |         |
 | createParentDirectories | boolean | Should the directory's parent directories be created if missing | false   |
 
+### dk.fust.docgen.destination.FileDestination
+
+Replace an entire file with the document
+
+| Setting | Type | Description                             | Default |
+|---------|------|-----------------------------------------|---------|
+| file    | File | Location of the file. Must be writeable |         |
+
 ### dk.fust.docgen.destination.MarkdownDestination 
 
 | Setting | Type | Description                 | Default |
