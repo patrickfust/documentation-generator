@@ -30,6 +30,11 @@ Read more about `MarkdownDestination` [here](../../README.md#dkfustdocgendestina
 
 ## Example in a gradle.build
 ```groovy
+import dk.fust.docgen.erdiagram.GenerateKey
+import dk.fust.docgen.erdiagram.generators.UMLGenerator
+import dk.fust.docgen.destination.MarkdownDestination
+import dk.fust.docgen.erdiagram.ERDiagramConfiguration
+
 new ERDiagramConfiguration(
     documentationFile: new File(projectDir, 'documentation.yaml'),
     umlGenerator : UMLGenerator.MERMAID, // Can be omitted because it's default

@@ -14,6 +14,9 @@ To use the sql generator, you must configure it with `dk.fust.docgen.sqlscript.S
 
 ## Example in a gradle.build
 ```groovy
+import dk.fust.docgen.sqlscript.SqlScriptConfiguration
+import dk.fust.docgen.destination.DirectoryDestination
+
 new SqlScriptConfiguration(
         documentationFile: new File(projectDir, 'documentation.yaml'),
         destination: new DirectoryDestination(

@@ -18,6 +18,10 @@ To use the entity-relation diagram generator, you must configure it with `dk.fus
 ## Example in a gradle.build
 
 ```groovy
+import dk.fust.docgen.datalineage.DataLineageConfiguration
+import dk.fust.docgen.destination.MarkdownDestination
+import dk.fust.docgen.format.table.MarkdownTableFormatter
+
 new DataLineageConfiguration(
         key: 'my-data-lineage',
         documentationFile: new File(projectDir, 'documentation.yaml'),
