@@ -11,7 +11,7 @@ import java.nio.file.Files;
  * Can write documents to separate files in the directory
  */
 @Data
-public class FileDestination implements Destination {
+public class DirectoryDestination implements Destination {
 
     private File directory;
     private boolean createParentDirectories = false;

@@ -7,7 +7,7 @@ This document covers:
 - [Idea of the documentaion generator](#idea)
 - [Documentation structure](#documentation-structure)
 - [Destinations](#destinations)
-  - [FileDestination](#dkfustdocgendestinationfiledestination)
+  - [DirectoryDestination](#dkfustdocgendestinationdirectoryDestination)
 - [Usage in Gradle](#usage-in-gradle)
 - [Documentation types](#documentation-types)
   - [Types supported](#types-supported)
@@ -151,7 +151,7 @@ or as JSON:
 Destination is the where Documentation Generator will send the documentation.
 You can implement you own if you want or use these.
 
-### dk.fust.docgen.destination.FileDestination
+### dk.fust.docgen.destination.DirectoryDestination
 
 Sends to separate files in the directory
 
