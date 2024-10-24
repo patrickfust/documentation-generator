@@ -39,13 +39,14 @@ public class HTMLTableFormatter implements TableFormatter {
 
     private String generateCell(Cell cell) {
         StringBuilder sb = new StringBuilder();
-        sb.append("<td");
+        String tag = cell.isHeader() ? "th" : "td";
+        sb.append("<").append(tag);
         if (cell.getColspan() > 1) {
             sb.append(" colspan=\"").append(cell.getColspan()).append("\"");
         }
         sb.append(">");
         sb.append(cell.getContent());
-        sb.append("</td>");
+        sb.append("</%s>".formatted(tag));
         return sb.toString();
     }
 
