@@ -31,12 +31,22 @@ distributions:
   documentation-generator-gradle:
     artifacts:
       - path: documentation-generator-gradle/build/libs/documentation-generator-gradle-{{projectVersion}}.jar
+
+  # extensions
+  documentation-generator-confluence:
+    artifacts:
+      - path: extensions/documentation-generator-confluence/build/libs/documentation-generator-confluence-{{projectVersion}}.jar
+
+  # Generators
+  documentation-generator-datalineage:
+    artifacts:
+      - path: generators/documentation-generator-datalineage/build/libs/documentation-generator-datalineage-{{projectVersion}}.jar
   documentation-generator-erdiagram:
     artifacts:
-      - path: documentation-generator-erdiagram/build/libs/documentation-generator-erdiagram-{{projectVersion}}.jar
+      - path: generators/documentation-generator-erdiagram/build/libs/documentation-generator-erdiagram-{{projectVersion}}.jar
   documentation-generator-sqlscript:
     artifacts:
-      - path: documentation-generator-sqlscript/build/libs/documentation-generator-sqlscript-{{projectVersion}}.jar
+      - path: generators/documentation-generator-sqlscript/build/libs/documentation-generator-sqlscript-{{projectVersion}}.jar
 
 # File signing is always active
 signing:
