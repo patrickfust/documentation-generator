@@ -1,0 +1,8 @@
+$schema: ../../../../../documentation-generator-api/src/main/resources/documentation-schema.json
+documentationTitle: The external documentation title
+databaseName: External DB
+tables:
+  - name: external_table_a
+    fields:
+      - name: external_field_a
+        dataType: int

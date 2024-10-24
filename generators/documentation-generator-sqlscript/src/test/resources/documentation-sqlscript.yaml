@@ -1,0 +1,63 @@
+$schema: ../../../../../documentation-generator-api/src/main/resources/documentation-schema.json
+documentationTitle: The documentation title
+databaseName: The database name
+schemaName: xxx
+generation:
+  triggerForUpdates: my_trigger
+tables:
+  - name: something
+    createTableScript: create-something.sql
+    comment: a comment on something
+    generation:
+      generateId: true
+    fields:
+      - name: name
+        nullable: false
+        defaultValue: "A"
+        comment: some comment like John's comment
+        unique: true
+        dataType: text
+        check:
+          - A
+          - B
+          - C
+          - D
+    views:
+      - name: something_min_view
+        sql: "select min(name) from something"
+      - name: something_max_view
+        sql: "select max(name) from something
+                where name = 'A'"
+  - name: table_a
+    createTableScript: create-table_a.sql
+    fields:
+      - name: field_a
+        dataType: int
+        primaryKey: true
+        foreignKey:
+          enforceReference: true
+          tableName: table_b
+          columnName: field_b
+      - name: field_aa
+        dataType: int
+        primaryKey: true
+    indexes:
+      - name: nonUniqueIdx
+        fields:
+          - field_a
+      - name: uniqueIdx
+        unique: true
+        fields:
+          - field_a
+          - field_aa
+
+  - name: table_b
+    createTableScript: create-table_b.sql
+    fields:
+      - name: field_b
+        dataType: int
+        check:
+          - 1
+          - 2
+          - 3
+          - 4

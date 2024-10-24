@@ -4,13 +4,12 @@ Generates documentation based upon a yaml- or JSON-file.
 Describe how your database looks, in a single file (or files) and then generate the corresponding documentation.
 
 This document covers:
-- [Idea of the documentaion generator](#idea)
+- [Idea of the documentaion generator](#idea-of-the-documentation-generator)
 - [Documentation structure](#documentation-structure)
 - [Destinations](#destinations)
-  - [DirectoryDestination](#dkfustdocgendestinationdirectoryDestination)
 - [Usage in Gradle](#usage-in-gradle)
 - [Documentation types](#documentation-types)
-  - [Types supported](#types-supported)
+  - [Types supported](#documentation-types-supported)
 - [Demos](#demos)
 
 ## Badges
@@ -182,7 +181,7 @@ Everything in between will be substituted.
 ### dk.fust.docgen.confluence.destination.ConfluenceDestination
 
 In order to use Confluence as destination, you'll need to add the module: 
-[documentation-generator-confluence](documentation-generator-confluence/)
+[documentation-generator-confluence](extensions/documentation-generator-confluence/)
 
 | Setting             | Type   | Description             | Exanple                                 |
 |---------------------|--------|-------------------------|-----------------------------------------|
@@ -253,10 +252,11 @@ Add a dependency in your buildscript with the corresponding artifact id.
 
 ### Documentation types supported
 
-| Artifact id                                                            | Description                        |
-|------------------------------------------------------------------------|------------------------------------|
-| [documentation-generator-erdiagram](documentation-generator-erdiagram) | Generates entity-relation diagrams |
-| [documentation-generator-sqlscript](documentation-generator-sqlscript) | Generates SQL-files                |
+| Artifact id                                                                           | Description                        |
+|---------------------------------------------------------------------------------------|------------------------------------|
+| [documentation-generator-erdiagram](generators/documentation-generator-erdiagram)     | Generates entity-relation diagrams |
+| [documentation-generator-sqlscript](generators/documentation-generator-sqlscript)     | Generates SQL-files                |
+| [documentation-generator-datalineage](generators/documentation-generator-datalineage) | Generates Data lineage             |
 
 ---
 

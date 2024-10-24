@@ -6,12 +6,10 @@ plugins {
 
 dependencies {
     implementation project(':documentation-generator-api')
+    implementation project(':documentation-generator-core')
 
     implementation 'org.projectlombok:lombok:1.18.34'
     annotationProcessor 'org.projectlombok:lombok:1.18.34'
-
-    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.18.0'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.0'
 
     implementation 'org.slf4j:slf4j-api:2.0.16'
 
@@ -24,14 +22,14 @@ dependencies {
 publishing {
     repositories {
         maven {
-            name = 'staging-deploy-core'
+            name = 'staging-deploy-datalineage'
             url = new File(rootDir, 'build/staging-deploy')
         }
     }
     publications {
         maven(MavenPublication) {
             pom {
-                description = 'Document Generator Core'
+                description = 'Document Generator - Plugin - Data Lineage'
             }
         }
     }

@@ -3,9 +3,13 @@ rootProject.name = 'documentation-generator'
 include 'documentation-generator-api',
         'documentation-generator-core',
         'documentation-generator-gradle',
-        'documentation-generator-erdiagram',
-        'documentation-generator-sqlscript',
-        'documentation-generator-datalineage',
-        'documentation-generator-confluence',
-        'documentation-generator-test-utilities',
-        'schema-generator'
+
+        'generators:documentation-generator-erdiagram',
+        'generators:documentation-generator-sqlscript',
+        'generators:documentation-generator-datalineage',
+
+        'extensions:documentation-generator-confluence',
+        'extensions:documentation-generator-csv',
+
+        'helpers:documentation-generator-test-utilities',
+        'helpers:schema-generator'
