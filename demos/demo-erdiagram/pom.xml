@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>dk.fust.docgen.demo</groupId>
+  <artifactId>demo-erdiagram</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>Demo of ER diagram</name>
+
+  <prerequisites>
+    <maven>${maven.version}</maven>
+  </prerequisites>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
+    <maven.version>3.3.9</maven.version>
+    <documentation-generator.version>0.0.6</documentation-generator.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>dk.fust.docgen</groupId>
+      <artifactId>documentation-generator-maven-plugin</artifactId>
+      <version>${documentation-generator.version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>dk.fust.docgen</groupId>
+        <artifactId>documentation-generator-maven-plugin</artifactId>
+        <configuration>
+          <documentationConfigurationFile>generator-configuration.yml</documentationConfigurationFile>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generateDocumentation</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

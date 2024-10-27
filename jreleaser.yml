@@ -31,6 +31,9 @@ distributions:
   documentation-generator-gradle:
     artifacts:
       - path: documentation-generator-gradle/build/libs/documentation-generator-gradle-{{projectVersion}}.jar
+  documentation-generator-maven-plugin:
+    artifacts:
+      - path: documentation-generator-maven-plugin/build/libs/documentation-generator-maven-plugin-{{projectVersion}}.jar
 
   # extensions
   documentation-generator-confluence:
