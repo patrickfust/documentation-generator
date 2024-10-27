@@ -26,28 +26,31 @@ repositories {
 }
 
 documentationGenerator {
-    generatorConfigurations = [
-            new ERDiagramConfiguration(
-                documentationFile: new File(projectDir, 'documentation.yaml'),
-                umlGenerator : UMLGenerator.MERMAID, // Can be omitted because it's default
-                generateKeys: [
-                        // Empty filter means all groups
-                        new GenerateKey(destinationKey: 'MODEL_MERMAID_PLACEHOLDER'),
-                        new GenerateKey(destinationKey: 'MODEL_MERMAID_GROUP_PLACEHOLDER', filter: 'my_group')
-                ],
-                destination: new MarkdownDestination(
-                        file: new File('README.md'),
-                )
-            ),
-            new ERDiagramConfiguration(
-                documentationFile: new File(projectDir, 'documentation.yaml'),
-                umlGenerator : UMLGenerator.PLANTUML,
-                generateKeys: [
-                        new GenerateKey(destinationKey: 'MODEL_PLANTUML_PLACEHOLDER')
-                ],
-                destination: new MarkdownDestination(
-                        file: new File('README.md'),
-                )
-            ),
-    ]
+    documentationConfigurationFile = new File('generator-configuration.yml')
+
+    // 'generator-configuration.yml' is equivalent with this:
+//    generatorConfigurations = [
+//            new ERDiagramConfiguration(
+//                documentationFile: new File(projectDir, 'documentation.yaml'),
+//                umlGenerator : UMLGenerator.MERMAID, // Can be omitted because it's default
+//                generateKeys: [
+//                        // Empty filter means all groups
+//                        new GenerateKey(destinationKey: 'MODEL_MERMAID_PLACEHOLDER'),
+//                        new GenerateKey(destinationKey: 'MODEL_MERMAID_GROUP_PLACEHOLDER', filter: 'my_group')
+//                ],
+//                destination: new MarkdownDestination(
+//                        file: new File('README.md'),
+//                )
+//            ),
+//            new ERDiagramConfiguration(
+//                documentationFile: new File(projectDir, 'documentation.yaml'),
+//                umlGenerator : UMLGenerator.PLANTUML,
+//                generateKeys: [
+//                        new GenerateKey(destinationKey: 'MODEL_PLANTUML_PLACEHOLDER')
+//                ],
+//                destination: new MarkdownDestination(
+//                        file: new File('README.md'),
+//                )
+//            ),
+//    ]
 }

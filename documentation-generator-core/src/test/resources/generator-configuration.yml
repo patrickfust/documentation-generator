@@ -1,0 +1,15 @@
+- className: dk.fust.docgen.MockGeneratorConfiguration
+  documentationFile: documentation.yaml
+  destination:
+    className: dk.fust.docgen.destination.MarkdownDestination
+    file: README.md
+  anInt: 1
+  aBigInteger: 2
+  aBoolean: true
+  aBigBoolean: true
+  aLong: 3
+  aBigLong: 4
+  aString: "some string"
+  mockEnum: B
+- className: dk.fust.docgen.MockGeneratorConfiguration
+  documentationFile: documentation2.yaml

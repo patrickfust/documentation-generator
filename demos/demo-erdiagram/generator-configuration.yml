@@ -1,0 +1,21 @@
+- className: dk.fust.docgen.erdiagram.ERDiagramConfiguration
+  documentationFile: documentation.yaml
+  umlGenerator: MERMAID
+  generateKeys:
+    - className: dk.fust.docgen.erdiagram.GenerateKey
+      destinationKey: MODEL_MERMAID_PLACEHOLDER
+    - className: dk.fust.docgen.erdiagram.GenerateKey
+      destinationKey: MODEL_MERMAID_GROUP_PLACEHOLDER
+      filter: my_group
+  destination:
+    className: dk.fust.docgen.destination.MarkdownDestination
+    file: README.md
+- className: dk.fust.docgen.erdiagram.ERDiagramConfiguration
+  documentationFile: documentation.yaml
+  umlGenerator : PLANTUML
+  generateKeys:
+    - className: dk.fust.docgen.erdiagram.GenerateKey
+      destinationKey: MODEL_PLANTUML_PLACEHOLDER
+  destination:
+    className: dk.fust.docgen.destination.MarkdownDestination
+    file: README.md

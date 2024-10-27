@@ -1,5 +1,6 @@
 package dk.fust.docgen.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
@@ -22,16 +23,28 @@ public class DocumentationService {
      * @throws IOException an error occurred
      */
     public Documentation loadDocumentation(File file) throws IOException {
-        ObjectMapper objectMapper = createJsonBuilder(file)
-                .enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS)
-                .build();
+        ObjectMapper objectMapper = createObjectMapper(file);
         return objectMapper.readValue(file, Documentation.class);
     }
 
-    private JsonMapper.Builder createJsonBuilder(File file) {
+    /**
+     * Reads the contents of a file into JsonNodes
+     * @param file file to read
+     * @return parsed Json or yaml
+     * @throws IOException an error occurred
+     */
+    public JsonNode loadFileAsTree(File file) throws IOException {
+        ObjectMapper objectMapper = createObjectMapper(file);
+        return objectMapper.readTree(file);
+    }
+
+    private ObjectMapper createObjectMapper(File file) {
+        JsonMapper.Builder builder;
         if (file.getName().endsWith(".yaml") || file.getName().endsWith(".yml")) {
-            return JsonMapper.builder(new YAMLFactory());
+            builder = JsonMapper.builder(new YAMLFactory());
+        } else {
+            builder = JsonMapper.builder();
         }
-        return JsonMapper.builder();
+        return builder.enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS).build();
     }
 }
