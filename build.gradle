@@ -68,20 +68,3 @@ allprojects {
 jreleaser {
     configFile = 'jreleaser.yml'
 }
-
-task installMavenPlugin(type: Exec) {
-    workingDir rootProject.getProjectDir().getAbsolutePath() + "/documentation-generator-maven-plugin"
-    commandLine "mvn", "install"
-}
-
-task createMavenPlugingStagingDir(type: Exec) {
-    commandLine "mkdir", "-p", 'build/staging-deploy/dk/fust/docgen/documentation-generator-maven-plugin'
-}
-
-task copyMavenPluginToStagingDir(type: Exec) {
-    commandLine "cp", "-rf", "${System.properties['user.home']}/.m2/repository/dk/fust/docgen/documentation-generator-maven-plugin/${version}", 'build/staging-deploy/dk/fust/docgen/documentation-generator-maven-plugin'
-}
-
-publish.dependsOn('copyMavenPluginToStagingDir')
-copyMavenPluginToStagingDir.dependsOn('createMavenPlugingStagingDir')
-createMavenPlugingStagingDir.dependsOn('installMavenPlugin')
