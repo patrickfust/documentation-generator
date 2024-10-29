@@ -210,7 +210,7 @@ Username and personal access token for Confluence will be promptet .
 #### gradle.properties
 Add the version of documentation-generator you want to use in `gradle.properties`.
 ```groovy
-documentationGeneratorVersion = 0.0.6
+documentationGeneratorVersion = 0.0.7-SNAPSHOT
 ```
 
 #### build.gradle
