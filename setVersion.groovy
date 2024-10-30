@@ -26,6 +26,7 @@ def setVersion(String fromVersion, String toVersion) {
     replaceInFile('documentation-generator-maven-plugin/pom.xml', "(.*<version>)(${fromVersion})(</version>)", toVersion)
     replaceInFile('documentation-generator-maven-plugin/jreleaser.yml', "(.*version: )(${fromVersion})", toVersion)
     replaceInFile('documentation-generator-maven-plugin/README.md', "(.*<version>)(${fromVersion})(</version>)", toVersion)
+    replaceInFile('documentation-generator-gradle/README.md', "(documentationGeneratorVersion = )(${fromVersion})", toVersion)
 }
 
 def replaceInFile(String filename, String regex, String toVersion) {

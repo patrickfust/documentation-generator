@@ -7,7 +7,7 @@ This document covers:
 - [Idea of the documentaion generator](#idea-of-the-documentation-generator)
 - [Documentation structure](#documentation-structure)
 - [Destinations](#destinations)
-- [Usage in Gradle](#usage-in-gradle)
+- [Usage](#usage)
 - [Documentation types](#documentation-types)
   - [Types supported](#documentation-types-supported)
 - [Demos](#demos)
@@ -143,6 +143,42 @@ or as JSON:
 }
 ```
 
+## Generator Configuration File
+
+You can either configure your [Gradle](documentation-generator-gradle) directly, or have a configuration file.
+The configuration file is the only way to use the [Maven plugin](documentation-generator-maven-plugin)
+
+See an example in the [demo](demos/demo-erdiagram) where [generator-configuration.yml](demos/demo-erdiagram/generator-configuration.yml) is located.
+
+The generator configuration file contains a list of configurations.
+Each configuration consist of the class name of the configuration class and then it's fields.
+You can have nested objects, you just have to specify which class name it is.
+
+### Example of configuration file
+```yaml
+- className: dk.fust.docgen.erdiagram.ERDiagramConfiguration
+  documentationFile: documentation.yaml
+  umlGenerator: MERMAID
+  generateKeys:
+    - className: dk.fust.docgen.erdiagram.GenerateKey
+      destinationKey: MODEL_MERMAID_PLACEHOLDER
+    - className: dk.fust.docgen.erdiagram.GenerateKey
+      destinationKey: MODEL_MERMAID_GROUP_PLACEHOLDER
+      filter: my_group
+  destination:
+    className: dk.fust.docgen.destination.MarkdownDestination
+    file: README.md
+- className: dk.fust.docgen.erdiagram.ERDiagramConfiguration
+  documentationFile: documentation.yaml
+  umlGenerator : PLANTUML
+  generateKeys:
+    - className: dk.fust.docgen.erdiagram.GenerateKey
+      destinationKey: MODEL_PLANTUML_PLACEHOLDER
+  destination:
+    className: dk.fust.docgen.destination.MarkdownDestination
+    file: README.md
+```
+
 ---
 
 ## Destinations
@@ -150,7 +186,9 @@ or as JSON:
 Destination is the where Documentation Generator will send the documentation.
 You can implement you own if you want or use these.
 
-### dk.fust.docgen.destination.DirectoryDestination
+### DirectoryDestination
+
+Class name: `dk.fust.docgen.destination.DirectoryDestination`
 
 Sends to separate files in the directory
 
@@ -159,7 +197,9 @@ Sends to separate files in the directory
 | directory               | File    | Where the files will be stored                                  |         |
 | createParentDirectories | boolean | Should the directory's parent directories be created if missing | false   |
 
-### dk.fust.docgen.destination.FileDestination
+### FileDestination
+
+Class name: `dk.fust.docgen.destination.FileDestination`
 
 Replace an entire file with the document
 
@@ -167,7 +207,9 @@ Replace an entire file with the document
 |---------|------|-----------------------------------------|---------|
 | file    | File | Location of the file. Must be writeable |         |
 
-### dk.fust.docgen.destination.MarkdownDestination 
+### MarkdownDestination
+
+Class name: dk.fust.docgen.destination.MarkdownDestination
 
 | Setting | Type | Description                 | Default |
 |---------|------|-----------------------------|---------|
@@ -186,7 +228,9 @@ Everything in between will be substituted.
 [//]: #MY_KEY_END ()
 ```
 
-### dk.fust.docgen.confluence.destination.ConfluenceDestination
+### ConfluenceDestination
+
+Class name: `dk.fust.docgen.confluence.destination.ConfluenceDestination`
 
 In order to use Confluence as destination, you'll need to add the module: 
 [documentation-generator-confluence](extensions/documentation-generator-confluence/)
@@ -203,51 +247,11 @@ Username and personal access token for Confluence will be promptet .
 
 ---
 
-## Usage in Gradle
+## Usage
 
-### Dependency
-
-#### gradle.properties
-Add the version of documentation-generator you want to use in `gradle.properties`.
-```groovy
-documentationGeneratorVersion = 0.0.7-SNAPSHOT
-```
-
-#### build.gradle
-Now you can add a dependency to the gradle-plugin.
-```groovy
-buildscript {
-    dependencies {
-        classpath("dk.fust:documentation-generator-gradle:${documentationGeneratorVersion}")
-    }
-}
-```
-You can instead of the variable `${documentationGeneratorVersion}` simply write the version here.
-
-For every kind of documentation you want generated, you'll need to add the corresponding dependency in the buildscript-section.
-
-For example: 
-```
-classpath("dk.fust:documentation-generator-erdiagram:${documentationGeneratorVersion}")
-```
-
-### Gradle task
-
-```groovy
-documentationGenerator {
-  generatorConfigurations = [
-        ... list of configurations ...
-  ]
-}
-```
-
-The list of configurations consists of the desired configurations.
-
-To generate documentation, run:
-```shell
-gradle generateDocumentation
-```
-
+You can use Documentation Generator as
+- [Gradle plugin](documentation-generator-gradle)
+- [Maven plugin](documentation-generator-maven-plugin)
 
 ---
 
