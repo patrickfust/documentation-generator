@@ -9,6 +9,7 @@ import org.gradle.api.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class DocumentationGeneratorPlugin implements Plugin<Project> {
         DocumentationGeneratorPluginExtension extension = project.getExtensions().create("documentationGenerator", DocumentationGeneratorPluginExtension.class);
 
         Task generateDocumentationTask = project.task("generateDocumentation").doLast(task -> {
-            log.info("Generating documentation...");
+            log.info("Validating configuration...");
             if (extension.getGeneratorConfigurations() == null && extension.getDocumentationConfigurationFile() == null) {
                 throw new IllegalArgumentException("Need either GeneratorConfigurations or DocumentationConfigurationFile");
             }
@@ -38,7 +39,17 @@ public class DocumentationGeneratorPlugin implements Plugin<Project> {
             } else {
                 DocumentationConfigurationLoaderService documentationConfigurationLoaderService = new DocumentationConfigurationLoaderService();
                 try {
-                    List<GeneratorConfiguration> confs = documentationConfigurationLoaderService.readConfigurations(extension.getDocumentationConfigurationFile());
+                    List<GeneratorConfiguration> confs;
+                    File documentationConfigurationFile = extension.getDocumentationConfigurationFile();
+                    if (documentationConfigurationFile.exists()) {
+                        log.info("Found configuration file: " + documentationConfigurationFile.getAbsolutePath());;
+                        confs = documentationConfigurationLoaderService.readConfigurations(documentationConfigurationFile);
+                    } else {
+                        File projectConfigurationFile = new File(project.getProjectDir(), documentationConfigurationFile.getPath());
+                        log.info("Could not find configuration file -> trying i project dir: " + projectConfigurationFile.getAbsolutePath());
+                        confs = documentationConfigurationLoaderService.readConfigurations(projectConfigurationFile);
+                    }
+                    log.info("Generating documentation...");
                     documentationGenerator.generate(confs);
                 } catch (IOException e) {
                     throw new RuntimeException("Can't load generator configurations", e);

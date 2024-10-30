@@ -28,7 +28,7 @@ public class Documentation {
     private Generation generation;
 
     /**
-     * Retrieves a field matching table name and field aname
+     * Retrieves a field matching table name and field name
      * @param tableName tableName to search for
      * @param fieldName fieldName to search for
      * @param generateIdDataType if the field is a generated field, this will be the data type

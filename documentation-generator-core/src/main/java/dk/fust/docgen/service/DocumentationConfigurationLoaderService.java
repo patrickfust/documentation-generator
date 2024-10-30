@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import dk.fust.docgen.GeneratorConfiguration;
 import dk.fust.docgen.util.Assert;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,10 +16,13 @@ import java.util.List;
 /**
  * Loads and parse a yaml- or json-file containing list of configurations
  */
+@Slf4j
 public class DocumentationConfigurationLoaderService {
 
     private static final String CLASS_NAME = "className";
     private final DocumentationService documentationService = new DocumentationService();
+
+    private File configurationFile;
 
     /**
      * Reads generator configurations from a yaml- or json-file
@@ -27,6 +31,7 @@ public class DocumentationConfigurationLoaderService {
      * @throws IOException an error occurred
      */
     public List<GeneratorConfiguration> readConfigurations(File configurationFile) throws IOException {
+        this.configurationFile = configurationFile;
         List<GeneratorConfiguration> configurations = new ArrayList<>();
         JsonNode jsonNode = documentationService.loadFileAsTree(configurationFile);
         for (JsonNode node : jsonNode) {
@@ -74,7 +79,14 @@ public class DocumentationConfigurationLoaderService {
             return jsonNode.textValue();
         }
         if (dataType == File.class) {
-            return new File(jsonNode.textValue());
+            File file = new File(jsonNode.textValue());
+            if (!file.exists()) {
+                log.info("Can't find the file: {}", file.getAbsolutePath());
+                // Maybe it's in the same folder as the configuration file
+                file = new File(configurationFile.getParentFile(), jsonNode.textValue());
+                log.info("Trying {} instead", file.getAbsolutePath());
+            }
+            return file;
         }
         if (dataType == int.class || dataType == Integer.class) {
             return jsonNode.intValue();

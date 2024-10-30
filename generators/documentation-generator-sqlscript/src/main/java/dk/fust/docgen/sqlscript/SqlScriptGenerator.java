@@ -10,6 +10,7 @@ import dk.fust.docgen.model.Index;
 import dk.fust.docgen.model.Table;
 import dk.fust.docgen.model.View;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,11 +20,13 @@ import java.util.stream.Collectors;
 /**
  * Generator for SQL files
  */
+@Slf4j
 @Data
 public class SqlScriptGenerator implements Generator {
 
     @Override
     public void generate(Documentation documentation, GeneratorConfiguration generatorConfiguration) throws IOException {
+        log.info("Generating SQL-scripts...");
         String schemaName = documentation.getSchemaName();
         for (Table table : documentation.getTables()) {
             Generation generationForTable = documentation.getGenerationForTable(table);

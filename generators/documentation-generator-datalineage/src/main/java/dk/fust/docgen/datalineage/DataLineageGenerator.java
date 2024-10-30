@@ -13,6 +13,7 @@ import dk.fust.docgen.model.Generation;
 import dk.fust.docgen.model.Table;
 import dk.fust.docgen.service.DocumentationService;
 import dk.fust.docgen.util.Assert;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +25,7 @@ import java.util.Map;
 /**
  * Generator for Data Lineage
  */
+@Slf4j
 public class DataLineageGenerator implements Generator {
 
     private final Map<String, Documentation> keyToExternalDocumentation = new HashMap<>();
@@ -31,6 +33,7 @@ public class DataLineageGenerator implements Generator {
 
     @Override
     public void generate(Documentation documentation, GeneratorConfiguration generatorConfiguration) throws IOException {
+        log.info("Generating Data lineage...");
         Assert.isTrue(generatorConfiguration instanceof DataLineageConfiguration, "configuration must be of type DataLineageConfiguration");
         DataLineageConfiguration conf = (DataLineageConfiguration) generatorConfiguration;
         FormatTable formatTable = new FormatTable();
