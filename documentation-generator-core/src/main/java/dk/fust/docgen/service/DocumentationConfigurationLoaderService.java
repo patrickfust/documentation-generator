@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Loads and parse a yaml- or json-file containing list of configurations
@@ -42,7 +44,9 @@ public class DocumentationConfigurationLoaderService {
 
     private Object createAndPopulateInstance(JsonNode node) {
         try {
-            Assert.isNotNull(node.get(CLASS_NAME), "Missing " + CLASS_NAME + " for element");
+            if (node.get(CLASS_NAME) == null) {
+                return node.textValue();
+            }
             String className = node.get(CLASS_NAME).textValue();
             Class<?> clazz = Class.forName(className);
             Object instance = clazz.getDeclaredConstructor().newInstance();
@@ -103,7 +107,22 @@ public class DocumentationConfigurationLoaderService {
         if (dataType == List.class) {
             return convertList(jsonNode);
         }
+        if (dataType == Map.class) {
+            return convertMap(jsonNode);
+        }
         return createAndPopulateInstance(jsonNode);
+    }
+
+    private Map convertMap(JsonNode jsonNode) {
+        Map<Object, Object> map = new LinkedHashMap<>();
+        Iterator<String> fieldNames = jsonNode.fieldNames();
+        while (fieldNames.hasNext()) {
+            String fieldName = fieldNames.next();
+            JsonNode node =jsonNode.get(fieldName);
+            String value = node.textValue();
+            map.put(fieldName, value);
+        }
+        return map;
     }
 
     private List convertList(JsonNode jsonNode) {

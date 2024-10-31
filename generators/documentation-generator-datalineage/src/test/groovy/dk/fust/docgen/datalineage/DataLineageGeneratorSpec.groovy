@@ -1,10 +1,14 @@
 package dk.fust.docgen.datalineage
 
+import dk.fust.docgen.GeneratorConfiguration
+import dk.fust.docgen.MockGenerator
 import dk.fust.docgen.TestHelper
 import dk.fust.docgen.destination.MarkdownDestination
 import dk.fust.docgen.destination.MockDestination
+import dk.fust.docgen.format.table.HTMLTableFormatter
 import dk.fust.docgen.format.table.MarkdownTableFormatter
 import dk.fust.docgen.format.table.MockTableFormatter
+import dk.fust.docgen.service.DocumentationConfigurationLoaderService
 import spock.lang.Specification
 
 class DataLineageGeneratorSpec extends Specification {
@@ -86,4 +90,23 @@ class DataLineageGeneratorSpec extends Specification {
         then:
         markdownContent.contains '--' // The header
     }
+
+    def 'loading configuration'() {
+        given:
+        DocumentationConfigurationLoaderService service = new DocumentationConfigurationLoaderService()
+        File file = TestHelper.getTestFile('generator-configuration-with-htmltable.yaml')
+
+        when:
+        List<GeneratorConfiguration> conf = service.readConfigurations(file)
+
+        then:
+        conf.size() == 1
+        conf.first() instanceof DataLineageConfiguration
+        DataLineageConfiguration c = conf.first() as DataLineageConfiguration
+        c.tableFormatter instanceof HTMLTableFormatter
+        HTMLTableFormatter htmlTableFormatter = c.tableFormatter as HTMLTableFormatter
+        htmlTableFormatter.columnWidths.size() == 6
+        htmlTableFormatter.columnWidths.first() == "255"
+    }
+
 }
