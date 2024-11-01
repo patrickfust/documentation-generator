@@ -51,7 +51,7 @@ public class SqlScriptGenerator implements Generator {
         sql.append("create table ");
         appendName(schemaName, table.getName(), sql).append(" (\n");
 
-        if (generationForTable.hasGenerateId()) {
+        if (generationForTable.hasGenerateId() && generationForTable.getGenerateId()) {
             sql.append("    %s_id %s primary key generated always as identity".formatted(table.getName(), generationForTable.getGenerateIdDataType().toLowerCase()));
             hasColumn = true;
         }
@@ -198,7 +198,8 @@ public class SqlScriptGenerator implements Generator {
     private String generateTriggers(String schemaName, Table table, Generation generationForTable) {
         StringBuilder sql = new StringBuilder(128);
         if (generationForTable.getTriggerForUpdates() != null && !generationForTable.getTriggerForUpdates().isEmpty()) {
-            sql.append("\ncreate trigger %s_update_time \n    before update on ".formatted(table.getName()));
+            sql.append(("\n" +
+                    "create trigger %s_update_time\n    before update\n    on ").formatted(table.getName()));
             appendName(schemaName, table.getName(), sql).append("\n");
             sql.append("    for each row execute function ");
             appendName(schemaName, generationForTable.getTriggerForUpdates(), sql).append("();\n");

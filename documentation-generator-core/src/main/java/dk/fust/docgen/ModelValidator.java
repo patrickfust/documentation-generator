@@ -58,15 +58,16 @@ public class ModelValidator {
         Assert.isTrue(!(field.isPrimaryKey() && generationForTable.isGenerateId()), "Field " + field.getName() + " has primary key and is generating id");
 
         if (field.getForeignKey() != null) {
-            String tableName = field.getForeignKey().getTableName();
-            String columnName = field.getForeignKey().getColumnName();
-            Assert.isNotNull(tableName, "Field " + field.getName() + " has foreign key without table name");
-            Assert.isNotNull(columnName, "Field " + field.getName() + " has foreign key without column name");
-            Field foreignTablesField = documentation.getField(tableName, columnName, generationForTable.getGenerateIdDataType());
-            String tableNameColumnName = "TableName " + tableName + " and columnName " + columnName;
-            Assert.isNotNull(foreignTablesField, tableNameColumnName + " does not exist");
-            Assert.isEquals(field.getDataType(), foreignTablesField.getDataType(), tableNameColumnName + " has different data types " +
-                    "(" + field.getDataType() + " and " + foreignTablesField.getDataType() + ")");
+            String callerField = table.getName() + "." + field.getName();
+            String foreignTableName = field.getForeignKey().getTableName();
+            String foreignColumnName = field.getForeignKey().getColumnName();
+            Assert.isNotNull(foreignTableName, callerField + " has foreign key without table name");
+            Assert.isNotNull(foreignColumnName, callerField + " has foreign key without column name");
+            Field foreignTablesField = documentation.getField(foreignTableName, foreignColumnName, generationForTable.getGenerateIdDataType());
+            String foreignTableNameColumnName = foreignTableName + "." + foreignColumnName;
+            Assert.isNotNull(foreignTablesField, foreignTableNameColumnName + " does not exist. Is foreign key in " + callerField);
+            Assert.isEquals(field.getDataType(), foreignTablesField.getDataType(), foreignTableNameColumnName + " has different data types " +
+                    "(" + foreignTablesField.getDataType() + ") compared to " + callerField + " (" + field.getDataType() + ")");
         }
     }
 
