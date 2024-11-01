@@ -38,14 +38,16 @@ public class Table {
      * @return found field or null if it don't exist
      */
     public Field getField(String fieldName, DataType generatedIdDataType, Documentation documentation) {
-        boolean isGeneratedId = Objects.equals(fieldName, name + "_id");
-        if (documentation.getGenerationForTable(this).isGenerateId() && isGeneratedId) {
-            // Synthesized generated id field
-            Field field = new Field();
-            field.setName(fieldName);
-            field.setDataType(generatedIdDataType);
-            return field;
+        Field foundField = fields.stream().filter(field -> field.getName().equals(fieldName)).findFirst().orElse(null);
+        if (foundField == null) {
+            boolean isGeneratedId = Objects.equals(fieldName, name + "_id");
+            if (documentation.getGenerationForTable(this).isGenerateId() && isGeneratedId) {
+                // Synthesized generated id field
+                foundField = new Field();
+                foundField.setName(fieldName);
+                foundField.setDataType(generatedIdDataType);
+            }
         }
-        return fields.stream().filter(field -> field.getName().equals(fieldName)).findFirst().orElse(null);
+        return foundField;
     }
 }

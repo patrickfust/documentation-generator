@@ -1,0 +1,17 @@
+databaseName: Some database
+schemaName: xxx
+tables:
+  - name: some_table
+    createTableScript: V1__create_table_some_table.sql
+    generation:
+      generateId: false
+    comment: my comment
+    tags:
+      - domain-model
+    fields:
+      - name: just_an_id
+        dataType: bigint
+        nullable: false
+      - name: my_int
+        dataType: int
+        nullable: false
