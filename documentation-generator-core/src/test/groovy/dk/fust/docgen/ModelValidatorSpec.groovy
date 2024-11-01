@@ -31,11 +31,11 @@ class ModelValidatorSpec extends Specification {
 
         where:
         filename                                     | expectedValidationMessage
-        'foreignKey-missing-column.yaml'             | 'Field field_a has foreign key without column name'
-        'foreignKey-table-not-exists.yaml'           | 'TableName table_xxx and columnName field_b does not exist'
-        'foreignKey-table-column-not-exists.yaml'    | 'TableName table_b and columnName field_x does not exist'
-        'foreignKey-wrong-datatype.yaml'             | 'TableName table_b and columnName field_b has different data types (TEXT and UUID)'
-        'foreignKey-wrong-datatype-generatedId.yaml' | 'TableName table_b and columnName table_b_id has different data types (BIGINT and INT)'
+        'foreignKey-missing-column.yaml'             | 'table_a.field_a has foreign key without column name'
+        'foreignKey-table-not-exists.yaml'           | 'table_xxx.field_b does not exist. Is foreign key in table_a.field_a'
+        'foreignKey-table-column-not-exists.yaml'    | 'table_b.field_x does not exist. Is foreign key in table_a.field_a'
+        'foreignKey-wrong-datatype.yaml'             | 'table_b.field_b has different data types (UUID) compared to table_a.field_a (TEXT)'
+        'foreignKey-wrong-datatype-generatedId.yaml' | 'table_b.table_b_id has different data types (INT) compared to table_a.field_a (BIGINT)'
     }
 
 }
