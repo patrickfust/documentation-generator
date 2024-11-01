@@ -1,18 +1,35 @@
 package dk.fust.docgen.format.table;
 
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
+import java.util.Map;
+
 /**
  * Converts from model of a Table to a HTML representation
  */
+@Slf4j
+@Data
 public class HTMLTableFormatter implements TableFormatter {
+
+    private Map<String, String> dataFields;
+    private List<String> columnWidths;
 
     @Override
     public String formatTable(FormatTable formatTable) {
         StringBuilder sb = new StringBuilder();
+        sb.append("<table");
+
         if (formatTable.getTableClass() != null && !formatTable.getTableClass().isEmpty()) {
-            sb.append("<table class=\"%s\">".formatted(formatTable.getTableClass()));
-        } else {
-            sb.append("<table>");
+            sb.append(" class=\"%s\"".formatted(formatTable.getTableClass()));
         }
+        if (dataFields != null && !dataFields.isEmpty()) {
+            dataFields.forEach((key, value) -> {
+                sb.append(" data-%s=\"%s\"".formatted(key, value));
+            });
+        }
+        sb.append(">");
         sb.append(generateColGroup(formatTable));
         sb.append(generateBody(formatTable));
         sb.append("</table>");
@@ -55,8 +72,10 @@ public class HTMLTableFormatter implements TableFormatter {
                 formatTable.getColGroup().getCols() != null && !formatTable.getColGroup().getCols().isEmpty()) {
             StringBuilder sb = new StringBuilder();
             sb.append("<colgroup>");
+            int colIdx = 0;
             for (Col col : formatTable.getColGroup().getCols()) {
-                if (col.getColspan() == 1 && (col.getBackgroundColor() == null || col.getBackgroundColor().isEmpty())) {
+                if (col.getColspan() == 1 && (col.getBackgroundColor() == null || col.getBackgroundColor().isEmpty())
+                        || columnWidths == null || columnWidths.isEmpty()) {
                     sb.append("<col/>");
                 } else {
                     sb.append("<col");
@@ -66,8 +85,12 @@ public class HTMLTableFormatter implements TableFormatter {
                     if (col.getColspan() != 1) {
                         sb.append(" colspan=\"").append(col.getColspan()).append("\"");
                     }
+                    if (columnWidths.size() > colIdx) {
+                        sb.append(" style=\"width: %spx;\"".formatted(columnWidths.get(colIdx)));
+                    }
                     sb.append("/>");
                 }
+                colIdx++;
             }
             sb.append("</colgroup>");
             return sb.toString();

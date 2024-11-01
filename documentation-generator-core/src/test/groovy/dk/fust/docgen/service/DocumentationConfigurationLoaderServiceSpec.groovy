@@ -13,7 +13,6 @@ class DocumentationConfigurationLoaderServiceSpec extends Specification {
     def "read documentation configuration"() {
         given:
         DocumentationConfigurationLoaderService service = new DocumentationConfigurationLoaderService()
-        MockGenerator mockGenerator = new MockGenerator()
         File file = TestHelper.getTestFile('generator-configuration.yml')
 
         when:

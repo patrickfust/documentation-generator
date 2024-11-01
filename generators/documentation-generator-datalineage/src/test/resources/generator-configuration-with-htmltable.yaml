@@ -1,0 +1,17 @@
+- className: dk.fust.docgen.datalineage.DataLineageConfiguration
+  documentationFile: documentation.yml
+  key: data-lineage
+  filter: data-lineage
+  tableFormatter:
+    className: dk.fust.docgen.format.table.HTMLTableFormatter
+    dataFields:
+      table-width: "1800"
+    columnWidths:
+      - "255"
+      - "328"
+      - "114"
+      - "115"
+      - "149"
+      - "242"
+  destination:
+    className: dk.fust.docgen.destination.MockDestination
