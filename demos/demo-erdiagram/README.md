@@ -1,4 +1,4 @@
-# Demo of the document generator
+# Demo of the documentation generator
 
 ## ER diagram
 

@@ -20,7 +20,7 @@ publishing {
     publications {
         maven(MavenPublication) {
             pom {
-                description = 'Document Generator - Gradle plugin'
+                description = 'Documentation Generator - Gradle plugin'
             }
         }
     }

@@ -29,7 +29,7 @@ publishing {
     publications {
         maven(MavenPublication) {
             pom {
-                description = 'Document Generator - Plugin - Data Lineage'
+                description = 'Documentation Generator - Plugin - Data Lineage'
             }
         }
     }

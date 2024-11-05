@@ -28,7 +28,7 @@ publishing {
     publications {
         maven(MavenPublication) {
             pom {
-                description = 'Document Generator API'
+                description = 'Documentation Generator API'
             }
         }
     }

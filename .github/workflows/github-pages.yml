@@ -23,7 +23,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Copy Document Generator Schema to site
+      - name: Copy Documentation Generator Schema to site
         run: cp -Rv documentation-generator-api/src/main/resources/documentation-schema.json site/documentation-schema.json
 
       - name: Check GitHub Pages status

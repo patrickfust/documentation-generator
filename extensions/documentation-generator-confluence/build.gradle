@@ -34,7 +34,7 @@ publishing {
     publications {
         maven(MavenPublication) {
             pom {
-                description = 'Document Generator - Plugin - Confluence'
+                description = 'Documentation Generator - Plugin - Confluence'
             }
         }
     }

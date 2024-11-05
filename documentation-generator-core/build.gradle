@@ -31,7 +31,7 @@ publishing {
     publications {
         maven(MavenPublication) {
             pom {
-                description = 'Document Generator Core'
+                description = 'Documentation Generator Core'
             }
         }
     }
