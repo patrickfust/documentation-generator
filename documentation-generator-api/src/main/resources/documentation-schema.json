@@ -37,6 +37,78 @@
   },
   "type" : "object",
   "properties" : {
+    "dataDictionary" : {
+      "type" : "object",
+      "properties" : {
+        "dataDictionaryFiles" : {
+          "description" : "List of data dictionary files",
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "columns" : {
+                "description" : "The files columns",
+                "type" : "array",
+                "items" : {
+                  "type" : "object",
+                  "properties" : {
+                    "columnDescription" : {
+                      "type" : "string",
+                      "description" : "Description of the field. May be several lines"
+                    },
+                    "columnName" : {
+                      "type" : "string",
+                      "description" : "Column name in file"
+                    },
+                    "dataType" : {
+                      "type" : "string",
+                      "description" : "Columns data type. Examples: varchar, varchar(200), numeric(17, 3)"
+                    },
+                    "example" : {
+                      "type" : "string",
+                      "description" : "Example on how the content may look. Could be a description as well: 'value between 0 and 1. eg 0,3333'"
+                    },
+                    "mandatory" : {
+                      "type" : "boolean",
+                      "description" : "If true, then the content may not be null or empty"
+                    },
+                    "maximumValue" : {
+                      "type" : "integer",
+                      "description" : "Maximum value of the content"
+                    },
+                    "minimumValue" : {
+                      "type" : "integer",
+                      "description" : "Minimum value of the content"
+                    },
+                    "regex" : {
+                      "type" : "string",
+                      "description" : "Regular expression that the contain must obey. Example: ((\\d{3}[A-Z]?)|0{4})"
+                    },
+                    "unique" : {
+                      "type" : "boolean",
+                      "description" : "Is this column a part of the unique key?"
+                    }
+                  },
+                  "required" : [ "columnName", "dataType" ],
+                  "description" : "The files columns"
+                }
+              },
+              "fileName" : {
+                "type" : "string",
+                "description" : "Filename for the data dictionary"
+              },
+              "version" : {
+                "type" : "string",
+                "description" : "Data dictionary version"
+              }
+            },
+            "required" : [ "columns", "fileName", "version" ],
+            "description" : "List of data dictionary files"
+          }
+        }
+      },
+      "description" : "Data dictionary"
+    },
     "databaseName" : {
       "type" : "string"
     },

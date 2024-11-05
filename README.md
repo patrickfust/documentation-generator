@@ -48,9 +48,14 @@ flowchart TD
   destination3["Destination 3"]
   confluence(["Confluence"])
   
+  generator4["Generator 4"]
+  destination4["Destination 4"]
+  csv(["CSV file"])
+  
   docgen --> generator1
   docgen --> generator2
   docgen --> generator3
+  docgen --> generator4
   
   generator1 --> generator1Generate
   generator1Generate --> destination1
@@ -61,6 +66,9 @@ flowchart TD
   
   generator3 --> destination3
   destination3 --> confluence
+  
+  generator4 --> destination4
+  destination4 --> csv
 ```
 
 ---
@@ -264,11 +272,12 @@ Add a dependency in your buildscript with the corresponding artifact id.
 
 ### Documentation types supported
 
-| Artifact id                                                                           | Description                        |
-|---------------------------------------------------------------------------------------|------------------------------------|
-| [documentation-generator-erdiagram](generators/documentation-generator-erdiagram)     | Generates entity-relation diagrams |
-| [documentation-generator-sqlscript](generators/documentation-generator-sqlscript)     | Generates SQL-files                |
-| [documentation-generator-datalineage](generators/documentation-generator-datalineage) | Generates Data lineage             |
+| Artifact id                                                                                   | Description                        |
+|-----------------------------------------------------------------------------------------------|------------------------------------|
+| [documentation-generator-erdiagram](generators/documentation-generator-erdiagram)             | Generates entity-relation diagrams |
+| [documentation-generator-sqlscript](generators/documentation-generator-sqlscript)             | Generates SQL-files                |
+| [documentation-generator-datalineage](generators/documentation-generator-datalineage)         | Generates Data lineage             |
+| [documentation-generator-data-dictionary](generators/documentation-generator-data-dictionary) | Generates Data dicitionary         |
 
 ---
 

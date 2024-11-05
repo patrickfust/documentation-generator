@@ -1,0 +1,15 @@
+$schema:  https://patrickfust.github.io/documentation-generator/documentation-schema.json
+documentationTitle: My database
+schemaName: theSchema
+dataDictionary:
+  dataDictionaryFiles:
+    - fileName: some_file.csv
+      version: 1.0.0
+      columns:
+        - columnName: some_column
+          dataType: varchar(200)
+          mandatory: true
+        - columnName: some_other_column
+          dataType: date
+          example: xyz
+          unique: true

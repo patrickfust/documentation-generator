@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -85,10 +86,17 @@ public class DocumentationConfigurationLoaderService {
         if (dataType == File.class) {
             File file = new File(jsonNode.textValue());
             if (!file.exists()) {
-                log.info("Can't find the file: {}", file.getAbsolutePath());
-                // Maybe it's in the same folder as the configuration file
-                file = new File(configurationFile.getParentFile(), jsonNode.textValue());
-                log.info("Trying {} instead", file.getAbsolutePath());
+                // Maybe we can write to it
+                try {
+                    Files.writeString(file.toPath(), "something");
+                    log.info("We could write to the file");
+                    file.delete();
+                } catch (IOException e) {
+                    log.info("Can't find the file or write to it: {}", file.getAbsolutePath());
+                    // Maybe it's in the same folder as the configuration file
+                    file = new File(configurationFile.getParentFile(), jsonNode.textValue());
+                    log.info("Trying {} instead", file.getAbsolutePath());
+                }
             }
             return file;
         }

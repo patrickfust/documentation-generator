@@ -1,0 +1,7 @@
+- className: dk.fust.docgen.datadict.DataDictionaryConfiguration
+  documentationFile: documentation.yaml
+  tableFormatter:
+    className: dk.fust.docgen.csv.format.table.CSVTableFormatter
+  destination:
+    className: dk.fust.docgen.destination.FileDestination
+    file: data-dictionary.csv

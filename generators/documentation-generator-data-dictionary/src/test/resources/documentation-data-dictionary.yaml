@@ -1,0 +1,11 @@
+$schema: ../../../../../documentation-generator-api/src/main/resources/documentation-schema.json
+documentationTitle: The documentation title
+dataDictionary:
+  dataDictionaryFiles:
+    - fileName: some_file.csv
+      version: 1.0.0
+      columns:
+        - columnName: some_column
+          dataType: varchar(200)
+        - columnName: some_other_column
+          dataType: date

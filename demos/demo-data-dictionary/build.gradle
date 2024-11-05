@@ -1,0 +1,28 @@
+import dk.fust.docgen.gradle.DocumentationGeneratorPlugin
+
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("dk.fust.docgen:documentation-generator-gradle:${documentationGeneratorVersion}") { changing = true }
+        classpath("dk.fust.docgen:documentation-generator-data-dictionary:${documentationGeneratorVersion}")
+        classpath("dk.fust.docgen:documentation-generator-csv:${documentationGeneratorVersion}")
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+apply plugin: DocumentationGeneratorPlugin
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+documentationGenerator {
+    documentationConfigurationFile = new File('generator-configuration.yml')
+}

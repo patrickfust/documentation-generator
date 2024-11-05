@@ -18,7 +18,6 @@ public class FileDestination implements Destination {
     @Override
     public void validate() {
         Assert.isNotNull(file, "file is required");
-        Assert.isTrue(file.canWrite(), "file must be writable");
     }
 
     @Override

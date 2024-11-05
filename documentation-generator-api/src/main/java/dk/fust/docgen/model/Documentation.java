@@ -1,6 +1,7 @@
 package dk.fust.docgen.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import dk.fust.docgen.model.datadict.DataDictionary;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -26,6 +27,9 @@ public class Documentation {
 
     @Description("Default configuration on how the generation should appear - Can be overridden per table")
     private Generation generation;
+
+    @Description("Data dictionary")
+    private DataDictionary dataDictionary;
 
     /**
      * Retrieves a field matching table name and field name

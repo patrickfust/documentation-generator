@@ -1,7 +1,6 @@
 package dk.fust.docgen.datalineage
 
 import dk.fust.docgen.GeneratorConfiguration
-import dk.fust.docgen.MockGenerator
 import dk.fust.docgen.TestHelper
 import dk.fust.docgen.destination.MarkdownDestination
 import dk.fust.docgen.destination.MockDestination
@@ -16,7 +15,7 @@ class DataLineageGeneratorSpec extends Specification {
     def "generate data lineage"() {
         given:
         MockDestination mockDestination = new MockDestination()
-        MockTableFormatter mockTableFormatter = new MockTableFormatter(formattet: 'X')
+        MockTableFormatter mockTableFormatter = new MockTableFormatter(mockFormat: 'X')
         DataLineageConfiguration configuration = new DataLineageConfiguration(
                 key: "myTableClass",
                 destination: mockDestination,
