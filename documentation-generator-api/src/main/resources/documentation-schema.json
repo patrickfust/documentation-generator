@@ -40,7 +40,7 @@
     "dataDictionary" : {
       "type" : "object",
       "properties" : {
-        "files" : {
+        "dataDictionaryFiles" : {
           "description" : "List of data dictionary files",
           "type" : "array",
           "items" : {

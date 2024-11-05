@@ -2,6 +2,7 @@ package dk.fust.docgen.format.table;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ public class FormatTable {
 
     private String tableClass;
 
-    private List<Row> rows;
+    private List<Row> rows = new ArrayList<>();
 
     private ColGroup colGroup;
 }

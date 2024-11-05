@@ -42,7 +42,7 @@ public class DocumentationGeneratorPlugin implements Plugin<Project> {
                     List<GeneratorConfiguration> confs;
                     File documentationConfigurationFile = extension.getDocumentationConfigurationFile();
                     if (documentationConfigurationFile.exists()) {
-                        log.info("Found configuration file: " + documentationConfigurationFile.getAbsolutePath());;
+                        log.info("Found configuration file: {}", documentationConfigurationFile.getPath());;
                         confs = documentationConfigurationLoaderService.readConfigurations(documentationConfigurationFile);
                     } else {
                         File projectConfigurationFile = new File(project.getProjectDir(), documentationConfigurationFile.getPath());

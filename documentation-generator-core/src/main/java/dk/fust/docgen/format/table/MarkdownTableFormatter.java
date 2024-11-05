@@ -15,22 +15,25 @@ public class MarkdownTableFormatter implements TableFormatter {
     @Override
     public String formatTable(FormatTable formatTable) {
         StringBuilder stringBuilder = new StringBuilder(512);
-        for (Row row : formatTable.getRows()) {
-            boolean header = false;
-            stringBuilder.append("| ");
-            for (Cell cell : row.getCells()) {
-                stringBuilder.append(generateCell(cell));
-                header = header || cell.isHeader();
-            }
-            stringBuilder.append(" |\n");
-            if (header) {
-                for (Cell cell : row.getCells()) {
-                    stringBuilder.append("|--".repeat(cell.getColspan()));
+        if (formatTable.getRows() != null) {
+            for (Row row : formatTable.getRows()) {
+                if (row.getCells() != null) {
+                    boolean header = false;
+                    stringBuilder.append("| ");
+                    for (Cell cell : row.getCells()) {
+                        stringBuilder.append(generateCell(cell));
+                        header = header || cell.isHeader();
+                    }
+                    stringBuilder.append(" |\n");
+                    if (header) {
+                        for (Cell cell : row.getCells()) {
+                            stringBuilder.append("|--".repeat(cell.getColspan()));
+                        }
+                        stringBuilder.append("|--|\n");
+                    }
                 }
-                stringBuilder.append("|--|\n");
             }
         }
-
         return stringBuilder.toString();
     }
 

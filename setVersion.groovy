@@ -20,6 +20,8 @@ def setVersion(String fromVersion, String toVersion) {
     replaceInFile('jreleaser.yml', "(.*version: )(${fromVersion})", toVersion)
     replaceInFile('build.gradle', "(    version = ')(${fromVersion})(')", toVersion)
     replaceInFile('README.md', "(documentationGeneratorVersion = )(${fromVersion})", toVersion)
+    replaceInFile('demos/demo-data-dictionary/gradle.properties', "(documentationGeneratorVersion = )(${fromVersion})", toVersion)
+    replaceInFile('demos/demo-data-lineage/gradle.properties', "(documentationGeneratorVersion = )(${fromVersion})", toVersion)
     replaceInFile('demos/demo-erdiagram/gradle.properties', "(documentationGeneratorVersion = )(${fromVersion})", toVersion)
     replaceInFile('demos/demo-erdiagram/pom.xml', "(.*<version>)(${fromVersion})(</version>)", toVersion)
     replaceInFile('demos/demo-sqlscript/gradle.properties', "(documentationGeneratorVersion = )(${fromVersion})", toVersion)

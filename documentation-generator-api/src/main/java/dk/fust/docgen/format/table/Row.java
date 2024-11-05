@@ -2,6 +2,7 @@ package dk.fust.docgen.format.table;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,6 +11,6 @@ import java.util.List;
 @Data
 public class Row {
 
-    private List<Cell> cells;
+    private List<Cell> cells = new ArrayList<>();
 
 }

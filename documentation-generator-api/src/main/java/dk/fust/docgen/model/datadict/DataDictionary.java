@@ -12,6 +12,6 @@ import java.util.List;
 public class DataDictionary {
 
     @Description(value = "List of data dictionary files")
-    private List<File> files;
+    private List<DataDictionaryFile> dataDictionaryFiles;
 
 }

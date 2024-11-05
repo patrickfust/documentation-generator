@@ -9,7 +9,7 @@ import java.util.List;
  * Data Dictionary File
  */
 @Data
-public class File {
+public class DataDictionaryFile {
 
     @Description(value = "Filename for the data dictionary", required = true)
     private String fileName;

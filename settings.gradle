@@ -4,12 +4,13 @@ include 'documentation-generator-api',
         'documentation-generator-core',
         'documentation-generator-gradle',
 
+        'generators:documentation-generator-data-dictionary',
+        'generators:documentation-generator-datalineage',
         'generators:documentation-generator-erdiagram',
         'generators:documentation-generator-sqlscript',
-        'generators:documentation-generator-datalineage',
 
-        'extensions:documentation-generator-confluence',
         'extensions:documentation-generator-csv',
+        'extensions:documentation-generator-confluence',
 
         'helpers:documentation-generator-test-utilities',
         'helpers:schema-generator'
