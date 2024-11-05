@@ -20,6 +20,6 @@ Every part (except the Maven plugin) can be released in the root folder.
 ## Release Maven plugin
 Go to the subfolder `documentation-generator-maven-plugin`
 
-1. Build the Maven plugin: `mvn install`
+1. Build the Maven plugin: `mvn install -U` (-U is force update from Maven central)
 2. Publish it locally: `mvn -Ppublication`
 3. Release it: `jreleaser full-release --git-root-search`
