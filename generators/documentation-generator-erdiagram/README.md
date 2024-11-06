@@ -28,7 +28,10 @@ so you can have several ER-diagram with a sub-set of the tables.
 
 Read more about `MarkdownDestination` [here](../../README.md#dkfustdocgendestinationmarkdowndestination-)
 
-## Example in a gradle.build
+## Examples
+
+### gradle.build
+
 ```groovy
 import dk.fust.docgen.erdiagram.GenerateKey
 import dk.fust.docgen.erdiagram.generators.UMLGenerator
@@ -36,7 +39,7 @@ import dk.fust.docgen.destination.MarkdownDestination
 import dk.fust.docgen.erdiagram.ERDiagramConfiguration
 
 new ERDiagramConfiguration(
-    documentationFile: new File(projectDir, 'documentation.yaml'),
+    documentationFile: new File(projectDir, 'documentation.yml'),
     umlGenerator : UMLGenerator.MERMAID, // Can be omitted because it's default
     generateKeys: [
             // Empty filter means all groups
@@ -47,6 +50,23 @@ new ERDiagramConfiguration(
             file: new File('README.md'),
     )
 )
+```
+
+### generator-configuration.yml
+
+```yaml
+- className: dk.fust.docgen.erdiagram.ERDiagramConfiguration
+  documentationFile: documentation.yml
+  umlGenerator: MERMAID
+  generateKeys:
+    - className: dk.fust.docgen.erdiagram.GenerateKey
+      destinationKey: MODEL_MERMAID_PLACEHOLDER
+    - className: dk.fust.docgen.erdiagram.GenerateKey
+      destinationKey: MODEL_MERMAID_GROUP_PLACEHOLDER
+      filter: my_group
+  destination:
+    className: dk.fust.docgen.destination.MarkdownDestination
+    file: README.md
 ```
 
 ## Demo

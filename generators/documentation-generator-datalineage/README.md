@@ -15,7 +15,9 @@ To use the entity-relation diagram generator, you must configure it with `dk.fus
 | tableFormatter           | TableFormatter    | Formatter that can create the table                                               | `MarkdownTableFormatter` |
 | filter                   | String            | If specified, only tables with this filter is used                                |                          | 
 
-## Example in a gradle.build
+## Examples
+
+### gradle.build
 
 ```groovy
 import dk.fust.docgen.datalineage.DataLineageConfiguration
@@ -24,7 +26,7 @@ import dk.fust.docgen.format.table.MarkdownTableFormatter
 
 new DataLineageConfiguration(
         key: 'my-data-lineage',
-        documentationFile: new File(projectDir, 'documentation.yaml'),
+        documentationFile: new File(projectDir, 'documentation.yml'),
         destination: new MarkdownDestination(
                 file: new File('README.md'),
         ),
@@ -36,6 +38,21 @@ new DataLineageConfiguration(
 )
 ```
 
+### generator-configuration.yml
+
+```yaml
+- className: dk.fust.docgen.datalineage.DataLineageConfiguration
+  documentationFile: documentation.yml
+  key: my-data-lineage
+  tableFormatter:
+    className: dk.fust.docgen.format.table.MarkdownTableFormatter
+  destination:
+    className: dk.fust.docgen.destination.MarkdownDestination
+    file: README.md
+```
+
+---
+
 ## Demo
 
-Check the demo in [demo-datalineage](../../demos/demo-datalineage)
+Check the demo in [demo-data-lineage](../../demos/demo-data-lineage)
