@@ -9,6 +9,7 @@ import dk.fust.docgen.model.Generation;
 import dk.fust.docgen.model.Index;
 import dk.fust.docgen.model.Table;
 import dk.fust.docgen.model.View;
+import dk.fust.docgen.util.Assert;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,8 +28,10 @@ public class SqlScriptGenerator implements Generator {
     @Override
     public void generate(Documentation documentation, GeneratorConfiguration generatorConfiguration) throws IOException {
         log.info("Generating SQL-scripts...");
+        Assert.isTrue(generatorConfiguration instanceof SqlScriptConfiguration, "configuration must be an instance of SqlScriptConfiguration");
+        SqlScriptConfiguration sqlScriptConfiguration = (SqlScriptConfiguration) generatorConfiguration;
         String schemaName = documentation.getSchemaName();
-        for (Table table : documentation.getTables()) {
+        for (Table table : documentation.filterTables(sqlScriptConfiguration.getFilter())) {
             Generation generationForTable = documentation.getGenerationForTable(table);
             if (table.getCreateTableScript() != null) {
                 StringBuilder sqlScript = new StringBuilder(256);

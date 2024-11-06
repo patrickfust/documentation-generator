@@ -18,6 +18,8 @@ public class SqlScriptConfiguration implements GeneratorConfiguration {
 
     private Destination destination;
 
+    private String filter;
+
     @Override
     public void validate() {
         Assert.isNotNull(documentationFile, "documentationFile must not be null");
