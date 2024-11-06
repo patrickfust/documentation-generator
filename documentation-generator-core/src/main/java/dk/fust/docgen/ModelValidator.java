@@ -6,6 +6,8 @@ import dk.fust.docgen.model.Generation;
 import dk.fust.docgen.model.Index;
 import dk.fust.docgen.model.Table;
 import dk.fust.docgen.model.View;
+import dk.fust.docgen.model.datadict.Column;
+import dk.fust.docgen.model.datadict.DataDictionaryFile;
 import dk.fust.docgen.util.Assert;
 
 import java.util.HashSet;
@@ -35,6 +37,27 @@ public class ModelValidator {
             throw new IllegalArgumentException("Documentation cannot be null");
         }
         validateTables();
+        validateDataDictionary();
+    }
+
+    private void validateDataDictionary() {
+        if (documentation.getDataDictionary() != null && documentation.getDataDictionary().getDataDictionaryFiles() != null) {
+            documentation.getDataDictionary().getDataDictionaryFiles().forEach(this::validateDictionaryFile);
+        }
+    }
+
+    private void validateDictionaryFile(DataDictionaryFile dataDictionaryFile) {
+        String filename = dataDictionaryFile.getFileName();
+        Assert.isNotNull(filename, "Filename cannot be null");
+        Assert.isNotNull(dataDictionaryFile.getVersion(), "File %s has no version".formatted(filename));
+        Assert.isNotNull(dataDictionaryFile.getColumns(), "File %s has no columns".formatted(filename));
+        dataDictionaryFile.getColumns().forEach(this::validateColumn);
+    }
+
+    private void validateColumn(Column column) {
+        String name = column.getColumnName();
+        Assert.isNotNull(column.getColumnName(), "Column name cannot be null");
+        Assert.isNotNull(column.getDataType(), "Column %s has no data type".formatted(name));
     }
 
     private void validateTables() {

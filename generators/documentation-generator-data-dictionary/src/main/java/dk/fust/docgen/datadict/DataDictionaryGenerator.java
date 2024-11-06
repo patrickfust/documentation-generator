@@ -28,14 +28,26 @@ public class DataDictionaryGenerator implements Generator {
         Assert.isTrue(generatorConfiguration instanceof DataDictionaryConfiguration, "Configuration must be DataDictionaryConfiguration");
         DataDictionaryConfiguration dataDictionaryConfiguration = (DataDictionaryConfiguration) generatorConfiguration;
         if (documentation.getDataDictionary() != null && documentation.getDataDictionary().getDataDictionaryFiles() != null) {
-            sendTableToDestination(generateTable(documentation), dataDictionaryConfiguration);
+            sendTableToDestination(generateTable(documentation, dataDictionaryConfiguration), dataDictionaryConfiguration);
         }
     }
 
-    private FormatTable generateTable(Documentation documentation) {
+    private FormatTable generateTable(Documentation documentation, DataDictionaryConfiguration dataDictionaryConfiguration) {
         FormatTable formatTable = new FormatTable();
         formatTable.getRows().add(createHeaderRow());
         for (DataDictionaryFile dataDictionaryFile : documentation.getDataDictionary().getDataDictionaryFiles()) {
+            if (dataDictionaryConfiguration.isAddDescriptionForFile()) {
+                Row row = new Row();
+                List<Cell> cells = row.getCells();
+                cells.add(new Cell(dataDictionaryFile.getFileName()));
+                cells.add(new Cell(null));
+                cells.add(new Cell(null));
+                cells.add(new Cell(null));
+                cells.add(null);
+                cells.add(null);
+                cells.add(new Cell(dataDictionaryFile.getFileDescription()));
+                formatTable.getRows().add(row);
+            }
             int position = 1;
             for (Column column : dataDictionaryFile.getColumns()) {
                 Row row = new Row();
@@ -45,7 +57,8 @@ public class DataDictionaryGenerator implements Generator {
                 cells.add(new Cell(Integer.toString(position++)));
                 cells.add(new Cell(column.getDataType()));
                 cells.add(new Cell(column.getMandatory() ? "Yes" : "No"));
-                cells.add(new Cell(column.getUnique() ? "Yes" : "No"));
+                cells.add(new Cell(column.getKeys()));
+                cells.add(new Cell(column.getColumnDescription()));
                 formatTable.getRows().add(row);
             }
         }
@@ -61,6 +74,7 @@ public class DataDictionaryGenerator implements Generator {
         headerCells.add(new Cell(1, 1, "Type", true));
         headerCells.add(new Cell(1, 1, "Mandatory", true));
         headerCells.add(new Cell(1, 1, "Keys", true));
+        headerCells.add(new Cell(1, 1, "Description", true));
         return headerRow;
     }
 

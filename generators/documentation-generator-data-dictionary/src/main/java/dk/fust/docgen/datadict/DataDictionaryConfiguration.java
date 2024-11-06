@@ -24,6 +24,8 @@ public class DataDictionaryConfiguration implements GeneratorConfiguration {
 
     private TableFormatter tableFormatter = new MarkdownTableFormatter();
 
+    private boolean addDescriptionForFile = false;
+
     @Override
     public void validate() {
         Assert.isNotNull(destination, "Destination is required");
