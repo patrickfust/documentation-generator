@@ -76,7 +76,7 @@ public class ConfluenceService {
         String url = "%s/content/%s".formatted(baseUrl, page.getId());
         HttpPut put = new HttpPut(url);
         String json = pageToString(page);
-        log.info("Updating Confluence with: {}", json);
+        log.debug("Updating Confluence with: {}", json);
         put.setEntity(new StringEntity(json));
         return callAndParse(put, Page.class);
     }
@@ -93,11 +93,11 @@ public class ConfluenceService {
         HttpGet get = new HttpGet("%s?expand=page&limit=100".formatted(url));
         PageSearch pageSearch = callAndParse(get, PageSearch.class);
         if (pageSearch.getPage() != null && pageSearch.getPage().getResults() != null && !pageSearch.getPage().getResults().isEmpty()) {
-            log.info("has child pages");
+            log.debug("has child pages");
             Optional<Page> pages = pageSearch.getPage().getResults().stream().filter(page -> page.getTitle().equals(titleForChild)).findFirst();
             if (pages.isPresent()) {
                 Page childPageInfo = pages.get();
-                log.info("Found child page with title: {}", childPageInfo.getTitle());
+                log.debug("Found child page with title: {}", childPageInfo.getTitle());
                 return getPage(childPageInfo.getId());
             }
         }

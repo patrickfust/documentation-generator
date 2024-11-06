@@ -21,10 +21,11 @@ public class DocumentationGeneratorPlugin implements Plugin<Project> {
 
     @Override
     public void apply(Project project) {
+        String projectDir = project.getProjectDir().getAbsolutePath();
         DocumentationGeneratorPluginExtension extension = project.getExtensions().create("documentationGenerator", DocumentationGeneratorPluginExtension.class);
 
         Task generateDocumentationTask = project.task("generateDocumentation").doLast(task -> {
-            log.info("Validating configuration...");
+            log.debug("Validating configuration...");
             if (extension.getGeneratorConfigurations() == null && extension.getDocumentationConfigurationFile() == null) {
                 throw new IllegalArgumentException("Need either GeneratorConfigurations or DocumentationConfigurationFile");
             }
@@ -45,11 +46,16 @@ public class DocumentationGeneratorPlugin implements Plugin<Project> {
                         log.info("Found configuration file: {}", documentationConfigurationFile.getPath());;
                         confs = documentationConfigurationLoaderService.readConfigurations(documentationConfigurationFile);
                     } else {
-                        File projectConfigurationFile = new File(project.getProjectDir(), documentationConfigurationFile.getPath());
-                        log.info("Could not find configuration file -> trying i project dir: " + projectConfigurationFile.getAbsolutePath());
+                        File projectConfigurationFile = new File(projectDir, documentationConfigurationFile.getPath());
+                        log.debug("Could not find configuration file -> trying i project dir: " + projectConfigurationFile.getAbsolutePath());
+                        log.debug("Exists now: " + projectConfigurationFile.exists());
+                        if (projectConfigurationFile.exists()) {
+                            log.info("Found project configuration file: {}", projectConfigurationFile.getPath());
+                        }
+                        documentationGenerator.setBaseDir(new File(projectDir));
                         confs = documentationConfigurationLoaderService.readConfigurations(projectConfigurationFile);
                     }
-                    log.info("Generating documentation...");
+                    log.debug("Calling generate...");
                     documentationGenerator.generate(confs);
                 } catch (IOException e) {
                     throw new RuntimeException("Can't load generator configurations", e);

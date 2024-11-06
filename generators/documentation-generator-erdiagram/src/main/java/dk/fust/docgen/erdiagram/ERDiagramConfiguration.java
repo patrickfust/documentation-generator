@@ -27,7 +27,6 @@ public class ERDiagramConfiguration implements GeneratorConfiguration {
     @Override
     public void validate() {
         Assert.isNotNull(documentationFile, "documentationFile must not be null");
-        Assert.isTrue(documentationFile.exists(), "documentationFile must exist: " + documentationFile.getAbsolutePath());
         Assert.isNotNull(umlGenerator, "umlGenerator must not be null");
         Assert.isNotNull(generateKeys, "generateKeys must not be null");
     }

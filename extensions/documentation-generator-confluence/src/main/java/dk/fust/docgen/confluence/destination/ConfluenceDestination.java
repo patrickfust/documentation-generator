@@ -53,12 +53,12 @@ public class ConfluenceDestination implements Destination {
             }
             Page page = getOrCreateChildWithTitle(id, pageTitle, confluenceService);
 
-            log.info("Got page: {}", page);
+            log.debug("Got page: {}", page);
 
             String originalHtml = page.getBody().getStorage().getValue();
             replaceTable(page, document, destination);
             if (!originalHtml.equals(page.getBody().getStorage().getValue())) {
-                log.info("Table has changed -> updating Confluence");
+                log.debug("Table has changed -> updating Confluence");
                 page.getVersion().setNumber(page.getVersion().getNumber() + 1);
                 confluenceService.updatePage(page);
                 log.info("Table is updated");
