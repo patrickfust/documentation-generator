@@ -25,7 +25,7 @@ public class CSVTableFormatter implements TableFormatter {
         StringWriter sw = new StringWriter();
 
         CSVFormat csvFormat = CSVFormat.DEFAULT.builder()
-                .setDelimiter(';')
+                .setDelimiter(delimiter)
                 .build();
 
         try (final CSVPrinter printer = new CSVPrinter(sw, csvFormat)) {
