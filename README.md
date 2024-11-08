@@ -34,6 +34,7 @@ The generators acts as plugin - Just implement `GeneratorConfiguration`.
 title: Basic idea
 ---
 flowchart TD
+  docFile["documentation file"]  
   docgen["Documentation Generator"]
   generator1["Generator 1"]
   generator1Generate[[Generates SQL-scripts]]
@@ -52,10 +53,16 @@ flowchart TD
   destination4["Destination 4"]
   csv(["CSV file"])
   
+  generatorX["Generator X"]
+  destinationX["Destination X"]
+  something(["Something else"])
+
+  docFile --> docgen
   docgen --> generator1
   docgen --> generator2
   docgen --> generator3
   docgen --> generator4
+  docgen --> generatorX
   
   generator1 --> generator1Generate
   generator1Generate --> destination1
@@ -69,6 +76,9 @@ flowchart TD
   
   generator4 --> destination4
   destination4 --> csv
+  
+  generatorX --> destinationX
+  destinationX --> something
 ```
 
 ---
@@ -240,18 +250,68 @@ Everything in between will be substituted.
 
 Class name: `dk.fust.docgen.confluence.destination.ConfluenceDestination`
 
-In order to use Confluence as destination, you'll need to add the module: 
-[documentation-generator-confluence](extensions/documentation-generator-confluence/)
+In order to use Confluence as destination, you'll need to add the extension `documentation-generator-confluence`.
 
-| Setting             | Type   | Description             | Exanple                                 |
-|---------------------|--------|-------------------------|-----------------------------------------|
-| baseUrl             | String | Base URL to Confluence. | https://xxx.atlassian.net/wiki/rest/api |
-| documentationPageId | String | Id of the parent page.  | 123456                                  |
-| spaceKey            | String | Confluence space key    | ABC                                     |
-| parentPageTitle     | String |                         | My Parent Page                          |
-| pageTitle           | String |                         | My Page                                 | 
+Read the documentation [here](extensions/documentation-generator-confluence)
 
-Username and personal access token for Confluence will be promptet .
+---
+
+## Table format
+
+Some generators use tables and needs a formatter to create a string representation of the table.
+The table formatter you want to use, is configured when you configure the generator.
+Example:
+```yaml
+- className: dk.fust.docgen.datadict.DataDictionaryConfiguration
+  documentationFile: data-dictionary.yml
+  tableFormatter:
+    className: dk.fust.docgen.csv.format.table.CSVTableFormatter
+  destination:
+    className: dk.fust.docgen.destination.FileDestination
+    file: data_dictionary-output.csv
+```
+
+### MarkdownTableFormatter
+
+Class name: `dk.fust.docgen.format.table.MarkdownTableFormatter`
+
+Default table formatter for most generators.
+
+Generates the table in a format that can be used i Markdown files.
+
+Use it together with [MarkdownDestination](#markdowndestination).
+
+### HTMLTableFormatter
+
+Class name: 'dk.fust.docgen.format.table.HTMLTableFormatter'
+
+| Setting      | Type                | Description                             | Default |
+|--------------|---------------------|-----------------------------------------|---------|
+| dataFields   | Map<String, String> | Data fields to be appended to the table |         |  
+| columnWidths | List<String>        | Setting column withs                    |         |  
+
+#### Example
+
+```yaml
+tableFormatter:
+  className: dk.fust.docgen.format.table.HTMLTableFormatter
+  dataFields:
+    table-width: "1800"
+  columnWidths:
+    - "255"
+    - "328"
+    - "114"
+    - "115"
+    - "149"
+    - "242"
+```
+
+### CSVTableFormatter
+
+Class name: `dk.fust.docgen.csv.format.table.CSVTableFormatter` 
+
+Read the documentation [here](extensions/documentation-generator-csv)
+
 
 ---
 

@@ -22,6 +22,8 @@ public class DataDictionaryConfiguration implements GeneratorConfiguration {
 
     private String key;
 
+    private String filter;
+
     private TableFormatter tableFormatter = new MarkdownTableFormatter();
 
     private boolean addDescriptionForFile = false;

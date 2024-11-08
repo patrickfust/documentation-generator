@@ -23,4 +23,7 @@ public class DataDictionaryFile {
     @Description(value = "The files columns", required = true)
     private List<Column> columns;
 
+    @Description("List of tags that may be used in a filter")
+    private List<String> tags;
+
 }
