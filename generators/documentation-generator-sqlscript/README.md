@@ -6,11 +6,12 @@ This generator can generate sql files containing create tables, indexes and view
 
 To use the sql generator, you must configure it with `dk.fust.docgen.sqlscript.SqlScriptConfiguration`
 
-| Setting           | 	Type      | Description                                        | Default   |
-|-------------------|-------------|----------------------------------------------------|-----------|
-| documentationFile | File        | Location of the documentation file                 |           |
-| destination       | Destination | Where to send the generated documentation          |           | 
-| filter            | String      | If specified, only tables with this filter is used |           | 
+| Setting           | 	Type       | Description                                        | Default  |
+|-------------------|-------------|----------------------------------------------------|----------|
+| documentationFile | File        | Location of the documentation file                 |          |
+| destination       | Destination | Where to send the generated documentation          |          | 
+| filter            | String      | If specified, only tables with this filter is used |          |
+| sqlDialect        | SqlDialect  | SQL Dialect that the sql scripts are generated in  | POSTGRES |
 
 ## Model usage
 
