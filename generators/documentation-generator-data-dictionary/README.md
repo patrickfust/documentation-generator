@@ -15,6 +15,32 @@ To use the data dictionary generator, you must configure it with `dk.fust.docgen
 | addDescriptionForFile | boolean        | Will add a header row containing the description of the file | false                    | 
 | filter                | String         | If specified, only tables with this filter is used           |                          | 
 
+## Model usage
+
+This generator uses these fields in [Documentation](../../documentation-generator-api/src/main/java/dk/fust/docgen/model/Documentation.java)
+
+```
+Documentation
+└── dataDictionary
+    └── dataDictionaryFiles
+        ├── fileName
+        ├── fileDescription
+        ├── version
+        ├── columns
+        │   ├── columnName
+        │   ├── columnDescription
+        │   ├── dataType
+        │   ├── regex
+        │   ├── example
+        │   ├── mandatory
+        │   ├── minimumValue
+        │   ├── maximumValue
+        │   └── keys
+        └── tags
+```
+
+---
+
 ## Examples
 
 ### gradle.build

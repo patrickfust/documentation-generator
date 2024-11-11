@@ -15,6 +15,35 @@ To use the entity-relation diagram generator, you must configure it with `dk.fus
 | tableFormatter           | TableFormatter    | Formatter that can create the table                                               | `MarkdownTableFormatter` |
 | filter                   | String            | If specified, only tables with this filter is used                                |                          | 
 
+## Model usage
+
+This generator uses these fields in [Documentation](../../documentation-generator-api/src/main/java/dk/fust/docgen/model/Documentation.java)
+
+```
+Documentation
+├── databaseName
+├── generation
+│   ├── generateIdDataType
+│   ├── generateId
+│   ├── addCreatedAt
+│   ├── columnNameCreatedAt
+│   ├── addUpdatedAt
+│   ├── columnNameUpdatedAt
+│   └── triggerForUpdates
+└── tables
+    ├── generation (same sub fields as above)
+    ├── name
+    ├── tags
+    └── fields
+        ├── name
+        ├── comment
+        ├── transformation
+        ├── source
+        └── dataType
+```
+
+---
+
 ## Examples
 
 ### gradle.build

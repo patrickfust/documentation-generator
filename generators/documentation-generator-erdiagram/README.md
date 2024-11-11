@@ -28,6 +28,38 @@ so you can have several ER-diagram with a sub-set of the tables.
 
 Read more about `MarkdownDestination` [here](../../README.md#dkfustdocgendestinationmarkdowndestination-)
 
+## Model usage
+
+This generator uses these fields in [Documentation](../../documentation-generator-api/src/main/java/dk/fust/docgen/model/Documentation.java)
+
+```
+Documentation
+├── documentationTitle
+├── schemaName
+├── generation
+│   ├── generateIdDataType
+│   ├── generateId
+│   ├── addCreatedAt
+│   ├── columnNameCreatedAt
+│   ├── addUpdatedAt
+│   ├── columnNameUpdatedAt
+│   └── triggerForUpdates
+└── tables
+    ├── generation (same sub fields as above)
+    ├── name
+    ├── comment
+    ├── tags
+    └── fields
+        ├── name
+        ├── dataType
+        ├── foreignKey
+        │   ├── tableName
+        │   └── columnName
+        └── primaryKey
+```
+
+---
+
 ## Examples
 
 ### gradle.build
