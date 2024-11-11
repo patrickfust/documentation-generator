@@ -4,8 +4,6 @@ name: Publish Documentation Generator to GitHub Pages
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -24,7 +22,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Copy Documentation Generator Schema to site
-        run: cp -Rv documentation-generator-api/src/main/resources/documentation-schema.json site/documentation-schema.json
+        run: cp -Rv documentation-generator-api/src/main/resources/documentation-schema.json site/v1/documentation-schema.json
 
       - name: Check GitHub Pages status
         uses: crazy-max/ghaction-github-status@v3
