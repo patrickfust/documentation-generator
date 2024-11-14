@@ -1,12 +1,12 @@
 - className: dk.fust.docgen.datadict.DataDictionaryConfiguration
   documentationFile: documentation.yaml
   tableFormatter:
-    className: dk.fust.docgen.csv.format.table.CSVTableFormatter
+    className: dk.fust.docgen.format.table.HTMLTableFormatter
   destination:
     className: dk.fust.docgen.destination.FileDestination
-    file: data-dictionary.csv
+    file: data-dictionary.html
 - className: dk.fust.docgen.datadict.DataDictionaryMetaInfoConfiguration
-  documentationFile: documentation.yaml
+  documentationFile: documentation.yml
   tableFormatter:
     className: dk.fust.docgen.format.table.JsonTableFormatter
   destination:

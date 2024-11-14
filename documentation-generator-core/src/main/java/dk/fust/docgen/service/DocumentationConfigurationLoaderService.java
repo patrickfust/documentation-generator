@@ -74,7 +74,10 @@ public class DocumentationConfigurationLoaderService {
             }
             method.invoke(instance, convertObject(node, dataType));
         } catch (NoSuchMethodException | NoSuchFieldException e) {
-            // It's OK
+            if (clazz.getSuperclass() != null) {
+                // Try it using the super class
+                setValue(fieldName, node, clazz.getSuperclass(), instance);
+            }
         }
     }
 

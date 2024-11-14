@@ -1,9 +1,11 @@
 package dk.fust.docgen.datadict
 
 import dk.fust.docgen.Generator
+import dk.fust.docgen.GeneratorConfiguration
 import dk.fust.docgen.TestHelper
 import dk.fust.docgen.destination.MockDestination
 import dk.fust.docgen.format.table.MockTableFormatter
+import dk.fust.docgen.service.DocumentationConfigurationLoaderService
 import spock.lang.Specification
 
 class DataDictionaryGeneratorSpec extends Specification {
@@ -24,7 +26,19 @@ class DataDictionaryGeneratorSpec extends Specification {
 
         then:
         mockDestination.document == 'X'
-        mockTableFormatter.formatTableArgument.rows.size() == 3
+        mockTableFormatter.formatTableArgument.rows.size() == 4
+    }
+
+    def "read using generator configuration"() {
+        given:
+        DocumentationConfigurationLoaderService service = new DocumentationConfigurationLoaderService()
+
+        when:
+        List<GeneratorConfiguration> configurations = service.readConfigurations(TestHelper.getTestFile('generator-configuration.yml'))
+
+        then:
+        configurations[0].destination
+        configurations[1].destination
     }
 
 }

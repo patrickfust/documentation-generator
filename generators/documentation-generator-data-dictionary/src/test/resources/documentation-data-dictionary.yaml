@@ -9,3 +9,9 @@ dataDictionary:
           dataType: varchar(200)
         - columnName: some_other_column
           dataType: date
+    - fileName: some_other_file.csv
+      version: 1.2.3
+      fileDescription: description of my other file
+      columns:
+        - columnName: some_column
+          dataType: varchar(200)

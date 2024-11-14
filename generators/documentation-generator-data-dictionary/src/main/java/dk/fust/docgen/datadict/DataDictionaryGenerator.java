@@ -10,6 +10,7 @@ import dk.fust.docgen.model.datadict.Column;
 import dk.fust.docgen.model.datadict.DataDictionaryFile;
 import dk.fust.docgen.util.Assert;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -20,19 +21,14 @@ import java.util.List;
  */
 @Slf4j
 @Data
-public class DataDictionaryGenerator implements Generator {
+@EqualsAndHashCode(callSuper = true)
+public class DataDictionaryGenerator extends AbstractDataDictionaryGenerator {
 
     @Override
-    public void generate(Documentation documentation, GeneratorConfiguration generatorConfiguration) throws IOException {
+    protected FormatTable generateTable(Documentation documentation, AbstractDataDictionaryConfiguration abstractDataDictionaryConfiguration) {
         log.info("Generating Data Dictionary...");
-        Assert.isTrue(generatorConfiguration instanceof DataDictionaryConfiguration, "Configuration must be DataDictionaryConfiguration");
-        DataDictionaryConfiguration dataDictionaryConfiguration = (DataDictionaryConfiguration) generatorConfiguration;
-        if (documentation.getDataDictionary() != null && documentation.getDataDictionary().getDataDictionaryFiles() != null) {
-            sendTableToDestination(generateTable(documentation, dataDictionaryConfiguration), dataDictionaryConfiguration);
-        }
-    }
-
-    private FormatTable generateTable(Documentation documentation, DataDictionaryConfiguration dataDictionaryConfiguration) {
+        Assert.isTrue(abstractDataDictionaryConfiguration instanceof DataDictionaryConfiguration, "must be a DataDictionaryConfiguration");
+        DataDictionaryConfiguration dataDictionaryConfiguration = (DataDictionaryConfiguration) abstractDataDictionaryConfiguration;
         FormatTable formatTable = new FormatTable();
         formatTable.getRows().add(createHeaderRow());
         List<DataDictionaryFile> dataDictionaryFiles = documentation.filterDataDictionaryFiles(dataDictionaryConfiguration.getFilterTags());
@@ -77,11 +73,6 @@ public class DataDictionaryGenerator implements Generator {
         headerCells.add(new Cell(1, 1, "Keys", true));
         headerCells.add(new Cell(1, 1, "Description", true));
         return headerRow;
-    }
-
-    private void sendTableToDestination(FormatTable formatTable, DataDictionaryConfiguration dataDictionaryConfiguration) throws IOException {
-        String table = dataDictionaryConfiguration.getTableFormatter().formatTable(formatTable);
-        dataDictionaryConfiguration.getDestination().sendDocumentToDestination(table, dataDictionaryConfiguration.getKey());
     }
 
 }
