@@ -7,6 +7,7 @@ This document covers:
 - [Idea of the documentaion generator](#idea-of-the-documentation-generator)
 - [Documentation structure](#documentation-structure)
 - [Destinations](#destinations)
+- [Table formats](#table-format)
 - [Usage](#usage)
 - [Documentation types](#documentation-types)
   - [Types supported](#documentation-types-supported)
@@ -20,8 +21,8 @@ This document covers:
 
 ## Idea of the Documentation Generator
 
-The basic idea of the Documentation Generator is one place to have the model and then generate 
-and distribute documentation to different places.
+The basic idea of the Documentation Generator is one place to have a single model and then generate 
+and distribute documentation into different places.
 
 Each `Generator` generates something and a `Destination` can send the output to somewhere. 
 
@@ -306,6 +307,25 @@ tableFormatter:
     - "242"
 ```
 
+### JsonTableFormatter
+
+Class name: 'dk.fust.docgen.format.table.JsonTableFormatter'
+
+Generates JSON.
+
+| Setting     | Type    | Description                                      | Default |
+|-------------|---------|--------------------------------------------------|---------|
+| yaml        | boolean | If true, it's rendered as yaml otherwise as json | false   |  
+| prettyPrint | boolean | Should the json be pretty printed?               | true    |  
+
+#### Example
+
+```yaml
+tableFormatter:
+  className: dk.fust.docgen.format.table.JsonTableFormatter
+  yaml: true
+```
+
 ### CSVTableFormatter
 
 Class name: `dk.fust.docgen.csv.format.table.CSVTableFormatter` 
@@ -317,7 +337,7 @@ Read the documentation [here](extensions/documentation-generator-csv)
 
 ## Usage
 
-You can use Documentation Generator as
+You can use Documentation Generator as:
 - [Gradle plugin](documentation-generator-gradle)
 - [Maven plugin](documentation-generator-maven-plugin)
 
@@ -334,10 +354,10 @@ Add a dependency in your buildscript with the corresponding artifact id.
 
 | Artifact id                                                                                   | Description                        |
 |-----------------------------------------------------------------------------------------------|------------------------------------|
+| [documentation-generator-data-dictionary](generators/documentation-generator-data-dictionary) | Generates Data dicitionary         |
+| [documentation-generator-datalineage](generators/documentation-generator-datalineage)         | Generates Data lineage             |
 | [documentation-generator-erdiagram](generators/documentation-generator-erdiagram)             | Generates entity-relation diagrams |
 | [documentation-generator-sqlscript](generators/documentation-generator-sqlscript)             | Generates SQL-files                |
-| [documentation-generator-datalineage](generators/documentation-generator-datalineage)         | Generates Data lineage             |
-| [documentation-generator-data-dictionary](generators/documentation-generator-data-dictionary) | Generates Data dicitionary         |
 
 ---
 
