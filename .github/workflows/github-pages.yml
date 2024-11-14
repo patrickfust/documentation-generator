@@ -21,6 +21,9 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Create documentation version if not exists
+        run: mkdir -p site/v1
+
       - name: Copy Documentation Generator Schema to site
         run: cp -Rv documentation-generator-api/src/main/resources/documentation-schema.json site/v1/documentation-schema.json
 
