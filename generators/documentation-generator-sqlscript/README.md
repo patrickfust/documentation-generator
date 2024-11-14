@@ -10,7 +10,7 @@ To use the sql generator, you must configure it with `dk.fust.docgen.sqlscript.S
 |-------------------|-------------|----------------------------------------------------|----------|
 | documentationFile | File        | Location of the documentation file                 |          |
 | destination       | Destination | Where to send the generated documentation          |          | 
-| filter            | String      | If specified, only tables with this filter is used |          |
+| filterTags        | String      | If specified, only tables with this filterTags is used |          |
 | sqlDialect        | SqlDialect  | SQL Dialect that the sql scripts are generated in  | POSTGRES |
 
 ## Model usage

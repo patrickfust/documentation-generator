@@ -35,7 +35,7 @@ public class DataDictionaryGenerator implements Generator {
     private FormatTable generateTable(Documentation documentation, DataDictionaryConfiguration dataDictionaryConfiguration) {
         FormatTable formatTable = new FormatTable();
         formatTable.getRows().add(createHeaderRow());
-        List<DataDictionaryFile> dataDictionaryFiles = documentation.filterDataDictionaryFiles(dataDictionaryConfiguration.getFilter());
+        List<DataDictionaryFile> dataDictionaryFiles = documentation.filterDataDictionaryFiles(dataDictionaryConfiguration.getFilterTags());
         for (DataDictionaryFile dataDictionaryFile : dataDictionaryFiles) {
             if (dataDictionaryConfiguration.isAddDescriptionForFile()) {
                 Row row = new Row();

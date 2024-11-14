@@ -19,7 +19,7 @@ To use the entity-relation diagram generator, you must configure it with `dk.fus
 You can group them for instance into domain-model and external-reference and so forth, by adding a filter.
 Only tables with a tag matching the filter will be used.
 
-If the `filter` is `null`, then all tables are selected.
+If the `filterTags` is `null`, then all tables are selected.
 
 The `destinationKey` tells which part of the destination that needs replacing.
 
@@ -76,7 +76,7 @@ new ERDiagramConfiguration(
     generateKeys: [
             // Empty filter means all groups
             new GenerateKey(destinationKey: 'MODEL_MERMAID_PLACEHOLDER'),
-            new GenerateKey(destinationKey: 'MODEL_MERMAID_GROUP_PLACEHOLDER', filter: 'my_group')
+            new GenerateKey(destinationKey: 'MODEL_MERMAID_GROUP_PLACEHOLDER', filterTags: 'my_group')
     ],
     destination: new MarkdownDestination(
             file: new File('README.md'),
@@ -95,7 +95,7 @@ new ERDiagramConfiguration(
       destinationKey: MODEL_MERMAID_PLACEHOLDER
     - className: dk.fust.docgen.erdiagram.GenerateKey
       destinationKey: MODEL_MERMAID_GROUP_PLACEHOLDER
-      filter: my_group
+      filterTags: my_group
   destination:
     className: dk.fust.docgen.destination.MarkdownDestination
     file: README.md

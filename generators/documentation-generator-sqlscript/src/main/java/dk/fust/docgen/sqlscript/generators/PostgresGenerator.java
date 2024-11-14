@@ -22,7 +22,7 @@ public class PostgresGenerator implements SqlGenerator {
     public void generate(Documentation documentation, SqlScriptConfiguration sqlScriptConfiguration) throws IOException {
         log.debug("Generating Postgres SQL-scripts...");
         String schemaName = documentation.getSchemaName();
-        for (Table table : documentation.filterTables(sqlScriptConfiguration.getFilter())) {
+        for (Table table : documentation.filterTables(sqlScriptConfiguration.getFilterTags())) {
             Generation generationForTable = documentation.getGenerationForTable(table);
             if (table.getCreateTableScript() != null) {
                 StringBuilder sqlScript = new StringBuilder(256);

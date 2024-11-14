@@ -13,7 +13,7 @@ To use the data dictionary generator, you must configure it with `dk.fust.docgen
 | key                   | String         | Key to identify it on the destination                        |                          |
 | tableFormatter        | TableFormatter | Formatter that can create the table                          | `MarkdownTableFormatter` |
 | addDescriptionForFile | boolean        | Will add a header row containing the description of the file | false                    | 
-| filter                | String         | If specified, only tables with this filter is used           |                          | 
+| filterTags            | String         | If specified, only tables with this filter is used           |                          | 
 
 ## Model usage
 

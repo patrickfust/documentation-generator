@@ -16,11 +16,11 @@ public interface ERGenerator {
 
     /**
      * Go generate er-diagram please
-     * @param filter filter for which groups to render. It finds the tables that have a matching tag. If null or empty, all groups are rendered.
+     * @param filterTags filter for which groups to render. It finds the tables that have a matching tag. If null or empty, all groups are rendered.
      * @param documentation model containing the tables to render
      * @param generatorConfiguration configuration for how to render
      * @return markdown markup
      */
-    String generateUML(String filter, Documentation documentation, GeneratorConfiguration generatorConfiguration);
+    String generateUML(String filterTags, Documentation documentation, GeneratorConfiguration generatorConfiguration);
 
 }

@@ -13,7 +13,7 @@ To use the entity-relation diagram generator, you must configure it with `dk.fus
 | key                      | String            | Key to identify it on the destination                                             |                          |
 | sourceDocumentationFiles | Map<String, File> | External references to other documentationfiles. Is used when specifying `source` |                          |
 | tableFormatter           | TableFormatter    | Formatter that can create the table                                               | `MarkdownTableFormatter` |
-| filter                   | String            | If specified, only tables with this filter is used                                |                          | 
+| filterTags               | String            | If specified, only tables with this filter is used                                |                          | 
 
 ## Model usage
 

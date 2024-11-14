@@ -22,7 +22,7 @@ public class DataDictionaryConfiguration implements GeneratorConfiguration {
 
     private String key;
 
-    private String filter;
+    private String filterTags;
 
     private TableFormatter tableFormatter = new MarkdownTableFormatter();
 

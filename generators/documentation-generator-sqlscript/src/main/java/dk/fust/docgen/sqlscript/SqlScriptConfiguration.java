@@ -19,7 +19,7 @@ public class SqlScriptConfiguration implements GeneratorConfiguration {
 
     private Destination destination;
 
-    private String filter;
+    private String filterTags;
 
     /**
      * Which dialect must the sql be? Default: POSTGRES

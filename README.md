@@ -182,7 +182,7 @@ You can have nested objects, you just have to specify which class name it is.
       destinationKey: MODEL_MERMAID_PLACEHOLDER
     - className: dk.fust.docgen.erdiagram.GenerateKey
       destinationKey: MODEL_MERMAID_GROUP_PLACEHOLDER
-      filter: my_group
+      filterTags: my_group
   destination:
     className: dk.fust.docgen.destination.MarkdownDestination
     file: README.md

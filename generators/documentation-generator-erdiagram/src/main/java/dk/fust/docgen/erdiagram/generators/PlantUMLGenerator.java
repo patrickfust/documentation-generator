@@ -38,9 +38,9 @@ public class PlantUMLGenerator implements ERGenerator {
     }
 
     @Override
-    public String generateUML(String filter, Documentation documentation, GeneratorConfiguration generatorConfiguration) {
+    public String generateUML(String filterTags, Documentation documentation, GeneratorConfiguration generatorConfiguration) {
         StringBuilder stringBuilder = new StringBuilder(1024);
-        List<Table> tables = documentation.filterTables(filter);
+        List<Table> tables = documentation.filterTables(filterTags);
         stringBuilder.append("""
 @startuml
 

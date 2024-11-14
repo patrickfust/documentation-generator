@@ -22,7 +22,7 @@ public class MermaidGenerator implements ERGenerator {
     }
 
     @Override
-    public String generateUML(String filter, Documentation documentation, GeneratorConfiguration generatorConfiguration) {
+    public String generateUML(String filterTags, Documentation documentation, GeneratorConfiguration generatorConfiguration) {
         StringBuilder uml = new StringBuilder(INITIAL_CAPACITY);
         if (documentation.getDocumentationTitle() != null && !documentation.getDocumentationTitle().isEmpty()) {
             uml.append("""
@@ -32,15 +32,15 @@ title: %s
 """.formatted(documentation.getDocumentationTitle()));
         }
         uml.append("erDiagram\n");
-        String tables = generateTables(filter, documentation);
+        String tables = generateTables(filterTags, documentation);
         uml.append(tables);
         return uml.toString();
     }
 
-    private String generateTables(String filter, Documentation documentation) {
+    private String generateTables(String filterTags, Documentation documentation) {
         StringBuilder uml = new StringBuilder(INITIAL_CAPACITY);
 
-        List<Table> tables = documentation.filterTables(filter);
+        List<Table> tables = documentation.filterTables(filterTags);
         tables.forEach(table -> {
             uml.append(generateTableForeignKeys(table));
 

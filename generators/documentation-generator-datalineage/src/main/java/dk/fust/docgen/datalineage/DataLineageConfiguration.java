@@ -31,7 +31,7 @@ public class DataLineageConfiguration implements GeneratorConfiguration {
 
     private TableFormatter tableFormatter = new MarkdownTableFormatter();
 
-    private String filter;
+    private String filterTags;
 
     @Override
     public void validate() {
