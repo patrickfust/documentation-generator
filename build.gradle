@@ -7,7 +7,7 @@ plugins {
 
 allprojects {
     group = 'dk.fust.docgen'
-    version = '0.0.9'
+    version = '0.0.10-SNAPSHOT'
 
     plugins.withType(JavaPlugin).whenPluginAdded {
         tasks.withType(Test).configureEach {
