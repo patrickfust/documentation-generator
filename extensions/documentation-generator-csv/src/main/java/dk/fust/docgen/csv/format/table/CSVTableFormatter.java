@@ -18,14 +18,14 @@ import java.util.List;
 @Data
 public class CSVTableFormatter implements TableFormatter {
 
-    private String delimiter = ";";
+    private CSVDelimiter delimiter = CSVDelimiter.SEMICOLON;
 
     @Override
     public String formatTable(FormatTable formatTable) {
         StringWriter sw = new StringWriter();
 
         CSVFormat csvFormat = CSVFormat.DEFAULT.builder()
-                .setDelimiter(delimiter)
+                .setDelimiter(delimiter.getDelimiter())
                 .build();
 
         try (final CSVPrinter printer = new CSVPrinter(sw, csvFormat)) {
