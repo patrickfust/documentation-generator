@@ -89,13 +89,13 @@ public class DocumentationConfigurationLoaderService {
                 // Maybe we can write to it
                 try {
                     Files.writeString(file.toPath(), "something");
-                    log.info("We could write to the file");
+                    log.debug("We could write to the file");
                     file.delete();
                 } catch (IOException e) {
-                    log.info("Can't find the file or write to it: {}", file.getAbsolutePath());
+                    log.debug("Can't find the file or write to it: {}", file.getAbsolutePath());
                     // Maybe it's in the same folder as the configuration file
                     file = new File(configurationFile.getParentFile(), jsonNode.textValue());
-                    log.info("Trying {} instead", file.getAbsolutePath());
+                    log.debug("Trying {} instead", file.getAbsolutePath());
                 }
             }
             return file;

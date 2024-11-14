@@ -22,7 +22,11 @@ public class DataDictionaryConfiguration implements GeneratorConfiguration {
 
     private String key;
 
+    private String filterTags;
+
     private TableFormatter tableFormatter = new MarkdownTableFormatter();
+
+    private boolean addDescriptionForFile = false;
 
     @Override
     public void validate() {

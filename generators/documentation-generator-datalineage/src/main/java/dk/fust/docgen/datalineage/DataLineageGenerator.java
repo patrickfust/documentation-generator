@@ -44,7 +44,7 @@ public class DataLineageGenerator implements Generator {
 
         rows.add(getHeaderRow());
         rows.add(getSubHeaderRow());
-        rows.addAll(getRows(documentation.filterTables(conf.getFilter()), documentation, conf));
+        rows.addAll(getRows(documentation.filterTables(conf.getFilterTags()), documentation, conf));
 
         String document = conf.getTableFormatter().formatTable(formatTable);
         generatorConfiguration.getDestination().sendDocumentToDestination(document, conf.getKey());

@@ -33,6 +33,6 @@ public class Column {
     @Description("Maximum value of the content")
     private Long maximumValue;
 
-    @Description(value = "Is this column a part of the unique key?", defaultBoolean = false)
-    private Boolean unique = false;
+    @Description(value = "Is this column a part of the unique key?")
+    private String keys;
 }

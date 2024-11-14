@@ -68,6 +68,10 @@
                       "type" : "string",
                       "description" : "Example on how the content may look. Could be a description as well: 'value between 0 and 1. eg 0,3333'"
                     },
+                    "keys" : {
+                      "type" : "string",
+                      "description" : "Is this column a part of the unique key?"
+                    },
                     "mandatory" : {
                       "type" : "boolean",
                       "description" : "If true, then the content may not be null or empty"
@@ -83,19 +87,27 @@
                     "regex" : {
                       "type" : "string",
                       "description" : "Regular expression that the contain must obey. Example: ((\\d{3}[A-Z]?)|0{4})"
-                    },
-                    "unique" : {
-                      "type" : "boolean",
-                      "description" : "Is this column a part of the unique key?"
                     }
                   },
                   "required" : [ "columnName", "dataType" ],
                   "description" : "The files columns"
                 }
               },
+              "fileDescription" : {
+                "type" : "string",
+                "description" : "Description of the file"
+              },
               "fileName" : {
                 "type" : "string",
                 "description" : "Filename for the data dictionary"
+              },
+              "tags" : {
+                "description" : "List of tags that may be used in a filter",
+                "type" : "array",
+                "items" : {
+                  "type" : "string",
+                  "description" : "List of tags that may be used in a filter"
+                }
               },
               "version" : {
                 "type" : "string",
@@ -164,7 +176,8 @@
                   "type" : "object",
                   "properties" : {
                     "columnName" : {
-                      "type" : "string"
+                      "type" : "string",
+                      "description" : "Column name the foreign key points to. Is together with tableName"
                     },
                     "enforceReference" : {
                       "type" : "boolean",
@@ -172,9 +185,11 @@
                       "default" : false
                     },
                     "tableName" : {
-                      "type" : "string"
+                      "type" : "string",
+                      "description" : "Table name the foreign key points to. Is together with columnName"
                     }
                   },
+                  "required" : [ "columnName", "tableName" ],
                   "description" : "Is this a foreign key to another table"
                 },
                 "name" : {
@@ -214,27 +229,33 @@
               "type" : "object",
               "properties" : {
                 "fields" : {
+                  "description" : "List of fields for the index",
                   "type" : "array",
                   "items" : {
-                    "type" : "string"
+                    "type" : "string",
+                    "description" : "List of fields for the index"
                   }
                 },
                 "name" : {
-                  "type" : "string"
+                  "type" : "string",
+                  "description" : "Name of the index"
                 },
                 "unique" : {
                   "type" : "boolean"
                 }
-              }
+              },
+              "required" : [ "fields" ]
             }
           },
           "name" : {
             "type" : "string"
           },
           "tags" : {
+            "description" : "List of tags that may be used in a filter",
             "type" : "array",
             "items" : {
-              "type" : "string"
+              "type" : "string",
+              "description" : "List of tags that may be used in a filter"
             }
           },
           "views" : {
@@ -243,12 +264,15 @@
               "type" : "object",
               "properties" : {
                 "name" : {
-                  "type" : "string"
+                  "type" : "string",
+                  "description" : "Name of the view"
                 },
                 "sql" : {
-                  "type" : "string"
+                  "type" : "string",
+                  "description" : "SQL that defines the view"
                 }
-              }
+              },
+              "required" : [ "sql" ]
             }
           }
         }

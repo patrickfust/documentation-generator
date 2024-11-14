@@ -31,12 +31,11 @@ public class DataLineageConfiguration implements GeneratorConfiguration {
 
     private TableFormatter tableFormatter = new MarkdownTableFormatter();
 
-    private String filter;
+    private String filterTags;
 
     @Override
     public void validate() {
         Assert.isNotNull(documentationFile, "documentationFile must not be null");
-        Assert.isTrue(documentationFile.exists(), "documentationFile must exist");
         Assert.isNotNull(destination, "destination must not be null");
         Assert.isNotNull(key, "key must not be null");
         Assert.isNotNull(tableFormatter, "tableFormatter must not be null");

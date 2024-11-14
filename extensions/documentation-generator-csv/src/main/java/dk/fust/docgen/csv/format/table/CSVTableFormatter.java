@@ -7,13 +7,10 @@ import dk.fust.docgen.format.table.TableFormatter;
 import lombok.Data;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
-import org.apache.commons.csv.CSVRecord;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Converts from model of a Table to a CSV representation
@@ -21,14 +18,14 @@ import java.util.Map;
 @Data
 public class CSVTableFormatter implements TableFormatter {
 
-    private String delimiter = ";";
+    private CSVDelimiter delimiter = CSVDelimiter.SEMICOLON;
 
     @Override
     public String formatTable(FormatTable formatTable) {
         StringWriter sw = new StringWriter();
 
         CSVFormat csvFormat = CSVFormat.DEFAULT.builder()
-                .setDelimiter(';')
+                .setDelimiter(delimiter.getDelimiter())
                 .build();
 
         try (final CSVPrinter printer = new CSVPrinter(sw, csvFormat)) {

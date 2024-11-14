@@ -1,7 +1,7 @@
 - className: dk.fust.docgen.datalineage.DataLineageConfiguration
   documentationFile: documentation.yml
   key: data-lineage
-  filter: data-lineage
+  filterTags: data-lineage
   tableFormatter:
     className: dk.fust.docgen.format.table.HTMLTableFormatter
     dataFields:

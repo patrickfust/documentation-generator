@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import dk.fust.docgen.model.Documentation;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.io.IOException;
 /**
  * Service to read documentation files
  */
+@Slf4j
 public class DocumentationService {
 
     /**
@@ -23,6 +25,7 @@ public class DocumentationService {
      * @throws IOException an error occurred
      */
     public Documentation loadDocumentation(File file) throws IOException {
+        log.debug("DocumentationService.loadDocumentation file: {}", file.getAbsolutePath());
         ObjectMapper objectMapper = createObjectMapper(file);
         return objectMapper.readValue(file, Documentation.class);
     }

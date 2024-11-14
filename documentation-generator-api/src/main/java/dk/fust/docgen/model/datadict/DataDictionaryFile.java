@@ -17,6 +17,13 @@ public class DataDictionaryFile {
     @Description(value = "Data dictionary version", required = true)
     private String version;
 
+    @Description("Description of the file")
+    private String fileDescription;
+
     @Description(value = "The files columns", required = true)
     private List<Column> columns;
+
+    @Description("List of tags that may be used in a filter")
+    private List<String> tags;
+
 }

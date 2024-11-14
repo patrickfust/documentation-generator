@@ -8,7 +8,10 @@ import lombok.Data;
 @Data
 public class View {
 
+    @Description(value = "Name of the view")
     private String name;
+
+    @Description(value = "SQL that defines the view", required = true)
     private String sql;
 
 }

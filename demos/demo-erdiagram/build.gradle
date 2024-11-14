@@ -34,9 +34,9 @@ documentationGenerator {
 //                documentationFile: new File(projectDir, 'documentation.yaml'),
 //                umlGenerator : UMLGenerator.MERMAID, // Can be omitted because it's default
 //                generateKeys: [
-//                        // Empty filter means all groups
+//                        // Empty filterTags means all groups
 //                        new GenerateKey(destinationKey: 'MODEL_MERMAID_PLACEHOLDER'),
-//                        new GenerateKey(destinationKey: 'MODEL_MERMAID_GROUP_PLACEHOLDER', filter: 'my_group')
+//                        new GenerateKey(destinationKey: 'MODEL_MERMAID_GROUP_PLACEHOLDER', filterTags: 'my_group')
 //                ],
 //                destination: new MarkdownDestination(
 //                        file: new File('README.md'),

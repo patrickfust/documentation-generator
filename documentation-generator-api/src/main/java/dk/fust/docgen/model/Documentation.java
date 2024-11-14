@@ -2,6 +2,7 @@ package dk.fust.docgen.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import dk.fust.docgen.model.datadict.DataDictionary;
+import dk.fust.docgen.model.datadict.DataDictionaryFile;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -97,16 +98,29 @@ public class Documentation {
     }
 
     /**
-     * Return those tables that have a tag that is equal to the filter
-     * @param filter filter to search for
+     * Returns those tables that have a tag that is equal to the filter
+     * @param filterTags filter to search for
      * @return only matching tables
      */
-    public List<Table> filterTables(String filter) {
-        if (filter != null && !filter.isEmpty()) {
+    public List<Table> filterTables(String filterTags) {
+        if (filterTags != null && !filterTags.isEmpty()) {
             // Only those with the filer
-            return tables.stream().filter(t -> t.getTags() != null && t.getTags().contains(filter)).toList();
+            return tables.stream().filter(t -> t.getTags() != null && t.getTags().contains(filterTags)).toList();
         }
         return tables;
+    }
+
+    /**
+     * Returns those data dictionaries that have a tag that i equal to the filter
+     * @param filterTags filter to search for
+     * @return only matching data dictionaries
+     */
+    public List<DataDictionaryFile> filterDataDictionaryFiles(String filterTags) {
+        if (filterTags != null && !filterTags.isEmpty() && dataDictionary.getDataDictionaryFiles() != null) {
+            // Only those with the filer
+            return dataDictionary.getDataDictionaryFiles().stream().filter(t -> t.getTags() != null && t.getTags().contains(filterTags)).toList();
+        }
+        return dataDictionary.getDataDictionaryFiles();
     }
 
     /**

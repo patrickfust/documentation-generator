@@ -19,7 +19,7 @@ To use the entity-relation diagram generator, you must configure it with `dk.fus
 You can group them for instance into domain-model and external-reference and so forth, by adding a filter.
 Only tables with a tag matching the filter will be used.
 
-If the `filter` is `null`, then all tables are selected.
+If the `filterTags` is `null`, then all tables are selected.
 
 The `destinationKey` tells which part of the destination that needs replacing.
 
@@ -28,7 +28,42 @@ so you can have several ER-diagram with a sub-set of the tables.
 
 Read more about `MarkdownDestination` [here](../../README.md#dkfustdocgendestinationmarkdowndestination-)
 
-## Example in a gradle.build
+## Model usage
+
+This generator uses these fields in [Documentation](../../documentation-generator-api/src/main/java/dk/fust/docgen/model/Documentation.java)
+
+```
+Documentation
+├── documentationTitle
+├── schemaName
+├── generation
+│   ├── generateIdDataType
+│   ├── generateId
+│   ├── addCreatedAt
+│   ├── columnNameCreatedAt
+│   ├── addUpdatedAt
+│   ├── columnNameUpdatedAt
+│   └── triggerForUpdates
+└── tables
+    ├── generation (same sub fields as above)
+    ├── name
+    ├── comment
+    ├── tags
+    └── fields
+        ├── name
+        ├── dataType
+        ├── foreignKey
+        │   ├── tableName
+        │   └── columnName
+        └── primaryKey
+```
+
+---
+
+## Examples
+
+### gradle.build
+
 ```groovy
 import dk.fust.docgen.erdiagram.GenerateKey
 import dk.fust.docgen.erdiagram.generators.UMLGenerator
@@ -36,17 +71,34 @@ import dk.fust.docgen.destination.MarkdownDestination
 import dk.fust.docgen.erdiagram.ERDiagramConfiguration
 
 new ERDiagramConfiguration(
-    documentationFile: new File(projectDir, 'documentation.yaml'),
+    documentationFile: new File(projectDir, 'documentation.yml'),
     umlGenerator : UMLGenerator.MERMAID, // Can be omitted because it's default
     generateKeys: [
             // Empty filter means all groups
             new GenerateKey(destinationKey: 'MODEL_MERMAID_PLACEHOLDER'),
-            new GenerateKey(destinationKey: 'MODEL_MERMAID_GROUP_PLACEHOLDER', filter: 'my_group')
+            new GenerateKey(destinationKey: 'MODEL_MERMAID_GROUP_PLACEHOLDER', filterTags: 'my_group')
     ],
     destination: new MarkdownDestination(
             file: new File('README.md'),
     )
 )
+```
+
+### generator-configuration.yml
+
+```yaml
+- className: dk.fust.docgen.erdiagram.ERDiagramConfiguration
+  documentationFile: documentation.yml
+  umlGenerator: MERMAID
+  generateKeys:
+    - className: dk.fust.docgen.erdiagram.GenerateKey
+      destinationKey: MODEL_MERMAID_PLACEHOLDER
+    - className: dk.fust.docgen.erdiagram.GenerateKey
+      destinationKey: MODEL_MERMAID_GROUP_PLACEHOLDER
+      filterTags: my_group
+  destination:
+    className: dk.fust.docgen.destination.MarkdownDestination
+    file: README.md
 ```
 
 ## Demo
