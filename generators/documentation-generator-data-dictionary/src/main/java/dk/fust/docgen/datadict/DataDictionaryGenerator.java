@@ -1,7 +1,5 @@
 package dk.fust.docgen.datadict;
 
-import dk.fust.docgen.Generator;
-import dk.fust.docgen.GeneratorConfiguration;
 import dk.fust.docgen.format.table.Cell;
 import dk.fust.docgen.format.table.FormatTable;
 import dk.fust.docgen.format.table.Row;
@@ -13,7 +11,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -36,13 +33,14 @@ public class DataDictionaryGenerator extends AbstractDataDictionaryGenerator {
             if (dataDictionaryConfiguration.isAddDescriptionForFile()) {
                 Row row = new Row();
                 List<Cell> cells = row.getCells();
-                cells.add(new Cell(dataDictionaryFile.getFileName()));
-                cells.add(new Cell(null));
-                cells.add(new Cell(null));
-                cells.add(new Cell(null));
-                cells.add(null);
-                cells.add(null);
-                cells.add(new Cell(dataDictionaryFile.getFileDescription()));
+                cells.add(new Cell(dataDictionaryFile.getFileName(), true));
+                cells.add(new Cell(null, true));
+                cells.add(new Cell(null, true));
+                cells.add(new Cell(null, true));
+                cells.add(new Cell(null, true));
+                cells.add(new Cell(null, true));
+                cells.add(new Cell(dataDictionaryFile.getFileDescription(), true));
+                cells.add(new Cell(null, true));
                 formatTable.getRows().add(row);
             }
             int position = 1;
@@ -56,6 +54,7 @@ public class DataDictionaryGenerator extends AbstractDataDictionaryGenerator {
                 cells.add(new Cell(column.getMandatory() ? "Yes" : "No"));
                 cells.add(new Cell(column.getKeys()));
                 cells.add(new Cell(column.getColumnDescription()));
+                cells.add(new Cell(column.getExample()));
                 formatTable.getRows().add(row);
             }
         }
@@ -72,6 +71,7 @@ public class DataDictionaryGenerator extends AbstractDataDictionaryGenerator {
         headerCells.add(new Cell(1, 1, "Mandatory", true));
         headerCells.add(new Cell(1, 1, "Keys", true));
         headerCells.add(new Cell(1, 1, "Description", true));
+        headerCells.add(new Cell(1, 1, "Example", true));
         return headerRow;
     }
 

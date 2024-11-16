@@ -25,7 +25,6 @@ public class DataDictionaryMetaInfoGenerator extends AbstractDataDictionaryGener
         formatTable.getRows().add(createHeaderRow());
         List<DataDictionaryFile> dataDictionaryFiles = documentation.filterDataDictionaryFiles(configuration.getFilterTags());
         for (DataDictionaryFile dataDictionaryFile : dataDictionaryFiles) {
-            System.out.println("dataDictionaryFile = " + dataDictionaryFile);
             Row row = new Row();
             List<Cell> cells = row.getCells();
             cells.add(new Cell(dataDictionaryFile.getFileName()));
