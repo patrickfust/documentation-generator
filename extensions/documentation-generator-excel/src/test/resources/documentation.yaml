@@ -1,0 +1,26 @@
+$schema:  https://patrickfust.github.io/documentation-generator/v1/documentation-schema.json
+documentationTitle: My database
+schemaName: theSchema
+dataDictionary:
+  dataDictionaryFiles:
+    - fileName: some_file.csv
+      version: 1.0.0
+      fileDescription: some description
+      columns:
+        - columnName: some_column
+          dataType: varchar(200)
+          mandatory: true
+        - columnName: some_other_column
+          dataType: date
+          example: xyz
+    - fileName: some_other_file.csv
+      version: 1.2.3
+      fileDescription: some other description
+      columns:
+        - columnName: some_column
+          dataType: uuid
+          example: de3ca8d0-10da-4a3a-96bc-12d965cbed08
+        - columnName: some_column_again
+          dataType: number
+        - columnName: my_date
+          dataType: date

@@ -5,6 +5,46 @@
   destination:
     className: dk.fust.docgen.destination.FileDestination
     file: data-dictionary.csv
+- className: dk.fust.docgen.datadict.DataDictionaryConfiguration
+  documentationFile: documentation.yaml
+  addDescriptionForFile: true
+  tableFormatter:
+    className: dk.fust.docgen.excel.format.table.ExcelBase64TableFormatter
+    headerExcelStyle:
+      fontName: Verdana
+      fontHeightInPoints: 11
+      fontColor: WHITE
+      bold: true
+      backgroundColor: GREY_25_PERCENT
+    secondaryHeaderExcelStyle:
+      fontName: Verdana
+      fontHeightInPoints: 9
+      fontColor: WHITE
+      bold: true
+      backgroundColor: GREY_50_PERCENT
+    evenRowExcelStyle:
+      fontName: Verdana
+      fontHeightInPoints: 9
+      fontColor: BLACK
+      bold: false
+      backgroundColor: 220, 220, 220
+    oddRowExcelStyle:
+      fontName: Verdana
+      fontHeightInPoints: 9
+      fontColor: BLACK
+      bold: false
+      backgroundColor: 240, 240, 240
+    defaultColumnWidth: 50
+    autoResizeColumns:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+  destination:
+    className: dk.fust.docgen.destination.Base64FileDestination
+    file: data-dictionary.xlsx
 - className: dk.fust.docgen.datadict.DataDictionaryMetaInfoConfiguration
   documentationFile: documentation.yaml
   tableFormatter:

@@ -52,4 +52,14 @@ public class Cell {
     public Cell(String content) {
         this.content = content;
     }
+
+    /**
+     * Constructor
+     * @param content content
+     * @param header true if it's a header
+     */
+    public Cell(String content, boolean header) {
+        this.content = content;
+        this.header = header;
+    }
 }

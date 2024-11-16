@@ -1,4 +1,4 @@
-Filename;Column;Position;Type;Mandatory;Keys;Description
-some_file.csv;some_column;1;varchar(200);Yes;;
-some_file.csv;some_other_column;2;date;No;;
-some_other_file.csv;some_column;1;number;No;;
+Filename;Column;Position;Type;Mandatory;Keys;Description;Example
+some_file.csv;some_column;1;varchar(200);Yes;;;
+some_file.csv;some_other_column;2;date;No;;;xyz
+some_other_file.csv;some_column;1;number;No;;;
