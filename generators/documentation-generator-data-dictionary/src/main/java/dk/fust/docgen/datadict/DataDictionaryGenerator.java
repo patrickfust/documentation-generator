@@ -34,48 +34,95 @@ public class DataDictionaryGenerator implements Generator {
 
     private FormatTable generateTable(Documentation documentation, DataDictionaryConfiguration dataDictionaryConfiguration) {
         FormatTable formatTable = new FormatTable();
-        formatTable.getRows().add(createHeaderRow());
+        formatTable.getRows().add(createHeaderRow(dataDictionaryConfiguration));
         List<DataDictionaryFile> dataDictionaryFiles = documentation.filterDataDictionaryFiles(dataDictionaryConfiguration.getFilterTags());
         for (DataDictionaryFile dataDictionaryFile : dataDictionaryFiles) {
             if (dataDictionaryConfiguration.isAddDescriptionForFile()) {
-                Row row = new Row();
-                List<Cell> cells = row.getCells();
-                cells.add(new Cell(dataDictionaryFile.getFileName()));
-                cells.add(new Cell(null));
-                cells.add(new Cell(null));
-                cells.add(new Cell(null));
-                cells.add(null);
-                cells.add(null);
-                cells.add(new Cell(dataDictionaryFile.getFileDescription()));
+                Row row = createDescriptionForFileRow(dataDictionaryFile, dataDictionaryConfiguration);
                 formatTable.getRows().add(row);
             }
             int position = 1;
             for (Column column : dataDictionaryFile.getColumns()) {
-                Row row = new Row();
-                List<Cell> cells = row.getCells();
-                cells.add(new Cell(dataDictionaryFile.getFileName()));
-                cells.add(new Cell(column.getColumnName()));
-                cells.add(new Cell(Integer.toString(position++)));
-                cells.add(new Cell(column.getDataType()));
-                cells.add(new Cell(column.getMandatory() ? "Yes" : "No"));
-                cells.add(new Cell(column.getKeys()));
-                cells.add(new Cell(column.getColumnDescription()));
+                Row row = createRowForColumn(column, position, dataDictionaryFile, dataDictionaryConfiguration);
+                position++;
                 formatTable.getRows().add(row);
             }
         }
         return formatTable;
     }
 
-    private static Row createHeaderRow() {
+    private static Row createRowForColumn(Column column, int position, DataDictionaryFile dataDictionaryFile, DataDictionaryConfiguration dataDictionaryConfiguration) {
+        Row row = new Row();
+        List<Cell> cells = row.getCells();
+        if (dataDictionaryConfiguration.isExportFilename()) {
+            cells.add(new Cell(dataDictionaryFile.getFileName()));
+        }
+        if (dataDictionaryConfiguration.isExportColumn()) {
+            cells.add(new Cell(column.getColumnName()));
+        }
+        if (dataDictionaryConfiguration.isExportPosition()) {
+            cells.add(new Cell(Integer.toString(position)));
+        }
+        if (dataDictionaryConfiguration.isExportDataType()) {
+            cells.add(new Cell(column.getDataType()));
+        }
+        if (dataDictionaryConfiguration.isExportMandatory()) {
+            cells.add(new Cell(column.getMandatory() ? "Yes" : "No"));
+        }
+        if (dataDictionaryConfiguration.isExportKeys()) {
+            cells.add(new Cell(column.getKeys()));
+        }
+        if (dataDictionaryConfiguration.isExportDescription()) {
+            cells.add(new Cell(column.getColumnDescription()));
+        }
+        return row;
+    }
+
+    private static Row createDescriptionForFileRow(DataDictionaryFile dataDictionaryFile, DataDictionaryConfiguration dataDictionaryConfiguration) {
+        Row row = new Row();
+        List<Cell> cells = row.getCells();
+        if (dataDictionaryConfiguration.isExportFilename()) {
+            cells.add(new Cell(dataDictionaryFile.getFileName()));
+        }
+        int emptyCells = 0;
+        emptyCells += dataDictionaryConfiguration.isExportColumn() ? 1 : 0;
+        emptyCells += dataDictionaryConfiguration.isExportMandatory() ? 1 : 0;
+        emptyCells += dataDictionaryConfiguration.isExportKeys() ? 1 : 0;
+        emptyCells += dataDictionaryConfiguration.isExportPosition() ? 1 : 0;
+        emptyCells += dataDictionaryConfiguration.isExportDataType() ? 1 : 0;
+        for (int i = 0; i < emptyCells; i++) {
+            cells.add(new Cell(null));
+        }
+        if (dataDictionaryConfiguration.isExportDescription()) {
+            cells.add(new Cell(dataDictionaryFile.getFileDescription()));
+        }
+        return row;
+    }
+
+    private static Row createHeaderRow(DataDictionaryConfiguration dataDictionaryConfiguration) {
         Row headerRow = new Row();
         List<Cell> headerCells = headerRow.getCells();
-        headerCells.add(new Cell(1, 1, "Filename", true));
-        headerCells.add(new Cell(1, 1, "Column", true));
-        headerCells.add(new Cell(1, 1, "Position", true));
-        headerCells.add(new Cell(1, 1, "Type", true));
-        headerCells.add(new Cell(1, 1, "Mandatory", true));
-        headerCells.add(new Cell(1, 1, "Keys", true));
-        headerCells.add(new Cell(1, 1, "Description", true));
+        if (dataDictionaryConfiguration.isExportFilename()) {
+            headerCells.add(new Cell(1, 1, "Filename", true));
+        }
+        if (dataDictionaryConfiguration.isExportColumn()) {
+            headerCells.add(new Cell(1, 1, "Column", true));
+        }
+        if (dataDictionaryConfiguration.isExportPosition()) {
+            headerCells.add(new Cell(1, 1, "Position", true));
+        }
+        if (dataDictionaryConfiguration.isExportDataType()) {
+            headerCells.add(new Cell(1, 1, "Type", true));
+        }
+        if (dataDictionaryConfiguration.isExportMandatory()) {
+            headerCells.add(new Cell(1, 1, "Mandatory", true));
+        }
+        if (dataDictionaryConfiguration.isExportKeys()) {
+            headerCells.add(new Cell(1, 1, "Keys", true));
+        }
+        if (dataDictionaryConfiguration.isExportDescription()) {
+            headerCells.add(new Cell(1, 1, "Description", true));
+        }
         return headerRow;
     }
 
