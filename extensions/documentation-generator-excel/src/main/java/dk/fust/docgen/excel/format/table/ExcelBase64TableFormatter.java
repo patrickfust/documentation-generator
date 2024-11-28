@@ -1,5 +1,6 @@
 package dk.fust.docgen.excel.format.table;
 
+import dk.fust.docgen.excel.format.table.model.ColumnWidth;
 import dk.fust.docgen.excel.format.table.model.ExcelColor;
 import dk.fust.docgen.excel.format.table.model.ExcelConfiguration;
 import dk.fust.docgen.excel.format.table.model.ExcelStyle;
@@ -33,6 +34,8 @@ public class ExcelBase64TableFormatter implements TableFormatter {
 
     private List<Integer> autoResizeColumns = new ArrayList<>();
 
+    private List<ColumnWidth> columnWidths = new ArrayList<>();
+
     @Override
     public String formatTable(FormatTable formatTable) {
         ExcelConfiguration excelConfiguration = makeExcelConfiguration();
@@ -51,6 +54,7 @@ public class ExcelBase64TableFormatter implements TableFormatter {
         excelConfiguration.setExcelStyles(createExcelStyles());
         excelConfiguration.setDefaultColumnWidth(defaultColumnWidth);
         excelConfiguration.setAutoResizeColumns(autoResizeColumns);
+        excelConfiguration.setColumnWidths(columnWidths);
         return excelConfiguration;
     }
 

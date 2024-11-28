@@ -56,5 +56,30 @@ class ExcelBase64TableFormatterSpec extends Specification {
         noExceptionThrown()
     }
 
+    def "read using generator configuration with column widths"() {
+        given:
+        DocumentationConfigurationLoaderService service = new DocumentationConfigurationLoaderService()
+
+        when:
+        List<GeneratorConfiguration> configurations = service.readConfigurations(TestHelper.getTestFile('generator-configuration-column-and-row.yml'))
+
+        then:
+        configurations.size() == 1
+        DataDictionaryConfiguration ddc = configurations[0] as DataDictionaryConfiguration
+        ExcelBase64TableFormatter excelBase64TableFormatter = ddc.tableFormatter as ExcelBase64TableFormatter
+        excelBase64TableFormatter.autoResizeColumns.size() == 0
+        excelBase64TableFormatter.columnWidths.size() == 2
+        excelBase64TableFormatter.columnWidths[0].columnNumber == 0
+        excelBase64TableFormatter.columnWidths[0].width == 20
+        excelBase64TableFormatter.columnWidths[1].columnNumber == 10
+        excelBase64TableFormatter.columnWidths[1].width == 30
+
+        when: 'generating excel'
+        DocumentationGenerator documentationGenerator = new DocumentationGenerator();
+        documentationGenerator.generate(configurations)
+
+        then:
+        noExceptionThrown()
+    }
 
 }

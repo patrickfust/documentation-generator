@@ -23,4 +23,9 @@ public class ExcelConfiguration {
      */
     private List<Integer> autoResizeColumns = new ArrayList<>();
 
+    /**
+     * These columns will get the desired width
+     */
+    private List<ColumnWidth> columnWidths = new ArrayList<>();
+
 }

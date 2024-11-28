@@ -1,15 +1,18 @@
 package dk.fust.docgen.excel.format.table;
 
 import dk.fust.docgen.excel.format.table.model.CellStyleId;
+import dk.fust.docgen.excel.format.table.model.ColumnWidth;
 import dk.fust.docgen.excel.format.table.model.ExcelConfiguration;
 import dk.fust.docgen.excel.format.table.model.ExcelStyle;
 import dk.fust.docgen.excel.format.table.model.ExcelStyles;
 import dk.fust.docgen.format.table.FormatTable;
 import dk.fust.docgen.util.Assert;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellAddress;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -77,13 +80,24 @@ public class FormatTableToExcel {
             rowIdx++;
         }
         autoResize(maxCol, sheet, excelConfiguration);
+        setColumnWidths(maxCol, sheet, excelConfiguration);
         return workbook;
     }
 
+    private static void setColumnWidths(int maxCol, XSSFSheet sheet, ExcelConfiguration excelConfiguration) {
+        log.debug("Setting Column withs - Max cell width: {}, {}", maxCol, excelConfiguration.getColumnWidths());
+        for (ColumnWidth columnWidth : excelConfiguration.getColumnWidths()) {
+            if (columnWidth.getColumnNumber() <= maxCol) {
+                log.debug("Setting column width for col {} to width {}", columnWidth.getColumnNumber(), (columnWidth.getWidth() * 256));
+                sheet.setColumnWidth(columnWidth.getColumnNumber(), columnWidth.getWidth() * 256);
+            }
+        }
+    }
+
     private static void autoResize(int maxCol, XSSFSheet sheet, ExcelConfiguration excelConfiguration) {
-        log.debug("Max cell width: {}", maxCol);
         for (Integer colIdx : excelConfiguration.getAutoResizeColumns()) {
             if (colIdx <= maxCol) {
+                log.debug("Setting auto-resize on column {}", colIdx);
                 sheet.autoSizeColumn(colIdx);
             }
         }
@@ -118,7 +132,20 @@ public class FormatTableToExcel {
             cellStyle.setFillForegroundColor(excelStyle.getBackgroundColor().getXssfColor());
         }
         cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        cellStyle.setWrapText(true);
+        setBorder(cellStyle);
         return cellStyle;
+    }
+
+    private static void setBorder(CellStyle cellStyle) {
+        cellStyle.setBorderBottom(BorderStyle.THIN);
+        cellStyle.setBorderLeft(BorderStyle.THIN);
+        cellStyle.setBorderRight(BorderStyle.THIN);
+        cellStyle.setBorderTop(BorderStyle.THIN);
+        cellStyle.setBottomBorderColor(IndexedColors.WHITE.getIndex());
+        cellStyle.setLeftBorderColor(IndexedColors.WHITE.getIndex());
+        cellStyle.setRightBorderColor(IndexedColors.WHITE.getIndex());
+        cellStyle.setTopBorderColor(IndexedColors.WHITE.getIndex());
     }
 
 }
