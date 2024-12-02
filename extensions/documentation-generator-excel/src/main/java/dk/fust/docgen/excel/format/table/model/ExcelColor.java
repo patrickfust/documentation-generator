@@ -14,6 +14,26 @@ import java.awt.Color;
 @Data
 public class ExcelColor {
 
+    /**
+     * White
+     */
+    public static final ExcelColor WHITE = new ExcelColor(IndexedColors.WHITE);
+
+    /**
+     * Dark blue
+     */
+    public static final ExcelColor DARK_BLUE = new ExcelColor(IndexedColors.DARK_BLUE);
+
+    /**
+     * Light blue
+     */
+    public static final ExcelColor LIGHT_BLUE = new ExcelColor(IndexedColors.LIGHT_BLUE);
+
+    /**
+     * Black
+     */
+    public static final ExcelColor BLACK = new ExcelColor(IndexedColors.BLACK);
+
     private IndexedColors indexedColor;
 
     private XSSFColor xssfColor;

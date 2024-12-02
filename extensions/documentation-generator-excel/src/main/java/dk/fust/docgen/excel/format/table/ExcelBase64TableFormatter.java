@@ -9,7 +9,6 @@ import dk.fust.docgen.format.table.FormatTable;
 import dk.fust.docgen.format.table.TableFormatter;
 import dk.fust.docgen.util.Assert;
 import lombok.Data;
-import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.ByteArrayOutputStream;
@@ -18,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
+import static dk.fust.docgen.excel.format.table.model.ExcelColor.*;
+
 /**
  * Formats a FormatTable into an Excel workbook.
  * The binary content is encoded as base64, and may be written to a file using {@link dk.fust.docgen.destination.Base64FileDestination}
@@ -25,10 +26,10 @@ import java.util.List;
 @Data
 public class ExcelBase64TableFormatter implements TableFormatter {
 
-    private ExcelStyle headerExcelStyle = new ExcelStyle("Verdana", (short) 11, true, new ExcelColor(IndexedColors.WHITE), new ExcelColor(IndexedColors.DARK_BLUE));
-    private ExcelStyle secondaryHeaderExcelStyle = new ExcelStyle("Verdana", (short) 9, true, new ExcelColor(IndexedColors.WHITE), new ExcelColor(IndexedColors.LIGHT_BLUE));
-    private ExcelStyle evenRowExcelStyle = new ExcelStyle("Verdana", (short) 9, false, new ExcelColor(IndexedColors.BLACK), new ExcelColor("220, 220, 220"));
-    private ExcelStyle oddRowExcelStyle = new ExcelStyle("Verdana", (short) 9, false, new ExcelColor(IndexedColors.BLACK), new ExcelColor("240, 240, 240"));
+    private ExcelStyle headerExcelStyle = new ExcelStyle("Verdana", (short) 11, true, WHITE, DARK_BLUE, WHITE);
+    private ExcelStyle secondaryHeaderExcelStyle = new ExcelStyle("Verdana", (short) 9, true, WHITE, LIGHT_BLUE, WHITE);
+    private ExcelStyle evenRowExcelStyle = new ExcelStyle("Verdana", (short) 9, false, BLACK, new ExcelColor("220, 220, 220"), WHITE);
+    private ExcelStyle oddRowExcelStyle = new ExcelStyle("Verdana", (short) 9, false, BLACK, new ExcelColor("240, 240, 240"), WHITE);
 
     private int defaultColumnWidth = 50;
 

@@ -133,19 +133,22 @@ public class FormatTableToExcel {
         }
         cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         cellStyle.setWrapText(true);
-        setBorder(cellStyle);
+        setBorder(cellStyle, excelStyle);
         return cellStyle;
     }
 
-    private static void setBorder(CellStyle cellStyle) {
-        cellStyle.setBorderBottom(BorderStyle.THIN);
-        cellStyle.setBorderLeft(BorderStyle.THIN);
-        cellStyle.setBorderRight(BorderStyle.THIN);
-        cellStyle.setBorderTop(BorderStyle.THIN);
-        cellStyle.setBottomBorderColor(IndexedColors.WHITE.getIndex());
-        cellStyle.setLeftBorderColor(IndexedColors.WHITE.getIndex());
-        cellStyle.setRightBorderColor(IndexedColors.WHITE.getIndex());
-        cellStyle.setTopBorderColor(IndexedColors.WHITE.getIndex());
+    private static void setBorder(CellStyle cellStyle, ExcelStyle excelStyle) {
+        if (excelStyle.getBorderColor() != null && excelStyle.getBorderColor().getIndexedColor() != null) {
+            cellStyle.setBorderBottom(BorderStyle.THIN);
+            cellStyle.setBorderLeft(BorderStyle.THIN);
+            cellStyle.setBorderRight(BorderStyle.THIN);
+            cellStyle.setBorderTop(BorderStyle.THIN);
+            short borderColorIndex = excelStyle.getBorderColor().getIndexedColor().getIndex();
+            cellStyle.setBottomBorderColor(borderColorIndex);
+            cellStyle.setLeftBorderColor(borderColorIndex);
+            cellStyle.setRightBorderColor(borderColorIndex);
+            cellStyle.setTopBorderColor(borderColorIndex);
+        }
     }
 
 }

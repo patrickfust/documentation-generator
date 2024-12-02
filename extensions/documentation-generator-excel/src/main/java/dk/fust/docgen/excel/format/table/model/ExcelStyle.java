@@ -13,6 +13,7 @@ public class ExcelStyle {
     private ExcelColor fontColor;
     private boolean bold = true;
     private ExcelColor backgroundColor;
+    private ExcelColor borderColor;
 
     /**
      * Default empty constructor
@@ -27,13 +28,15 @@ public class ExcelStyle {
      * @param bold bold or not
      * @param fontColor font color
      * @param backgroundColor background color
+     * @param borderColor color of the border - May be null
      */
-    public ExcelStyle(String fontName, short fontHeightInPoints, boolean bold, ExcelColor fontColor, ExcelColor backgroundColor) {
+    public ExcelStyle(String fontName, short fontHeightInPoints, boolean bold, ExcelColor fontColor, ExcelColor backgroundColor, ExcelColor borderColor) {
         this.fontName = fontName;
         this.fontHeightInPoints = fontHeightInPoints;
         this.fontColor = fontColor;
         this.bold = bold;
         this.backgroundColor = backgroundColor;
+        this.borderColor = borderColor;
     }
 
 }
