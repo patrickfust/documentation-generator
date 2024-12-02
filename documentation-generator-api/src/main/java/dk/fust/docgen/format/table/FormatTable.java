@@ -16,4 +16,5 @@ public class FormatTable {
     private List<Row> rows = new ArrayList<>();
 
     private ColGroup colGroup;
+
 }

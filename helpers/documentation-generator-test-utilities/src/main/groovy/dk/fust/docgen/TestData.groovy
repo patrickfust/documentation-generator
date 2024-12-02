@@ -34,14 +34,14 @@ class TestData {
                         ),
                         new Row(
                                 cells: [
-                                        new Cell(content: '<strong>Table Name</strong>'),
-                                        new Cell(content: '<strong>Column Name</strong>'),
-                                        new Cell(content: '<strong>Data Type</strong>'),
+                                        new Cell(content: 'Table Name'),
+                                        new Cell(content: 'Column Name'),
+                                        new Cell(content: 'Data Type'),
 
-                                        new Cell(content: '<strong>Database Name</strong>'),
-                                        new Cell(content: '<strong>Table Name</strong>'),
-                                        new Cell(content: '<strong>Column Name</strong>'),
-                                        new Cell(content: '<strong>Data Type</strong>'),
+                                        new Cell(content: 'Database Name'),
+                                        new Cell(content: 'Table Name'),
+                                        new Cell(content: 'Column Name'),
+                                        new Cell(content: 'Data Type'),
                                 ]
                         ),
                         new Row(
