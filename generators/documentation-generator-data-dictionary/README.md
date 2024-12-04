@@ -26,6 +26,7 @@ To use the data dictionary generator, you must configure it with `dk.fust.docgen
 | exportMandatory       | boolean        | Should the mandatory field be in the export?                 | true                     |
 | exportKeys            | boolean        | Should the keys be in the export?                            | true                     |
 | exportDescription     | boolean        | Should the description be in the export?                     | true                     |
+| exportExample         | boolean        | Should the example be in the export?                         | true                     |
 
 ## Model usage
 

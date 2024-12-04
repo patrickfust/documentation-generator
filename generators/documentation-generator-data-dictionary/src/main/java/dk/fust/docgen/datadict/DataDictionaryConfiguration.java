@@ -20,6 +20,7 @@ public class DataDictionaryConfiguration extends AbstractDataDictionaryConfigura
     private boolean exportMandatory = true;
     private boolean exportKeys = true;
     private boolean exportDescription = true;
+    private boolean exportExample = true;
 
     @Override
     public Generator getGenerator() {

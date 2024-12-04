@@ -1,6 +1,7 @@
 package dk.fust.docgen.format.table;
 
 import lombok.Data;
+import lombok.Setter;
 
 /**
  * Represent a cell in a table
@@ -11,7 +12,9 @@ public class Cell {
     private int colspan = 1;
     private int rowspan = 1;
     private boolean header = false;
+    @Setter
     private String content;
+    private Long contentLong;
 
     /**
      * Default constructor
@@ -54,6 +57,14 @@ public class Cell {
     }
 
     /**
+     * Constructor using a long
+     * @param contentLong content as long
+     */
+    public Cell(Long contentLong) {
+        this.contentLong = contentLong;
+    }
+
+    /**
      * Constructor
      * @param content content
      * @param header true if it's a header
@@ -62,4 +73,17 @@ public class Cell {
         this.content = content;
         this.header = header;
     }
+
+    /**
+     * Returning a String representation of contentLong if not null,
+     * otherwise content
+     * @return contentLong or content
+     */
+    public String getContent() {
+        if (contentLong != null) {
+            return Long.toString(contentLong);
+        }
+        return content;
+    }
+
 }

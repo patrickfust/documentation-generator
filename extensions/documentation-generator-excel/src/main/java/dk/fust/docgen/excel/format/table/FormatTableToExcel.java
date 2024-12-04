@@ -50,16 +50,22 @@ public class FormatTableToExcel {
             XSSFRow row = sheet.createRow(rowIdx);
             int colIdx = 0;
             CellStyleId headerCellStyleId = hasShownHeader ? CellStyleId.SECONDARY_HEADER : CellStyleId.HEADER;
+            log.debug("headerCellStyleId: {}", headerCellStyleId);
             for (dk.fust.docgen.format.table.Cell fustCell : fustRow.getCells()) {
                 XSSFCell cell = row.createCell(colIdx);
                 if (fustCell != null) {
+                    log.debug("fustCell: {}", fustCell);
                     if (fustCell.isHeader()) {
                         cell.setCellStyle(styles.get(headerCellStyleId));
                         hasShownHeader = true;
                     } else {
                         cell.setCellStyle(rowIdx % 2 == 0 ? styles.get(CellStyleId.EVEN_ROW) : styles.get(CellStyleId.ODD_ROW));
                     }
-                    cell.setCellValue(fustCell.getContent());
+                    if (fustCell.getContentLong() != null) {
+                        cell.setCellValue(fustCell.getContentLong());
+                    } else {
+                        cell.setCellValue(fustCell.getContent());
+                    }
                     if (fustCell.getColspan() > 1 || fustCell.getRowspan() > 1) {
                         int rowSpan = fustCell.getRowspan() > 1 ? fustCell.getRowspan() - 1 : 0;
                         int colSpan = fustCell.getColspan() > 1 ? fustCell.getColspan() - 1 : 0;

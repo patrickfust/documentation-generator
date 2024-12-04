@@ -23,6 +23,7 @@ class DataDictionaryGeneratorSpec extends Specification {
                 exportKeys: expKeys,
                 exportDataType: expType,
                 exportPosition: expPosition,
+                exportExample: expExamples,
                 addDescriptionForFile: addDescForFile
         )
 
@@ -39,21 +40,23 @@ class DataDictionaryGeneratorSpec extends Specification {
         mockTableFormatter.formatTableArgument.rows[2].cells.size() == cellSize
 
         where:
-        addDescForFile | expFilename | expDescription | expColumn | expKeys | expType | expPosition | cellSize | rowSize
-        false          | true        | true           | true      | true    | true    | true        | 7        | 4
-        false          | false       | true           | true      | true    | true    | true        | 6        | 4
-        false          | false       | false          | true      | true    | true    | true        | 5        | 4
-        false          | false       | false          | false     | true    | true    | true        | 4        | 4
-        false          | false       | false          | false     | false   | true    | true        | 3        | 4
-        false          | false       | false          | false     | false   | false   | true        | 2        | 4
-        false          | false       | false          | false     | false   | false   | false       | 1        | 4
-        true           | true        | true           | true      | true    | true    | true        | 7        | 6
-        true           | false       | true           | true      | true    | true    | true        | 6        | 6
-        true           | false       | false          | true      | true    | true    | true        | 5        | 6
-        true           | false       | false          | false     | true    | true    | true        | 4        | 6
-        true           | false       | false          | false     | false   | true    | true        | 3        | 6
-        true           | false       | false          | false     | false   | false   | true        | 2        | 6
-        true           | false       | false          | false     | false   | false   | false       | 1        | 6
+        addDescForFile | expFilename | expDescription | expColumn | expKeys | expType | expPosition | expExamples | cellSize | rowSize
+        false          | true        | true           | true      | true    | true    | true        | true        | 8        | 4
+        false          | false       | true           | true      | true    | true    | true        | true        | 7        | 4
+        false          | false       | false          | true      | true    | true    | true        | true        | 6        | 4
+        false          | false       | false          | false     | true    | true    | true        | true        | 5        | 4
+        false          | false       | false          | false     | false   | true    | true        | true        | 4        | 4
+        false          | false       | false          | false     | false   | false   | true        | true        | 3        | 4
+        false          | false       | false          | false     | false   | false   | false       | true        | 2        | 4
+        false          | false       | false          | false     | false   | false   | false       | false       | 1        | 4
+        true           | true        | true           | true      | true    | true    | true        | true        | 8        | 6
+        true           | false       | true           | true      | true    | true    | true        | true        | 7        | 6
+        true           | false       | false          | true      | true    | true    | true        | true        | 6        | 6
+        true           | false       | false          | false     | true    | true    | true        | true        | 5        | 6
+        true           | false       | false          | false     | false   | true    | true        | true        | 4        | 6
+        true           | false       | false          | false     | false   | false   | true        | true        | 3        | 6
+        true           | false       | false          | false     | false   | false   | false       | true        | 2        | 6
+        true           | false       | false          | false     | false   | false   | false       | false       | 1        | 6
     }
 
     def "read using generator configuration"() {

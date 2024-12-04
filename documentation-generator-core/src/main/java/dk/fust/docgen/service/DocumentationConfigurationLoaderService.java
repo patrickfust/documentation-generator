@@ -92,6 +92,8 @@ public class DocumentationConfigurationLoaderService {
             if (clazz.getSuperclass() != null) {
                 // Try it using the super class
                 setValue(fieldName, node, clazz.getSuperclass(), instance);
+            } else if (!fieldName.equals("className")) {
+                throw new IllegalArgumentException("Could not find setter for " + fieldName);
             }
         }
     }
