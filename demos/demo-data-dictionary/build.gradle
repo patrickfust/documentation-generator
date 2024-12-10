@@ -9,6 +9,7 @@ buildscript {
         classpath("dk.fust.docgen:documentation-generator-gradle:${documentationGeneratorVersion}") { changing = true }
         classpath("dk.fust.docgen:documentation-generator-data-dictionary:${documentationGeneratorVersion}")
         classpath("dk.fust.docgen:documentation-generator-csv:${documentationGeneratorVersion}")
+        classpath("dk.fust.docgen:documentation-generator-excel:${documentationGeneratorVersion}")
     }
 }
 

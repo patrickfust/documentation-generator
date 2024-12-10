@@ -7,6 +7,7 @@ This document covers:
 - [Idea of the documentaion generator](#idea-of-the-documentation-generator)
 - [Documentation structure](#documentation-structure)
 - [Destinations](#destinations)
+- [Table formats](#table-format)
 - [Usage](#usage)
 - [Documentation types](#documentation-types)
   - [Types supported](#documentation-types-supported)
@@ -20,8 +21,8 @@ This document covers:
 
 ## Idea of the Documentation Generator
 
-The basic idea of the Documentation Generator is one place to have the model and then generate 
-and distribute documentation to different places.
+The basic idea of the Documentation Generator is one place to have a single model and then generate 
+and distribute documentation into different places.
 
 Each `Generator` generates something and a `Destination` can send the output to somewhere. 
 
@@ -53,6 +54,10 @@ flowchart TD
   destination4["Destination 4"]
   csv(["CSV file"])
   
+  generator5["Generator 5"]
+  destination5["Destination 5"]
+  excel(["Excel workbook"])
+  
   generatorX["Generator X"]
   destinationX["Destination X"]
   something(["Something else"])
@@ -62,6 +67,7 @@ flowchart TD
   docgen --> generator2
   docgen --> generator3
   docgen --> generator4
+  docgen --> generator5
   docgen --> generatorX
   
   generator1 --> generator1Generate
@@ -77,6 +83,9 @@ flowchart TD
   generator4 --> destination4
   destination4 --> csv
   
+  generator5 --> destination5
+  destination5 --> excel
+  
   generatorX --> destinationX
   destinationX --> something
 ```
@@ -87,13 +96,13 @@ flowchart TD
 
 The documentation file or files can be yaml- or json-files.
 
-If you in the beginning of your file add a reference to the schema, so you IDE can validate and have code completion.
+If you in the beginning of your file add a reference to the schema, so your IDE can validate and have code completion.
 
 ```yaml
 $schema:  https://patrickfust.github.io/documentation-generator/v1/documentation-schema.json
 ```
 
-Example of a file
+Example of a documentation file:
 
 ```yaml
 $schema:  https://patrickfust.github.io/documentation-generator/v1/documentation-schema.json
@@ -219,7 +228,19 @@ Sends to separate files in the directory
 
 Class name: `dk.fust.docgen.destination.FileDestination`
 
-Replace an entire file with the document
+Replace an entire file with the document.
+
+| Setting | Type | Description                             | Default |
+|---------|------|-----------------------------------------|---------|
+| file    | File | Location of the file. Must be writeable |         |
+
+### Base64FileDestination
+
+Class name: `dk.fust.docgen.destination.Base64FileDestination`
+
+Base64 decodes the document and replaces the entire file with binary content.
+Can for instance be used in conjunction with [ExcelBase64TableFormatter](#excelbase64tableformatter).
+
 
 | Setting | Type | Description                             | Default |
 |---------|------|-----------------------------------------|---------|
@@ -260,7 +281,8 @@ Read the documentation [here](extensions/documentation-generator-confluence)
 
 Some generators use tables and needs a formatter to create a string representation of the table.
 The table formatter you want to use, is configured when you configure the generator.
-Example:
+
+### Example
 ```yaml
 - className: dk.fust.docgen.datadict.DataDictionaryConfiguration
   documentationFile: data-dictionary.yml
@@ -306,18 +328,43 @@ tableFormatter:
     - "242"
 ```
 
+### JsonTableFormatter
+
+Class name: 'dk.fust.docgen.format.table.JsonTableFormatter'
+
+Generates JSON.
+
+| Setting     | Type    | Description                                      | Default |
+|-------------|---------|--------------------------------------------------|---------|
+| yaml        | boolean | If true, it's rendered as yaml otherwise as json | false   |  
+| prettyPrint | boolean | Should the json be pretty printed?               | true    |  
+
+#### Example
+
+```yaml
+tableFormatter:
+  className: dk.fust.docgen.format.table.JsonTableFormatter
+  yaml: true
+```
+
 ### CSVTableFormatter
 
 Class name: `dk.fust.docgen.csv.format.table.CSVTableFormatter` 
 
 Read the documentation [here](extensions/documentation-generator-csv)
 
+### ExcelBase64TableFormatter
+
+Class name: `dk.fust.docgen.excel.format.table.ExcelBase64TableFormatter` 
+
+Read the documentation [here](extensions/documentation-generator-excel)
+
 
 ---
 
 ## Usage
 
-You can use Documentation Generator as
+You can use Documentation Generator as:
 - [Gradle plugin](documentation-generator-gradle)
 - [Maven plugin](documentation-generator-maven-plugin)
 
@@ -334,10 +381,10 @@ Add a dependency in your buildscript with the corresponding artifact id.
 
 | Artifact id                                                                                   | Description                        |
 |-----------------------------------------------------------------------------------------------|------------------------------------|
+| [documentation-generator-data-dictionary](generators/documentation-generator-data-dictionary) | Generates Data dicitionary         |
+| [documentation-generator-datalineage](generators/documentation-generator-datalineage)         | Generates Data lineage             |
 | [documentation-generator-erdiagram](generators/documentation-generator-erdiagram)             | Generates entity-relation diagrams |
 | [documentation-generator-sqlscript](generators/documentation-generator-sqlscript)             | Generates SQL-files                |
-| [documentation-generator-datalineage](generators/documentation-generator-datalineage)         | Generates Data lineage             |
-| [documentation-generator-data-dictionary](generators/documentation-generator-data-dictionary) | Generates Data dicitionary         |
 
 ---
 

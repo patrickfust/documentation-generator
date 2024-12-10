@@ -2,6 +2,8 @@ package dk.fust.docgen.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.TextNode;
 import dk.fust.docgen.GeneratorConfiguration;
 import dk.fust.docgen.util.Assert;
 import lombok.extern.slf4j.Slf4j;
@@ -38,22 +40,35 @@ public class DocumentationConfigurationLoaderService {
         List<GeneratorConfiguration> configurations = new ArrayList<>();
         JsonNode jsonNode = documentationService.loadFileAsTree(configurationFile);
         for (JsonNode node : jsonNode) {
-            configurations.add((GeneratorConfiguration) createAndPopulateInstance(node));
+            configurations.add((GeneratorConfiguration) createAndPopulateInstance(node, null));
         }
         return configurations;
     }
 
-    private Object createAndPopulateInstance(JsonNode node) {
+    private Object createAndPopulateInstance(JsonNode node, Class<?> dataType) {
         try {
-            if (node.get(CLASS_NAME) == null) {
+            if (node.get(CLASS_NAME) == null && dataType == null) {
+                if (node.canConvertToInt()) {
+                    return node.intValue();
+                }
                 return node.textValue();
             }
-            String className = node.get(CLASS_NAME).textValue();
-            Class<?> clazz = Class.forName(className);
+            Class<?> clazz;
+            if (node.get(CLASS_NAME) != null) {
+                String className = node.get(CLASS_NAME).textValue();
+                clazz = Class.forName(className);
+            } else {
+                clazz = dataType;
+            }
             Object instance = clazz.getDeclaredConstructor().newInstance();
+            boolean hasFields = false;
             for (Iterator<String> it = node.fieldNames(); it.hasNext(); ) {
                 String fieldName = it.next();
                 setValue(fieldName, node.get(fieldName), clazz, instance);
+                hasFields = true;
+            }
+            if (!hasFields && node instanceof TextNode) {
+                setValue("value", node, clazz, instance);
             }
             return instance;
         } catch (ReflectiveOperationException e) {
@@ -74,7 +89,12 @@ public class DocumentationConfigurationLoaderService {
             }
             method.invoke(instance, convertObject(node, dataType));
         } catch (NoSuchMethodException | NoSuchFieldException e) {
-            // It's OK
+            if (clazz.getSuperclass() != null) {
+                // Try it using the super class
+                setValue(fieldName, node, clazz.getSuperclass(), instance);
+            } else if (!fieldName.equals("className")) {
+                throw new IllegalArgumentException("Could not find setter for " + fieldName);
+            }
         }
     }
 
@@ -106,6 +126,9 @@ public class DocumentationConfigurationLoaderService {
         if (dataType == long.class || dataType == Long.class) {
             return jsonNode.longValue();
         }
+        if (dataType == short.class || dataType == Short.class) {
+            return jsonNode.shortValue();
+        }
         if (dataType == boolean.class || dataType == Boolean.class) {
             return jsonNode.booleanValue();
         }
@@ -118,7 +141,7 @@ public class DocumentationConfigurationLoaderService {
         if (dataType == Map.class) {
             return convertMap(jsonNode);
         }
-        return createAndPopulateInstance(jsonNode);
+        return createAndPopulateInstance(jsonNode, dataType);
     }
 
     private Map convertMap(JsonNode jsonNode) {
@@ -138,7 +161,7 @@ public class DocumentationConfigurationLoaderService {
         ArrayNode arrayNode = (ArrayNode) jsonNode;
         for (int idx = 0; idx < arrayNode.size(); idx++) {
             JsonNode node = arrayNode.get(idx);
-            Object instance = createAndPopulateInstance(node);
+            Object instance = createAndPopulateInstance(node, null);
             list.add(instance);
         }
 

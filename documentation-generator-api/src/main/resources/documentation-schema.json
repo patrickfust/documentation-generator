@@ -101,6 +101,10 @@
                 "type" : "string",
                 "description" : "Filename for the data dictionary"
               },
+              "tableName" : {
+                "type" : "string",
+                "description" : "Corresponding table name"
+              },
               "tags" : {
                 "description" : "List of tags that may be used in a filter",
                 "type" : "array",

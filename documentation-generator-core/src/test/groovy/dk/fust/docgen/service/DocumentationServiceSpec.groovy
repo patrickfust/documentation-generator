@@ -1,6 +1,5 @@
 package dk.fust.docgen.service
 
-import com.fasterxml.jackson.databind.JsonNode
 import dk.fust.docgen.TestHelper
 import dk.fust.docgen.model.Documentation
 import spock.lang.Specification

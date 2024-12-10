@@ -1,0 +1,9 @@
+[ {
+  "Description" : "some description",
+  "Version" : "1.0.0",
+  "Filename" : "some_file.csv"
+}, {
+  "Description" : "some other description",
+  "Version" : "1.2.3",
+  "Filename" : "some_other_file.csv"
+} ]

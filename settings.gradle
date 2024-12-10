@@ -11,6 +11,7 @@ include 'documentation-generator-api',
 
         'extensions:documentation-generator-csv',
         'extensions:documentation-generator-confluence',
+        'extensions:documentation-generator-excel',
 
         'helpers:documentation-generator-test-utilities',
         'helpers:schema-generator'

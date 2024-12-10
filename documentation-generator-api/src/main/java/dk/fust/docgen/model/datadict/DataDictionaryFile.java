@@ -14,6 +14,9 @@ public class DataDictionaryFile {
     @Description(value = "Filename for the data dictionary", required = true)
     private String fileName;
 
+    @Description(value = "Corresponding table name")
+    private String tableName;
+
     @Description(value = "Data dictionary version", required = true)
     private String version;
 
