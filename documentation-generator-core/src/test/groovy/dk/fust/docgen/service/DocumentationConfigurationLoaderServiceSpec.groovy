@@ -21,10 +21,10 @@ class DocumentationConfigurationLoaderServiceSpec extends Specification {
         then:
         conf.size() == 2
         conf.first() instanceof MockGeneratorConfiguration
-        MockGeneratorConfiguration mockGeneratorConfiguration = conf.first()
+        MockGeneratorConfiguration mockGeneratorConfiguration = conf.first() as MockGeneratorConfiguration
         mockGeneratorConfiguration.getDocumentationFile().name == 'documentation.yaml'
         mockGeneratorConfiguration.getDestination() instanceof MarkdownDestination
-        MarkdownDestination markdownDestination = mockGeneratorConfiguration.getDestination()
+        MarkdownDestination markdownDestination = mockGeneratorConfiguration.getDestination() as MarkdownDestination
         markdownDestination.file.name == 'README.md'
         mockGeneratorConfiguration.anInt == 1
         mockGeneratorConfiguration.aBigInteger == 2
@@ -34,6 +34,18 @@ class DocumentationConfigurationLoaderServiceSpec extends Specification {
         mockGeneratorConfiguration.aBoolean
         mockGeneratorConfiguration.aBigBoolean
         mockGeneratorConfiguration.mockEnum == MockEnum.B
+    }
+
+    def "read bad documentation configuration where field don't exist"() {
+        given:
+        DocumentationConfigurationLoaderService service = new DocumentationConfigurationLoaderService()
+        File file = TestHelper.getTestFile('generator-configuration-field-not-exists.yml')
+
+        when:
+        service.readConfigurations(file)
+
+        then:
+        thrown(IllegalArgumentException)
     }
 
 }

@@ -41,7 +41,7 @@ public class DataDictionaryGenerator implements Generator {
                 Row row = createDescriptionForFileRow(dataDictionaryFile, dataDictionaryConfiguration);
                 formatTable.getRows().add(row);
             }
-            int position = 1;
+            long position = 1;
             for (Column column : dataDictionaryFile.getColumns()) {
                 Row row = createRowForColumn(column, position, dataDictionaryFile, dataDictionaryConfiguration);
                 position++;
@@ -51,7 +51,7 @@ public class DataDictionaryGenerator implements Generator {
         return formatTable;
     }
 
-    private static Row createRowForColumn(Column column, int position, DataDictionaryFile dataDictionaryFile, DataDictionaryConfiguration dataDictionaryConfiguration) {
+    private static Row createRowForColumn(Column column, long position, DataDictionaryFile dataDictionaryFile, DataDictionaryConfiguration dataDictionaryConfiguration) {
         Row row = new Row();
         List<Cell> cells = row.getCells();
         if (dataDictionaryConfiguration.isExportFilename()) {
@@ -61,7 +61,7 @@ public class DataDictionaryGenerator implements Generator {
             cells.add(new Cell(column.getColumnName()));
         }
         if (dataDictionaryConfiguration.isExportPosition()) {
-            cells.add(new Cell(Integer.toString(position)));
+            cells.add(new Cell(position));
         }
         if (dataDictionaryConfiguration.isExportDataType()) {
             cells.add(new Cell(column.getDataType()));
@@ -75,6 +75,9 @@ public class DataDictionaryGenerator implements Generator {
         if (dataDictionaryConfiguration.isExportDescription()) {
             cells.add(new Cell(column.getColumnDescription()));
         }
+        if (dataDictionaryConfiguration.isExportExample()) {
+            cells.add(new Cell(column.getExample()));
+        }
         return row;
     }
 
@@ -82,7 +85,7 @@ public class DataDictionaryGenerator implements Generator {
         Row row = new Row();
         List<Cell> cells = row.getCells();
         if (dataDictionaryConfiguration.isExportFilename()) {
-            cells.add(new Cell(dataDictionaryFile.getFileName()));
+            cells.add(new Cell(dataDictionaryFile.getFileName(), true));
         }
         int emptyCells = 0;
         emptyCells += dataDictionaryConfiguration.isExportColumn() ? 1 : 0;
@@ -91,10 +94,13 @@ public class DataDictionaryGenerator implements Generator {
         emptyCells += dataDictionaryConfiguration.isExportPosition() ? 1 : 0;
         emptyCells += dataDictionaryConfiguration.isExportDataType() ? 1 : 0;
         for (int i = 0; i < emptyCells; i++) {
-            cells.add(new Cell(null));
+            cells.add(new Cell((String) null, true));
         }
         if (dataDictionaryConfiguration.isExportDescription()) {
-            cells.add(new Cell(dataDictionaryFile.getFileDescription()));
+            cells.add(new Cell(dataDictionaryFile.getFileDescription(), true));
+        }
+        if (dataDictionaryConfiguration.isExportExample()) {
+            cells.add(new Cell((String) null, true));
         }
         return row;
     }
@@ -122,6 +128,9 @@ public class DataDictionaryGenerator implements Generator {
         }
         if (dataDictionaryConfiguration.isExportDescription()) {
             headerCells.add(new Cell(1, 1, "Description", true));
+        }
+        if (dataDictionaryConfiguration.isExportExample()) {
+            headerCells.add(new Cell(1, 1, "Example", true));
         }
         return headerRow;
     }
