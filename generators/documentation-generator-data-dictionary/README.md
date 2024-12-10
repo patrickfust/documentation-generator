@@ -18,8 +18,9 @@ To use the data dictionary generator, you must configure it with `dk.fust.docgen
 | key                   | String         | Key to identify it on the destination                        |                          |
 | tableFormatter        | TableFormatter | Formatter that can create the table                          | `MarkdownTableFormatter` |
 | addDescriptionForFile | boolean        | Will add a header row containing the description of the file | false                    | 
-| filterTags            | String         | If specified, only tables with this filter is used           |                          | 
+| filterTags            | String         | If specified, only tables with this filter is used           |                          |
 | exportFilename        | boolean        | Should the filename be in the export?                        | true                     |
+| exportTableName       | boolean        | Should the table name be in the export?                      | false                    |
 | exportColumn          | boolean        | Should the column be in the export?                          | true                     |
 | exportPosition        | boolean        | Should the position be in the export?                        | true                     |
 | exportDataType        | boolean        | Should the data type be in the export?                       | true                     |
@@ -27,6 +28,17 @@ To use the data dictionary generator, you must configure it with `dk.fust.docgen
 | exportKeys            | boolean        | Should the keys be in the export?                            | true                     |
 | exportDescription     | boolean        | Should the description be in the export?                     | true                     |
 | exportExample         | boolean        | Should the example be in the export?                         | true                     |
+| exportSchema          | boolean        | Should the schema be in the export?                          | true                     |
+| headerSchema          | String         | Header of the schema column                                  | Schema                   |
+| headerFilename        | String         | Header of the filename column                                | Filename                 |
+| headerTableName       | String         | Header of the table name column                              | Table                    |
+| headerColumn          | String         | Header of the column column                                  | Column                   |
+| headerPosition        | String         | Header of the position column                                | Position                 |
+| headerDataType        | String         | Header of the data type column                               | Type                     |
+| headerMandatory       | String         | Header of the mandatory column                               | Mandatory                |
+| headerKeys            | String         | Header of the keys column                                    | Keys                     |
+| headerDescription     | String         | Header of the description column                             | Description              |
+| headerExample         | String         | Header of the example column                                 | Example                  |
 
 ## Model usage
 
@@ -37,6 +49,7 @@ Documentation
 └── dataDictionary
     └── dataDictionaryFiles
         ├── fileName
+        ├── tableName
         ├── fileDescription
         ├── version
         ├── columns

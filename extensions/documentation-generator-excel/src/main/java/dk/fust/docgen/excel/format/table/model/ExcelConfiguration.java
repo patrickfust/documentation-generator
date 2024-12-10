@@ -28,4 +28,6 @@ public class ExcelConfiguration {
      */
     private List<ColumnWidth> columnWidths = new ArrayList<>();
 
+    private boolean autofilter;
+
 }

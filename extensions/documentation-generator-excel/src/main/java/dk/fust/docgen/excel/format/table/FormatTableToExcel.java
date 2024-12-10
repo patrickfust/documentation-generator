@@ -87,7 +87,14 @@ public class FormatTableToExcel {
         }
         autoResize(maxCol, sheet, excelConfiguration);
         setColumnWidths(maxCol, sheet, excelConfiguration);
+        if (excelConfiguration.isAutofilter()) {
+            setAutoFilter(sheet, maxCol, rowIdx);
+        }
         return workbook;
+    }
+
+    private static void setAutoFilter(XSSFSheet sheet, int maxCol, int maxRow) {
+        sheet.setAutoFilter(new CellRangeAddress(0, maxRow, 0, maxCol));
     }
 
     private static void setColumnWidths(int maxCol, XSSFSheet sheet, ExcelConfiguration excelConfiguration) {

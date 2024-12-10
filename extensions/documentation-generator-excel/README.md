@@ -19,6 +19,7 @@ Because the generator will encode the binary bytes into base64 encoded String, y
 | oddRowExcelStyle          | [ExcelStyle](#excelstyle) | Style of even rows                                          | fontName: `Verdana` <br/>fontHeightInPoints `9`<br/>fontColor: `IndexedColors.BLACK`<br/>backgroundColor: `240, 240, 240`<br/>bold: `false`<br/>borderColor: `IndexedColors.WHITE`           |
 | defaultColumnWidth        | int                       | Sets the default column width                               | 50                                                                                                                                                                                           |
 | autoResizeColumns         | List<Integer>             | After setting all cells, these columns will call autoResize | empty                                                                                                                                                                                        |
+| autofilter                | boolean                   | Sets auto filter                                            | true                                                                                                                                                                                         |
 
 ### ExcelStyle
 

@@ -37,6 +37,8 @@ public class ExcelBase64TableFormatter implements TableFormatter {
 
     private List<ColumnWidth> columnWidths = new ArrayList<>();
 
+    private boolean autofilter = true;
+
     @Override
     public String formatTable(FormatTable formatTable) {
         ExcelConfiguration excelConfiguration = makeExcelConfiguration();
@@ -56,6 +58,7 @@ public class ExcelBase64TableFormatter implements TableFormatter {
         excelConfiguration.setDefaultColumnWidth(defaultColumnWidth);
         excelConfiguration.setAutoResizeColumns(autoResizeColumns);
         excelConfiguration.setColumnWidths(columnWidths);
+        excelConfiguration.setAutofilter(autofilter);
         return excelConfiguration;
     }
 

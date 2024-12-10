@@ -14,6 +14,7 @@ public class DataDictionaryConfiguration extends AbstractDataDictionaryConfigura
     private boolean addDescriptionForFile = false;
 
     private boolean exportFilename = true;
+    private boolean exportTableName = false;
     private boolean exportColumn = true;
     private boolean exportPosition = true;
     private boolean exportDataType = true;
@@ -21,6 +22,20 @@ public class DataDictionaryConfiguration extends AbstractDataDictionaryConfigura
     private boolean exportKeys = true;
     private boolean exportDescription = true;
     private boolean exportExample = true;
+    private boolean exportSchema = false;
+
+    private String headerSchema = "Schema";
+    private String headerFilename = "Filename";
+    private String headerTableName = "Table";
+    private String headerColumn = "Column";
+    private String headerPosition = "Position";
+    private String headerDataType = "Type";
+    private String headerMandatory = "Mandatory";
+    private String headerKeys = "Keys";
+    private String headerDescription = "Description";
+    private String headerExample = "Example";
+
+    private String schemaName = null;
 
     @Override
     public Generator getGenerator() {

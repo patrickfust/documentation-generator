@@ -54,8 +54,15 @@ public class DataDictionaryGenerator implements Generator {
     private static Row createRowForColumn(Column column, long position, DataDictionaryFile dataDictionaryFile, DataDictionaryConfiguration dataDictionaryConfiguration) {
         Row row = new Row();
         List<Cell> cells = row.getCells();
+        if (dataDictionaryConfiguration.isExportSchema()) {
+            Assert.isNotNull(dataDictionaryConfiguration.getSchemaName(), "Schema name must be set when exporting schema");
+            cells.add(new Cell(dataDictionaryConfiguration.getSchemaName()));
+        }
         if (dataDictionaryConfiguration.isExportFilename()) {
             cells.add(new Cell(dataDictionaryFile.getFileName()));
+        }
+        if (dataDictionaryConfiguration.isExportTableName()) {
+            cells.add(new Cell(dataDictionaryFile.getTableName()));
         }
         if (dataDictionaryConfiguration.isExportColumn()) {
             cells.add(new Cell(column.getColumnName()));
@@ -84,8 +91,14 @@ public class DataDictionaryGenerator implements Generator {
     private static Row createDescriptionForFileRow(DataDictionaryFile dataDictionaryFile, DataDictionaryConfiguration dataDictionaryConfiguration) {
         Row row = new Row();
         List<Cell> cells = row.getCells();
+        if (dataDictionaryConfiguration.isExportSchema()) {
+            cells.add(new Cell((String) null, true));
+        }
         if (dataDictionaryConfiguration.isExportFilename()) {
             cells.add(new Cell(dataDictionaryFile.getFileName(), true));
+        }
+        if (dataDictionaryConfiguration.isExportTableName()) {
+            cells.add(new Cell(dataDictionaryFile.getTableName(), true));
         }
         int emptyCells = 0;
         emptyCells += dataDictionaryConfiguration.isExportColumn() ? 1 : 0;
@@ -108,29 +121,35 @@ public class DataDictionaryGenerator implements Generator {
     private static Row createHeaderRow(DataDictionaryConfiguration dataDictionaryConfiguration) {
         Row headerRow = new Row();
         List<Cell> headerCells = headerRow.getCells();
+        if (dataDictionaryConfiguration.isExportSchema()) {
+            headerCells.add(new Cell(1, 1, dataDictionaryConfiguration.getHeaderSchema(), true));
+        }
         if (dataDictionaryConfiguration.isExportFilename()) {
-            headerCells.add(new Cell(1, 1, "Filename", true));
+            headerCells.add(new Cell(1, 1, dataDictionaryConfiguration.getHeaderFilename(), true));
+        }
+        if (dataDictionaryConfiguration.isExportTableName()) {
+            headerCells.add(new Cell(1, 1, dataDictionaryConfiguration.getHeaderTableName(), true));
         }
         if (dataDictionaryConfiguration.isExportColumn()) {
-            headerCells.add(new Cell(1, 1, "Column", true));
+            headerCells.add(new Cell(1, 1, dataDictionaryConfiguration.getHeaderColumn(), true));
         }
         if (dataDictionaryConfiguration.isExportPosition()) {
-            headerCells.add(new Cell(1, 1, "Position", true));
+            headerCells.add(new Cell(1, 1, dataDictionaryConfiguration.getHeaderPosition(), true));
         }
         if (dataDictionaryConfiguration.isExportDataType()) {
-            headerCells.add(new Cell(1, 1, "Type", true));
+            headerCells.add(new Cell(1, 1, dataDictionaryConfiguration.getHeaderDataType(), true));
         }
         if (dataDictionaryConfiguration.isExportMandatory()) {
-            headerCells.add(new Cell(1, 1, "Mandatory", true));
+            headerCells.add(new Cell(1, 1, dataDictionaryConfiguration.getHeaderMandatory(), true));
         }
         if (dataDictionaryConfiguration.isExportKeys()) {
-            headerCells.add(new Cell(1, 1, "Keys", true));
+            headerCells.add(new Cell(1, 1, dataDictionaryConfiguration.getHeaderKeys(), true));
         }
         if (dataDictionaryConfiguration.isExportDescription()) {
-            headerCells.add(new Cell(1, 1, "Description", true));
+            headerCells.add(new Cell(1, 1, dataDictionaryConfiguration.getHeaderDescription(), true));
         }
         if (dataDictionaryConfiguration.isExportExample()) {
-            headerCells.add(new Cell(1, 1, "Example", true));
+            headerCells.add(new Cell(1, 1, dataDictionaryConfiguration.getHeaderExample(), true));
         }
         return headerRow;
     }

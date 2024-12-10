@@ -15,7 +15,7 @@
       fontHeightInPoints: 11
       fontColor: WHITE
       bold: true
-      backgroundColor: GREY_25_PERCENT
+      backgroundColor: 88, 88, 88
     secondaryHeaderExcelStyle:
       fontName: Verdana
       fontHeightInPoints: 9
@@ -35,13 +35,25 @@
       bold: false
       backgroundColor: 240, 240, 240
     defaultColumnWidth: 50
-    autoResizeColumns:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
+    columnWidths:
+      - className: dk.fust.docgen.excel.format.table.model.ColumnWidth
+        columnNumber: 0
+        width: 20
+      - className: dk.fust.docgen.excel.format.table.model.ColumnWidth
+        columnNumber: 1
+        width: 20
+      - className: dk.fust.docgen.excel.format.table.model.ColumnWidth
+        columnNumber: 2
+        width: 12
+      - className: dk.fust.docgen.excel.format.table.model.ColumnWidth
+        columnNumber: 3
+        width: 12
+      - className: dk.fust.docgen.excel.format.table.model.ColumnWidth
+        columnNumber: 4
+        width: 14
+      - className: dk.fust.docgen.excel.format.table.model.ColumnWidth
+        columnNumber: 5
+        width: 12
   destination:
     className: dk.fust.docgen.destination.Base64FileDestination
     file: data-dictionary.xlsx

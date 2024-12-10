@@ -13,6 +13,9 @@ dataDictionary:
         - columnName: some_other_column
           dataType: date
           example: xyz
+          columnDescription: |-
+            some description
+            with multiple lines
     - fileName: some_other_file.csv
       version: 1.2.3
       fileDescription: some other description
