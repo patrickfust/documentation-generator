@@ -1,0 +1,31 @@
+- className: dk.fust.docgen.datadict.DataDictionaryConfiguration
+  documentationFile: src/test/resources/documentation.yaml
+  addDescriptionForFile: true
+  tableFormatter:
+    className: dk.fust.docgen.excel.format.table.ExcelBase64TableFormatter
+    headerExcelStyle:
+      fontName: Verdana
+      fontHeightInPoints: 11
+      fontColor: WHITE
+      bold: true
+      backgroundColor: GREY_25_PERCENT
+    secondaryHeaderExcelStyle:
+      fontName: Verdana
+      fontHeightInPoints: 9
+      fontColor: WHITE
+      bold: true
+      backgroundColor: GREY_50_PERCENT
+    defaultColumnWidth: 50
+    columnCustomizations:
+      - className: dk.fust.docgen.excel.format.table.model.ColumnCustomization
+        columnNumber: 0
+        columnWidth: 20
+      - className: dk.fust.docgen.excel.format.table.model.ColumnCustomization
+        columnDescription: Filename
+        columnWidth: 30
+      - className: dk.fust.docgen.excel.format.table.model.ColumnCustomization
+        columnDescription: Type
+        autoResize: true
+  destination:
+    className: dk.fust.docgen.destination.Base64FileDestination
+    file: build/excel-data-dict.xlsx

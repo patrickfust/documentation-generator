@@ -39,6 +39,9 @@ distributions:
   documentation-generator-csv:
     artifacts:
       - path: extensions/documentation-generator-csv/build/libs/documentation-generator-csv-{{projectVersion}}.jar
+  documentation-generator-excel:
+    artifacts:
+      - path: extensions/documentation-generator-excel/build/libs/documentation-generator-excel-{{projectVersion}}.jar
 
   # Generators
   documentation-generator-data-dictionary:

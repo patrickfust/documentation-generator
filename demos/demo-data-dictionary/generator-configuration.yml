@@ -5,3 +5,59 @@
   destination:
     className: dk.fust.docgen.destination.FileDestination
     file: data-dictionary.csv
+- className: dk.fust.docgen.datadict.DataDictionaryConfiguration
+  documentationFile: documentation.yaml
+  addDescriptionForFile: true
+  tableFormatter:
+    className: dk.fust.docgen.excel.format.table.ExcelBase64TableFormatter
+    headerExcelStyle:
+      fontName: Verdana
+      fontHeightInPoints: 11
+      fontColor: WHITE
+      bold: true
+      backgroundColor: 88, 88, 88
+    secondaryHeaderExcelStyle:
+      fontName: Verdana
+      fontHeightInPoints: 9
+      fontColor: WHITE
+      bold: true
+      backgroundColor: GREY_50_PERCENT
+    evenRowExcelStyle:
+      fontName: Verdana
+      fontHeightInPoints: 9
+      fontColor: BLACK
+      bold: false
+      backgroundColor: 220, 220, 220
+    oddRowExcelStyle:
+      fontName: Verdana
+      fontHeightInPoints: 9
+      fontColor: BLACK
+      bold: false
+      backgroundColor: 240, 240, 240
+    defaultColumnWidth: 50
+    columnCustomizations:
+      - className: dk.fust.docgen.excel.format.table.model.ColumnCustomization
+        columnDescription: Filename
+        columnWidth: 20
+      - className: dk.fust.docgen.excel.format.table.model.ColumnCustomization
+        columnDescription: Column
+        columnWidth: 12
+      - className: dk.fust.docgen.excel.format.table.model.ColumnCustomization
+        columnDescription: Position
+        columnWidth: 12
+      - className: dk.fust.docgen.excel.format.table.model.ColumnCustomization
+        columnDescription: Type
+        columnWidth: 14
+      - className: dk.fust.docgen.excel.format.table.model.ColumnCustomization
+        columnDescription: Mandatory
+        columnWidth: 12
+  destination:
+    className: dk.fust.docgen.destination.Base64FileDestination
+    file: data-dictionary.xlsx
+- className: dk.fust.docgen.datadict.DataDictionaryMetaInfoConfiguration
+  documentationFile: documentation.yaml
+  tableFormatter:
+    className: dk.fust.docgen.format.table.JsonTableFormatter
+  destination:
+    className: dk.fust.docgen.destination.FileDestination
+    file: data-dictionary-meta-info.json

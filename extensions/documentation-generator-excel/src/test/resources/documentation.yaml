@@ -13,12 +13,14 @@ dataDictionary:
         - columnName: some_other_column
           dataType: date
           example: xyz
-          columnDescription: |-
-            some description
-            with multiple lines
     - fileName: some_other_file.csv
       version: 1.2.3
       fileDescription: some other description
       columns:
         - columnName: some_column
+          dataType: uuid
+          example: de3ca8d0-10da-4a3a-96bc-12d965cbed08
+        - columnName: some_column_again
           dataType: number
+        - columnName: my_date
+          dataType: date
