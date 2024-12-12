@@ -5,14 +5,15 @@ import dk.fust.docgen.excel.format.table.model.ColumnWidth;
 import dk.fust.docgen.excel.format.table.model.ExcelConfiguration;
 import dk.fust.docgen.excel.format.table.model.ExcelStyle;
 import dk.fust.docgen.excel.format.table.model.ExcelStyles;
+import dk.fust.docgen.format.table.Cell;
 import dk.fust.docgen.format.table.FormatTable;
+import dk.fust.docgen.format.table.Row;
 import dk.fust.docgen.util.Assert;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellAddress;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -39,45 +40,23 @@ public class FormatTableToExcel {
     public static XSSFWorkbook toExcel(FormatTable formatTable, ExcelConfiguration excelConfiguration) {
         log.debug("Formatting table as Excel");
         XSSFWorkbook workbook = new XSSFWorkbook();
-        XSSFSheet sheet = workbook.createSheet();
+        XSSFSheet sheet = createSheet(workbook, excelConfiguration);
         Map<CellStyleId, CellStyle> styles = createStyles(workbook, excelConfiguration.getExcelStyles());
-        sheet.setActiveCell(new CellAddress(0, 0));
-        sheet.setDefaultColumnWidth(excelConfiguration.getDefaultColumnWidth());
         int rowIdx = 0;
         int maxCol = 0;
         boolean hasShownHeader = false;
-        for (dk.fust.docgen.format.table.Row fustRow : formatTable.getRows()) {
-            XSSFRow row = sheet.createRow(rowIdx);
-            int colIdx = 0;
+        for (Row row : formatTable.getRows()) {
+            XSSFRow xssfRow = sheet.createRow(rowIdx);
             CellStyleId headerCellStyleId = hasShownHeader ? CellStyleId.SECONDARY_HEADER : CellStyleId.HEADER;
-            log.debug("headerCellStyleId: {}", headerCellStyleId);
-            for (dk.fust.docgen.format.table.Cell fustCell : fustRow.getCells()) {
-                XSSFCell cell = row.createCell(colIdx);
-                if (fustCell != null) {
-                    log.debug("fustCell: {}", fustCell);
-                    if (fustCell.isHeader()) {
-                        cell.setCellStyle(styles.get(headerCellStyleId));
-                        hasShownHeader = true;
-                    } else {
-                        cell.setCellStyle(rowIdx % 2 == 0 ? styles.get(CellStyleId.EVEN_ROW) : styles.get(CellStyleId.ODD_ROW));
-                    }
-                    if (fustCell.getContentLong() != null) {
-                        cell.setCellValue(fustCell.getContentLong());
-                    } else {
-                        cell.setCellValue(fustCell.getContent());
-                    }
-                    if (fustCell.getColspan() > 1 || fustCell.getRowspan() > 1) {
-                        int rowSpan = fustCell.getRowspan() > 1 ? fustCell.getRowspan() - 1 : 0;
-                        int colSpan = fustCell.getColspan() > 1 ? fustCell.getColspan() - 1 : 0;
-
-                        int firstRow = rowIdx;
-                        int lastRow = rowIdx + rowSpan;
-                        int firstCol = colIdx;
-                        int lastCol = colIdx + colSpan;
-
-                        sheet.addMergedRegion(new CellRangeAddress(firstRow, lastRow, firstCol, lastCol));
-                        colIdx += colSpan;
-                        rowIdx += rowSpan;
+            int colIdx = 0;
+            for (Cell cell : row.getCells()) {
+                XSSFCell xssfCell = xssfRow.createCell(colIdx);
+                if (cell != null) {
+                    log.debug("cell: {}", cell);
+                    hasShownHeader |= setCellStyle(cell, xssfCell, styles, headerCellStyleId, rowIdx);
+                    setCellValue(cell, xssfCell);
+                    if (cell.getColspan() > 1) {
+                        colIdx += span(cell, rowIdx, colIdx, sheet);
                     }
                 }
                 maxCol = Math.max(maxCol, colIdx);
@@ -88,6 +67,46 @@ public class FormatTableToExcel {
         autoResize(maxCol, sheet, excelConfiguration);
         setColumnWidths(maxCol, sheet, excelConfiguration);
         return workbook;
+    }
+
+    private XSSFSheet createSheet(XSSFWorkbook workbook, ExcelConfiguration excelConfiguration) {
+        XSSFSheet sheet = workbook.createSheet();
+        sheet.setActiveCell(new CellAddress(0, 0));
+        sheet.setDefaultColumnWidth(excelConfiguration.getDefaultColumnWidth());
+        return sheet;
+    }
+
+    /**
+     * @return if it's a header style or not
+     */
+    private static boolean setCellStyle(Cell cell, XSSFCell xssfCell, Map<CellStyleId, CellStyle> styles, CellStyleId headerCellStyleId, int rowIdx) {
+        if (cell.isHeader()) {
+            xssfCell.setCellStyle(styles.get(headerCellStyleId));
+            return true;
+        } else {
+            xssfCell.setCellStyle(rowIdx % 2 == 0 ? styles.get(CellStyleId.EVEN_ROW) : styles.get(CellStyleId.ODD_ROW));
+            return false;
+        }
+    }
+
+    private static void setCellValue(Cell cell, XSSFCell xssfCell) {
+        if (cell.getContentLong() != null) {
+            xssfCell.setCellValue(cell.getContentLong());
+        } else {
+            xssfCell.setCellValue(cell.getContent());
+        }
+    }
+
+    private static int span(Cell cell, int rowIdx, int colIdx, XSSFSheet sheet) {
+        int colSpan = cell.getColspan() > 1 ? cell.getColspan() - 1 : 0;
+
+        int firstRow = rowIdx;
+        int lastRow = rowIdx;
+        int firstCol = colIdx;
+        int lastCol = colIdx + colSpan;
+
+        sheet.addMergedRegion(new CellRangeAddress(firstRow, lastRow, firstCol, lastCol));
+        return colIdx + colSpan;
     }
 
     private static void setColumnWidths(int maxCol, XSSFSheet sheet, ExcelConfiguration excelConfiguration) {
