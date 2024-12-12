@@ -1,6 +1,6 @@
 project:
   name: documentation-generator
-  version: 0.0.10
+  version: 1.0.0
   description: "Documentation Generator"
   longDescription: Generates documentation based upon a yaml-file. Describe how your database looks, in a single file (or files) and then generate the corresponding documentation.
 

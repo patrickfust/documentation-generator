@@ -5,7 +5,7 @@
 ### gradle.properties
 Add the version of documentation-generator you want to use in `gradle.properties`.
 ```groovy
-documentationGeneratorVersion = 0.0.10
+documentationGeneratorVersion = 1.0.0
 ```
 
 ### build.gradle
