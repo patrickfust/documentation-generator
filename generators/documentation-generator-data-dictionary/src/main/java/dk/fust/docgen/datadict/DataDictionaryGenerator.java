@@ -102,26 +102,32 @@ public class DataDictionaryGenerator implements Generator {
     private static Row createHeaderRow(DataDictionaryConfiguration dataDictionaryConfiguration) {
         Row headerRow = new Row();
         List<Cell> headerCells = headerRow.getCells();
+        if (dataDictionaryConfiguration.isExportSchema()) {
+            headerCells.add(new Cell(1, dataDictionaryConfiguration.getHeaderSchema(), true));
+        }
         if (dataDictionaryConfiguration.isExportFilename()) {
-            headerCells.add(new Cell(1, 1, "Filename", true));
+            headerCells.add(new Cell(1, "Filename", true));
         }
         if (dataDictionaryConfiguration.isExportColumn()) {
-            headerCells.add(new Cell(1, 1, "Column", true));
+            headerCells.add(new Cell(1, "Column", true));
         }
         if (dataDictionaryConfiguration.isExportPosition()) {
-            headerCells.add(new Cell(1, 1, "Position", true));
+            headerCells.add(new Cell(1, "Position", true));
         }
         if (dataDictionaryConfiguration.isExportDataType()) {
-            headerCells.add(new Cell(1, 1, "Type", true));
+            headerCells.add(new Cell(1, "Type", true));
         }
         if (dataDictionaryConfiguration.isExportMandatory()) {
-            headerCells.add(new Cell(1, 1, "Mandatory", true));
+            headerCells.add(new Cell(1, "Mandatory", true));
         }
         if (dataDictionaryConfiguration.isExportKeys()) {
-            headerCells.add(new Cell(1, 1, "Keys", true));
+            headerCells.add(new Cell(1, "Keys", true));
         }
         if (dataDictionaryConfiguration.isExportDescription()) {
-            headerCells.add(new Cell(1, 1, "Description", true));
+            headerCells.add(new Cell(1, "Description", true));
+        }
+        if (dataDictionaryConfiguration.isExportExample()) {
+            headerCells.add(new Cell(1, "Example", true));
         }
         return headerRow;
     }
