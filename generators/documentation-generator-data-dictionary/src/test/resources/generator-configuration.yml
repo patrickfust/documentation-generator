@@ -1,0 +1,14 @@
+- className: dk.fust.docgen.datadict.DataDictionaryConfiguration
+  documentationFile: documentation.yaml
+  tableFormatter:
+    className: dk.fust.docgen.format.table.HTMLTableFormatter
+  destination:
+    className: dk.fust.docgen.destination.FileDestination
+    file: data-dictionary.html
+- className: dk.fust.docgen.datadict.DataDictionaryMetaInfoConfiguration
+  documentationFile: documentation.yml
+  tableFormatter:
+    className: dk.fust.docgen.format.table.JsonTableFormatter
+  destination:
+    className: dk.fust.docgen.destination.FileDestination
+    file: data-dictionary-meta-info.json
