@@ -1,0 +1,8 @@
+- className: dk.fust.docgen.datadict.DataDictionaryConfiguration
+  documentationFile: src/test/resources/documentation.yaml
+  addDescriptionForFile: true
+  tableFormatter:
+    className: dk.fust.docgen.excel.format.table.ExcelBase64TableFormatter
+  destination:
+    className: dk.fust.docgen.destination.Base64FileDestination
+    file: build/excel-data-dict.xlsx

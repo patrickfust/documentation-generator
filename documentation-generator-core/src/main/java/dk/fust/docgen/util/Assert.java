@@ -42,6 +42,18 @@ public class Assert {
     }
 
     /**
+     * Verifies that `object` is null
+     * Otherwise is an `IllegalArgumentException` thrown.
+     * @param object object to verify
+     * @param message message in `IllegalArgumentException` that is thrown if object is not null
+     */
+    public static void isNull(Object object, String message) {
+        if (object != null) {
+            throw new IllegalArgumentException(message);
+        }
+    }
+
+    /**
      * Verifies that o1 and o2 er considered equal.
      * Otherwise is an `IllegalArgumentException` thrown.
      * @param o1 first object
