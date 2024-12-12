@@ -1,0 +1,6 @@
+- className: dk.fust.docgen.MockGeneratorConfiguration
+  documentationFile: documentation.yaml
+  destination:
+    className: dk.fust.docgen.destination.MarkdownDestination
+    file: README.md
+  dontExist: "must blow up"
