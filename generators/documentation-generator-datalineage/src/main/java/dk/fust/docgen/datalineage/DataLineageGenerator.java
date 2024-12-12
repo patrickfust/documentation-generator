@@ -154,9 +154,9 @@ public class DataLineageGenerator implements Generator {
     private static Row getHeaderRow() {
         Row row = new Row();
         row.setCells(List.of(
-                new Cell(3, 1, "Target", true),
-                new Cell(4, 1, "Source", true),
-                new Cell(1, 2, "Transformation", true)
+                new Cell(3, "Target", true),
+                new Cell(4, "Source", true),
+                new Cell(1, "Transformation", true)
         ));
         return row;
     }

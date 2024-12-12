@@ -40,9 +40,9 @@ public class DataDictionaryMetaInfoGenerator extends AbstractDataDictionaryGener
     private static Row createHeaderRow() {
         Row headerRow = new Row();
         List<Cell> headerCells = headerRow.getCells();
-        headerCells.add(new Cell(1, 1, "Filename", true));
-        headerCells.add(new Cell(1, 1, "Version", true));
-        headerCells.add(new Cell(1, 1, "Description", true));
+        headerCells.add(new Cell(1, "Filename", true));
+        headerCells.add(new Cell(1, "Version", true));
+        headerCells.add(new Cell(1, "Description", true));
         return headerRow;
     }
 
