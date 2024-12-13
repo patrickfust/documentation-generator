@@ -2,6 +2,7 @@ package dk.fust.docgen.format.table;
 
 import dk.fust.docgen.util.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,16 +34,41 @@ public class MarkdownTableFormatter implements TableFormatter {
                     }
                     stringBuilder.append("\n");
                     if (header) {
-                        for (int size : sizes) {
-                            stringBuilder.append("|");
-                            stringBuilder.append("-".repeat(size + 2));
-                        }
-                        stringBuilder.append("|\n");
+                        stringBuilder.append(createHeaderSubLine(sizes, formatTable));
                     }
                 }
             }
         }
         return stringBuilder.toString();
+    }
+
+    private static String createHeaderSubLine(int[] sizes, FormatTable formatTable) {
+        StringBuilder sb = new StringBuilder();
+        Row firstRow = formatTable.getRows().get(0);
+        List<Cell> cellsExpanded = expandCellsWithColspan(firstRow.getCells());
+        for (int idx = 0 ; idx < sizes.length; idx++) {
+            int size = sizes[idx];
+            Cell cell = cellsExpanded.get(idx);
+            sb.append("|");
+            switch (cell.getAlignment()) {
+                case LEFT -> sb.append("-".repeat(size + 2));
+                case RIGHT -> sb.append("-".repeat(size + 1)).append(":");
+                case CENTER -> sb.append(":").append("-".repeat(size)).append(":");
+            }
+        }
+        sb.append("|\n");
+        return sb.toString();
+    }
+
+    private static List<Cell> expandCellsWithColspan(List<Cell> cells) {
+        List<Cell> cellsExpanded = new ArrayList<>();
+        for (Cell cell : cells) {
+            cellsExpanded.add(cell);
+            for (int idx = 1; idx < cell.getColspan(); idx++) {
+                cellsExpanded.add(cell);
+            }
+        }
+        return cellsExpanded;
     }
 
     private void replaceLFWithBreak(FormatTable formatTable) {

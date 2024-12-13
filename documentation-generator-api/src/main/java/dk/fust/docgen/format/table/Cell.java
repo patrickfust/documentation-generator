@@ -14,6 +14,7 @@ public class Cell {
     @Setter
     private String content;
     private Long contentLong;
+    private Alignment alignment = Alignment.LEFT;
 
     /**
      * Default constructor

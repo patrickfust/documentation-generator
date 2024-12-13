@@ -61,6 +61,9 @@ public class HTMLTableFormatter implements TableFormatter {
         if (cell.getColspan() > 1) {
             sb.append(" colspan=\"").append(cell.getColspan()).append("\"");
         }
+        if (cell.getAlignment() != Alignment.LEFT) {
+            sb.append(" style=\"text-align: %s;\"".formatted(cell.getAlignment().name().toLowerCase()));
+        }
         sb.append(">");
         sb.append(cell.getContent());
         sb.append("</%s>".formatted(tag));

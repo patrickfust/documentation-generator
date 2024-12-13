@@ -28,6 +28,25 @@ class MarkdownFormatTableFormatterSpec extends Specification {
                             |""".stripMargin().stripIndent()
     }
 
+    def "generate table - alignment"() {
+        given:
+        FormatTable table = TestData.generateTable()
+        table.rows.get(0).cells.get(0).alignment = Alignment.RIGHT
+        table.rows.get(0).cells.get(1).alignment = Alignment.CENTER
+
+        when:
+        MarkdownTableFormatter markdownTableFormat = new MarkdownTableFormatter()
+        String markdownTable = markdownTableFormat.formatTable(table)
+
+        then:
+        noExceptionThrown()
+        markdownTable == """|| With colspan 3 |             |           | With colspan 4 |            |             |           | No colspan          |
+                            ||---------------:|------------:|----------:|:--------------:|:----------:|:-----------:|:---------:|---------------------|
+                            || Table Name     | Column Name | Data Type | Database Name  | Table Name | Column Name | Data Type |                     |
+                            || table_a        | column_a    | int       | database name  | table_b    | column_b    | text      | some transformation |
+                            |""".stripMargin().stripIndent()
+    }
+
     def "generate simple table"() {
         given:
         FormatTable table = TestData.generateSimpleTable()
