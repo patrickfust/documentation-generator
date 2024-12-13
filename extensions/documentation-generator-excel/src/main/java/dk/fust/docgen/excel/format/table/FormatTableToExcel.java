@@ -41,7 +41,7 @@ public class FormatTableToExcel {
         log.debug("Formatting table as Excel");
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = createSheet(workbook, excelConfiguration);
-        Map<CellStyleId, CellStyle> styles = createStyles(workbook, excelConfiguration.getExcelStyles());
+        ExcelStylesContainer styles = new ExcelStylesContainer(workbook, excelConfiguration.getExcelStyles());
         int rowIdx = 0;
         int maxCol = 0;
         boolean hasShownHeader = false;
@@ -85,12 +85,12 @@ public class FormatTableToExcel {
     /**
      * @return if it's a header style or not
      */
-    private static boolean setCellStyle(Cell cell, XSSFCell xssfCell, Map<CellStyleId, CellStyle> styles, CellStyleId headerCellStyleId, int rowIdx) {
+    private static boolean setCellStyle(Cell cell, XSSFCell xssfCell, ExcelStylesContainer styles, CellStyleId headerCellStyleId, int rowIdx) {
         if (cell.isHeader()) {
-            xssfCell.setCellStyle(styles.get(headerCellStyleId));
+            xssfCell.setCellStyle(styles.get(headerCellStyleId, cell.getAlignment()));
             return true;
         } else {
-            xssfCell.setCellStyle(rowIdx % 2 == 0 ? styles.get(CellStyleId.EVEN_ROW) : styles.get(CellStyleId.ODD_ROW));
+            xssfCell.setCellStyle(rowIdx % 2 == 0 ? styles.get(CellStyleId.EVEN_ROW, cell.getAlignment()) : styles.get(CellStyleId.ODD_ROW, cell.getAlignment()));
             return false;
         }
     }
@@ -148,54 +148,6 @@ public class FormatTableToExcel {
             colIdx++;
         }
         throw new IllegalArgumentException("No cell with content '%s' found".formatted(content));
-    }
-
-    /**
-     * cell styles used for formatting sheets
-     */
-    private static Map<CellStyleId, CellStyle> createStyles(Workbook wb, ExcelStyles excelStyles) {
-        Map<CellStyleId, CellStyle> styles = new HashMap<>();
-
-        styles.put(CellStyleId.HEADER, createCellStyle(excelStyles.getHeaderExcelStyle(), wb));
-        styles.put(CellStyleId.SECONDARY_HEADER, createCellStyle(excelStyles.getSecondaryHeaderExcelStyle(), wb));
-        styles.put(CellStyleId.ODD_ROW, createCellStyle(excelStyles.getOddRowExcelStyle(), wb));
-        styles.put(CellStyleId.EVEN_ROW, createCellStyle(excelStyles.getEvenRowExcelStyle(), wb));
-
-        return styles;
-    }
-
-    private static CellStyle createCellStyle(ExcelStyle excelStyle, Workbook wb) {
-        Font font = wb.createFont();
-        font.setFontHeightInPoints(excelStyle.getFontHeightInPoints());
-        font.setFontName(excelStyle.getFontName());
-        Assert.isNotNull(excelStyle.getFontColor().getIndexedColor(), "Font color can only handle named colors: WHITE, BLACK and so forth");
-        font.setColor(excelStyle.getFontColor().getIndexedColor().getIndex());
-        font.setBold(excelStyle.isBold());
-        CellStyle cellStyle = wb.createCellStyle();
-        cellStyle.setFont(font);
-        if (excelStyle.getBackgroundColor().getIndexedColor() != null) {
-            cellStyle.setFillForegroundColor(excelStyle.getBackgroundColor().getIndexedColor().getIndex());
-        } else {
-            cellStyle.setFillForegroundColor(excelStyle.getBackgroundColor().getXssfColor());
-        }
-        cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        cellStyle.setWrapText(true);
-        setBorder(cellStyle, excelStyle);
-        return cellStyle;
-    }
-
-    private static void setBorder(CellStyle cellStyle, ExcelStyle excelStyle) {
-        if (excelStyle.getBorderColor() != null && excelStyle.getBorderColor().getIndexedColor() != null) {
-            cellStyle.setBorderBottom(BorderStyle.THIN);
-            cellStyle.setBorderLeft(BorderStyle.THIN);
-            cellStyle.setBorderRight(BorderStyle.THIN);
-            cellStyle.setBorderTop(BorderStyle.THIN);
-            short borderColorIndex = excelStyle.getBorderColor().getIndexedColor().getIndex();
-            cellStyle.setBottomBorderColor(borderColorIndex);
-            cellStyle.setLeftBorderColor(borderColorIndex);
-            cellStyle.setRightBorderColor(borderColorIndex);
-            cellStyle.setTopBorderColor(borderColorIndex);
-        }
     }
 
 }
