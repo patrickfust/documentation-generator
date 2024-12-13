@@ -38,6 +38,20 @@ public class Cell {
      * Constructor
      * @param colspan colspan
      * @param content content
+     * @param header true if it's a header
+     * @param alignment alignment
+     */
+    public Cell(int colspan, String content, boolean header, Alignment alignment) {
+        this.colspan = colspan;
+        this.header = header;
+        this.content = content;
+        this.alignment = alignment;
+    }
+
+    /**
+     * Constructor
+     * @param colspan colspan
+     * @param content content
      */
     public Cell(int colspan, String content) {
         this.colspan = colspan;

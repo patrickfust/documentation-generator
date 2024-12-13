@@ -2,6 +2,7 @@ package dk.fust.docgen.datadict;
 
 import dk.fust.docgen.Generator;
 import dk.fust.docgen.GeneratorConfiguration;
+import dk.fust.docgen.format.table.Alignment;
 import dk.fust.docgen.format.table.Cell;
 import dk.fust.docgen.format.table.FormatTable;
 import dk.fust.docgen.format.table.Row;
@@ -56,36 +57,44 @@ public class DataDictionaryGenerator implements Generator {
         List<Cell> cells = row.getCells();
         if (dataDictionaryConfiguration.isExportSchema()) {
             Assert.isNotNull(dataDictionaryConfiguration.getSchemaName(), "Schema name must be set when exporting schema");
-            cells.add(new Cell(dataDictionaryConfiguration.getSchemaName()));
+            addCell(cells, dataDictionaryConfiguration.getSchemaName(), dataDictionaryConfiguration.getAlignmentSchema());
         }
         if (dataDictionaryConfiguration.isExportFilename()) {
-            cells.add(new Cell(dataDictionaryFile.getFileName()));
+            addCell(cells, dataDictionaryFile.getFileName(), dataDictionaryConfiguration.getAlignmentFilename());
         }
         if (dataDictionaryConfiguration.isExportTableName()) {
-            cells.add(new Cell(dataDictionaryFile.getTableName()));
+            addCell(cells, dataDictionaryFile.getTableName(), dataDictionaryConfiguration.getAlignmentTableName());
         }
         if (dataDictionaryConfiguration.isExportColumn()) {
-            cells.add(new Cell(column.getColumnName()));
+            addCell(cells, column.getColumnName(), dataDictionaryConfiguration.getAlignmentColumn());
         }
         if (dataDictionaryConfiguration.isExportPosition()) {
-            cells.add(new Cell(position));
+            Cell cell = new Cell(position);
+            cell.setAlignment(dataDictionaryConfiguration.getAlignmentPosition());
+            cells.add(cell);
         }
         if (dataDictionaryConfiguration.isExportDataType()) {
-            cells.add(new Cell(column.getDataType()));
+            addCell(cells, column.getDataType(), dataDictionaryConfiguration.getAlignmentDataType());
         }
         if (dataDictionaryConfiguration.isExportMandatory()) {
-            cells.add(new Cell(column.getMandatory() ? "Yes" : "No"));
+            addCell(cells, column.getMandatory() ? "Yes" : "No", dataDictionaryConfiguration.getAlignmentMandatory());
         }
         if (dataDictionaryConfiguration.isExportKeys()) {
-            cells.add(new Cell(column.getKeys()));
+            addCell(cells, column.getKeys(), dataDictionaryConfiguration.getAlignmentKeys());
         }
         if (dataDictionaryConfiguration.isExportDescription()) {
-            cells.add(new Cell(column.getColumnDescription()));
+            addCell(cells, column.getColumnDescription(), dataDictionaryConfiguration.getAlignmentDescription());
         }
         if (dataDictionaryConfiguration.isExportExample()) {
-            cells.add(new Cell(column.getExample()));
+            addCell(cells, column.getExample(), dataDictionaryConfiguration.getAlignmentExample());
         }
         return row;
+    }
+
+    private static void addCell(List<Cell> cells, String content, Alignment alignment) {
+        Cell cell = new Cell(content != null ? content : "");
+        cell.setAlignment(alignment);
+        cells.add(cell);
     }
 
     private static Row createDescriptionForFileRow(DataDictionaryFile dataDictionaryFile, DataDictionaryConfiguration dataDictionaryConfiguration) {
@@ -125,28 +134,31 @@ public class DataDictionaryGenerator implements Generator {
             headerCells.add(new Cell(1, dataDictionaryConfiguration.getHeaderSchema(), true));
         }
         if (dataDictionaryConfiguration.isExportFilename()) {
-            headerCells.add(new Cell(1, "Filename", true));
+            headerCells.add(new Cell(1, dataDictionaryConfiguration.getHeaderFilename(), true, dataDictionaryConfiguration.getAlignmentFilename()));
+        }
+        if (dataDictionaryConfiguration.isExportTableName()) {
+            headerCells.add(new Cell(1, dataDictionaryConfiguration.getHeaderTableName(), true, dataDictionaryConfiguration.getAlignmentFilename()));
         }
         if (dataDictionaryConfiguration.isExportColumn()) {
-            headerCells.add(new Cell(1, "Column", true));
+            headerCells.add(new Cell(1, dataDictionaryConfiguration.getHeaderColumn(), true, dataDictionaryConfiguration.getAlignmentColumn()));
         }
         if (dataDictionaryConfiguration.isExportPosition()) {
-            headerCells.add(new Cell(1, "Position", true));
+            headerCells.add(new Cell(1, dataDictionaryConfiguration.getHeaderPosition(), true, dataDictionaryConfiguration.getAlignmentPosition()));
         }
         if (dataDictionaryConfiguration.isExportDataType()) {
-            headerCells.add(new Cell(1, "Type", true));
+            headerCells.add(new Cell(1, dataDictionaryConfiguration.getHeaderDataType(), true, dataDictionaryConfiguration.getAlignmentDataType()));
         }
         if (dataDictionaryConfiguration.isExportMandatory()) {
-            headerCells.add(new Cell(1, "Mandatory", true));
+            headerCells.add(new Cell(1, dataDictionaryConfiguration.getHeaderMandatory(), true, dataDictionaryConfiguration.getAlignmentMandatory()));
         }
         if (dataDictionaryConfiguration.isExportKeys()) {
-            headerCells.add(new Cell(1, "Keys", true));
+            headerCells.add(new Cell(1, dataDictionaryConfiguration.getHeaderKeys(), true, dataDictionaryConfiguration.getAlignmentKeys()));
         }
         if (dataDictionaryConfiguration.isExportDescription()) {
-            headerCells.add(new Cell(1, "Description", true));
+            headerCells.add(new Cell(1, dataDictionaryConfiguration.getHeaderDescription(), true, dataDictionaryConfiguration.getAlignmentDescription()));
         }
         if (dataDictionaryConfiguration.isExportExample()) {
-            headerCells.add(new Cell(1, "Example", true));
+            headerCells.add(new Cell(1, dataDictionaryConfiguration.getHeaderExample(), true, dataDictionaryConfiguration.getAlignmentExample()));
         }
         return headerRow;
     }

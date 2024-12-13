@@ -7,7 +7,18 @@
     file: data-dictionary.csv
 - className: dk.fust.docgen.datadict.DataDictionaryConfiguration
   documentationFile: documentation.yaml
+  key: DATA_DICTIONARY
+  alignmentExample: RIGHT
+  alignmentMandatory: CENTER
+  tableFormatter:
+    className: dk.fust.docgen.format.table.MarkdownTableFormatter
+  destination:
+    className: dk.fust.docgen.destination.MarkdownDestination
+    file: README.md
+- className: dk.fust.docgen.datadict.DataDictionaryConfiguration
+  documentationFile: documentation.yaml
   addDescriptionForFile: true
+  alignmentExample: RIGHT
   tableFormatter:
     className: dk.fust.docgen.excel.format.table.ExcelBase64TableFormatter
     headerExcelStyle:
