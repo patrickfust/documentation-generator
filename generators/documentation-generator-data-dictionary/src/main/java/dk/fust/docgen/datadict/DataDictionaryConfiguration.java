@@ -1,6 +1,7 @@
 package dk.fust.docgen.datadict;
 
 import dk.fust.docgen.Generator;
+import dk.fust.docgen.format.table.Alignment;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -34,6 +35,17 @@ public class DataDictionaryConfiguration extends AbstractDataDictionaryConfigura
     private String headerKeys = "Keys";
     private String headerDescription = "Description";
     private String headerExample = "Example";
+
+    private Alignment alignmentSchema = Alignment.LEFT;
+    private Alignment alignmentFilename = Alignment.LEFT;
+    private Alignment alignmentTableName = Alignment.LEFT;
+    private Alignment alignmentColumn = Alignment.LEFT;
+    private Alignment alignmentPosition = Alignment.RIGHT;
+    private Alignment alignmentDataType = Alignment.LEFT;
+    private Alignment alignmentMandatory = Alignment.LEFT;
+    private Alignment alignmentKeys = Alignment.LEFT;
+    private Alignment alignmentDescription = Alignment.LEFT;
+    private Alignment alignmentExample = Alignment.LEFT;
 
     private String schemaName = null;
 
