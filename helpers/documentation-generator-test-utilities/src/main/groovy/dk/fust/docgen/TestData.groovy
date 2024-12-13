@@ -42,6 +42,7 @@ class TestData {
                                         new Cell(content: 'Table Name'),
                                         new Cell(content: 'Column Name'),
                                         new Cell(content: 'Data Type'),
+                                        new Cell(content: null),
                                 ]
                         ),
                         new Row(
@@ -58,5 +59,24 @@ class TestData {
                         )
                 ]
         )
+    }
+
+    static FormatTable generateSimpleTable() {
+        return new FormatTable(rows: [
+                new Row(cells: [
+                        new Cell(content: 'Header1', header: true),
+                        new Cell(content: 'Header2', header: true),
+                ]),
+                new Row(cells: [
+                        new Cell(content: 'Cell1'),
+                        new Cell(content: 'Longer Cell2'),
+
+                ]),
+                new Row(cells: [
+                        new Cell(content: 'Cell3'),
+                        new Cell(content: null),
+
+                ])
+        ])
     }
 }

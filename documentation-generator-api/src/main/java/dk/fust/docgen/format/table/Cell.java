@@ -81,4 +81,15 @@ public class Cell {
         return content;
     }
 
+    /**
+     * Returns the size of the content
+     * @return size of the content
+     */
+    public int getContentSize() {
+        String c = getContent();
+        if (c == null) {
+            return 0;
+        }
+        return c.length();
+    }
 }
