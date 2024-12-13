@@ -7,7 +7,7 @@ import java.io.File;
 /**
  * This interface is the one that the generators will use to get the desired configuration.
  */
-public interface GeneratorConfiguration{
+public interface GeneratorConfiguration {
 
     /**
      * Validates that the configuration are in order
