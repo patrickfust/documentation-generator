@@ -6,6 +6,7 @@ import dk.fust.docgen.MockGenerator
 import dk.fust.docgen.MockGeneratorConfiguration
 import dk.fust.docgen.TestHelper
 import dk.fust.docgen.destination.MarkdownDestination
+import dk.fust.docgen.model.annotation.MergeWithDefault
 import spock.lang.Specification
 
 class DocumentationConfigurationLoaderServiceSpec extends Specification {
@@ -46,6 +47,29 @@ class DocumentationConfigurationLoaderServiceSpec extends Specification {
 
         then:
         thrown(IllegalArgumentException)
+    }
+
+    def "read documentation configuration with default values and override"() {
+        given:
+        DocumentationConfigurationLoaderService service = new DocumentationConfigurationLoaderService()
+        File file = TestHelper.getTestFile(filename)
+
+        when:
+        MockGeneratorConfiguration mockConfiguration = service.readConfigurations(file).first() as MockGeneratorConfiguration
+
+        then:
+        mockConfiguration.aBigBoolean == aBigBoolean
+        mockConfiguration.aBigInteger == aBigInteger
+        mockConfiguration.aString == aString
+        mockConfiguration.nestedConfiguration.nestedBoolean == nestedBoolean
+        mockConfiguration.nestedConfiguration.nestedString == nestedString
+
+        where:
+        filename                                || aBigBoolean   | aBigInteger | aString          | nestedBoolean | nestedString
+        'default-not-overridden.yml'            || Boolean.TRUE  | 100         | "A String"       | true          | "Nested String"
+        'default-overridden.yml'                || Boolean.FALSE | 200         | "Another String" | false         | "overridden nested"
+        'default-nested-partly-overridden1.yml' || Boolean.FALSE | 200         | "Another String" | false         | "Nested String"
+        'default-nested-partly-overridden2.yml' || Boolean.FALSE | 200         | "Another String" | true          | "partly overridden"
     }
 
 }

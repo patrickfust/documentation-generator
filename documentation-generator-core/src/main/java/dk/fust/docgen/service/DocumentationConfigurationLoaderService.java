@@ -2,15 +2,17 @@ package dk.fust.docgen.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import dk.fust.docgen.GeneratorConfiguration;
-import dk.fust.docgen.util.Assert;
+import dk.fust.docgen.model.annotation.MergeWithDefault;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -78,16 +80,19 @@ public class DocumentationConfigurationLoaderService {
 
     private <T> void setValue(String fieldName, JsonNode node, Class<T> clazz, Object instance) throws ReflectiveOperationException {
         try {
-            Class<?> dataType = clazz.getDeclaredField(fieldName).getType();
-            String capitalizedName = fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-            Method method;
-            try {
-                method = clazz.getMethod("set" + capitalizedName, dataType);
-            } catch (NoSuchMethodException nsme) {
-                // Perhaps without capitalization
-                method = clazz.getMethod("set" + fieldName, dataType);
+            Field declaredField = clazz.getDeclaredField(fieldName);
+            Class<?> dataType = declaredField.getType();
+            Method setMethod = findMethod(fieldName, clazz, dataType, "set");
+            Object convertedObject = convertObject(node, dataType);
+            MergeWithDefault mergeWithDefault = declaredField.getAnnotation(MergeWithDefault.class);
+            if (mergeWithDefault != null) {
+                // Must merge with existing default
+                Method getMethod = findMethod(fieldName, clazz, null, "get");
+                Object defaultObject = getMethod.invoke(instance);
+                setMethod.invoke(instance, mergeWithDefault(clazz, defaultObject, convertedObject, dataType));
+            } else {
+                setMethod.invoke(instance, convertedObject);
             }
-            method.invoke(instance, convertObject(node, dataType));
         } catch (NoSuchMethodException | NoSuchFieldException e) {
             if (clazz.getSuperclass() != null) {
                 // Try it using the super class
@@ -96,6 +101,57 @@ public class DocumentationConfigurationLoaderService {
                 throw new IllegalArgumentException("Could not find setter for " + fieldName);
             }
         }
+    }
+
+    private Method findMethod(String fieldName, Class<?> clazz, Class<?> dataType, String... methodPrefixes) throws NoSuchMethodException{
+        String capitalizedName = fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+        Method method = null;
+        for (String methodPrefix : methodPrefixes) {
+            try {
+                if (dataType != null) {
+                    method = clazz.getMethod(methodPrefix + capitalizedName, dataType);
+                } else {
+                    method = clazz.getMethod(methodPrefix + capitalizedName);
+                }
+            } catch (NoSuchMethodException nsme) {
+                // Perhaps without capitalization
+                try {
+                    if (dataType != null) {
+                        method = clazz.getMethod(methodPrefix + fieldName, dataType);
+                    } else {
+                        method = clazz.getMethod(methodPrefix + fieldName);
+                    }
+                } catch (NoSuchMethodException ignore) {
+                    // Ignore
+                }
+            }
+            if (method != null) {
+                return method;
+            }
+        }
+        throw new NoSuchMethodException("Can't find method for field: " + fieldName + " with prefixes: " + methodPrefixes);
+    }
+
+    private Object mergeWithDefault(Class<?> clazz, Object defaultObject, Object convertedObject, Class<?> dataType) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
+        if (dataType.getPackageName().equals("java.lang")) {
+            return convertedObject != null ? convertedObject : defaultObject;
+        } else {
+            for (Field field : dataType.getDeclaredFields()) {
+                if (!Modifier.isStatic(field.getModifiers()) && !Modifier.isFinal(field.getModifiers())) {
+                    Method getFieldMethod = findMethod(field.getName(), dataType, null, "get", "is");
+                    Object convertedFieldInstance = getFieldMethod.invoke(convertedObject);
+                    if (convertedFieldInstance == null) {
+                        // Take from default
+                        Object defaultFieldInstance = getFieldMethod.invoke(defaultObject);
+                        if (defaultFieldInstance != null) {
+                            Method setFieldMethod = findMethod(field.getName(), defaultObject.getClass(), defaultFieldInstance.getClass(), "set");
+                            setFieldMethod.invoke(convertedObject, defaultFieldInstance);
+                        }
+                    }
+                }
+            }
+        }
+        return convertedObject;
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
