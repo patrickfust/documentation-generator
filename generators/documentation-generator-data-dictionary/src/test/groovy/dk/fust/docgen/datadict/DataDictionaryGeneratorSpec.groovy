@@ -4,6 +4,7 @@ import dk.fust.docgen.Generator
 import dk.fust.docgen.GeneratorConfiguration
 import dk.fust.docgen.TestHelper
 import dk.fust.docgen.destination.MockDestination
+import dk.fust.docgen.format.table.Alignment
 import dk.fust.docgen.format.table.MockTableFormatter
 import dk.fust.docgen.service.DocumentationConfigurationLoaderService
 import spock.lang.Specification
@@ -17,17 +18,17 @@ class DataDictionaryGeneratorSpec extends Specification {
         DataDictionaryConfiguration configuration = new DataDictionaryConfiguration(
                 destination: mockDestination,
                 tableFormatter: mockTableFormatter,
-                exportFilename: expFile,
-                exportSchema: expSchema,
-                exportDescription: expDesc,
-                exportColumn: expColumn,
-                exportKeys: expKeys,
-                exportDataType: expType,
-                exportPosition: expPosition,
-                exportExample: expExam,
                 addDescriptionForFile: addDescFile,
                 schemaName: schemaName
         )
+        configuration.columnFilename.export = expFile
+        configuration.columnSchema.export = expSchema
+        configuration.columnDescription.export = expDesc
+        configuration.columnColumn.export = expColumn
+        configuration.columnKeys.export = expKeys
+        configuration.columnType.export = expType
+        configuration.columnPosition.export = expPosition
+        configuration.columnExample.export = expExam
 
         Generator generator = configuration.getGenerator()
 
@@ -69,10 +70,22 @@ class DataDictionaryGeneratorSpec extends Specification {
 
         when:
         List<GeneratorConfiguration> configurations = service.readConfigurations(TestHelper.getTestFile('generator-configuration.yml'))
+        DataDictionaryConfiguration firstDataDictionaryConfiguration = configurations[0] as DataDictionaryConfiguration
 
         then:
         configurations[0].destination
         configurations[1].destination
+
+        and: 'columns are read'
+        firstDataDictionaryConfiguration.columnTable.export
+        firstDataDictionaryConfiguration.columnTable.header == "My header"
+        !firstDataDictionaryConfiguration.columnMandatory.export
+        firstDataDictionaryConfiguration.columnDescription.alignment == Alignment.RIGHT
+
+        and: 'defaults has not changed'
+        firstDataDictionaryConfiguration.columnMandatory.header == "Mandatory"
+        firstDataDictionaryConfiguration.columnExample.header == "Example"
+        firstDataDictionaryConfiguration.columnDescription.export
     }
 
 }

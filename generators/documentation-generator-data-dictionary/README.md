@@ -11,44 +11,35 @@ and [Generate Data Dictionary Meta Infomation](#generate-data-dictionary-meta-in
 
 To use the data dictionary generator, you must configure it with `dk.fust.docgen.datadict.DataDictionaryConfiguration`
 
-| Setting               | 	Type                   | Description                                                  | Default                  |
-|-----------------------|-------------------------|--------------------------------------------------------------|--------------------------|
-| documentationFile     | File                    | Location of the documentation file                           |                          |
-| destination           | Destination             | Where to send the generated documentation                    |                          | 
-| key                   | String                  | Key to identify it on the destination                        |                          |
-| tableFormatter        | TableFormatter          | Formatter that can create the table                          | `MarkdownTableFormatter` |
-| addDescriptionForFile | boolean                 | Will add a header row containing the description of the file | false                    | 
-| filterTags            | String                  | If specified, only tables with this filter is used           |                          |
-| exportFilename        | boolean                 | Should the filename be in the export?                        | true                     |
-| exportTableName       | boolean                 | Should the table name be in the export?                      | false                    |
-| exportColumn          | boolean                 | Should the column be in the export?                          | true                     |
-| exportPosition        | boolean                 | Should the position be in the export?                        | true                     |
-| exportDataType        | boolean                 | Should the data type be in the export?                       | true                     |
-| exportMandatory       | boolean                 | Should the mandatory field be in the export?                 | true                     |
-| exportKeys            | boolean                 | Should the keys be in the export?                            | true                     |
-| exportDescription     | boolean                 | Should the description be in the export?                     | true                     |
-| exportExample         | boolean                 | Should the example be in the export?                         | true                     |
-| exportSchema          | boolean                 | Should the schema be in the export?                          | true                     |
-| headerSchema          | String                  | Header of the schema column                                  | Schema                   |
-| headerFilename        | String                  | Header of the filename column                                | Filename                 |
-| headerTableName       | String                  | Header of the table name column                              | Table                    |
-| headerColumn          | String                  | Header of the column column                                  | Column                   |
-| headerPosition        | String                  | Header of the position column                                | Position                 |
-| headerDataType        | String                  | Header of the data type column                               | Type                     |
-| headerMandatory       | String                  | Header of the mandatory column                               | Mandatory                |
-| headerKeys            | String                  | Header of the keys column                                    | Keys                     |
-| headerDescription     | String                  | Header of the description column                             | Description              |
-| headerExample         | String                  | Header of the example column                                 | Example                  |
-| alignmentSchema       | [Alignment](#alignment) | Alignment of the schema column                               | LEFT                     |
-| alignmentFilename     | [Alignment](#alignment) | Alignment of the filename column                             | LEFT                     | 
-| alignmentTableName    | [Alignment](#alignment) | Alignment of the table name column                           | LEFT                     | 
-| alignmentColumn       | [Alignment](#alignment) | Alignment of the column column                               | LEFT                     | 
-| alignmentPosition     | [Alignment](#alignment) | Alignment of the position column                             | RIGHT                    | 
-| alignmentDataType     | [Alignment](#alignment) | Alignment of the schema column                               | LEFT                     | 
-| alignmentMandatory    | [Alignment](#alignment) | Alignment of the schema column                               | LEFT                     | 
-| alignmentKeys         | [Alignment](#alignment) | Alignment of the keys column                                 | LEFT                     |        
-| alignmentDescription  | [Alignment](#alignment) | Alignment of the description column                          | LEFT                     | 
-| alignmentExample      | [Alignment](#alignment) | Alignment of the example column                              | LEFT                     |     
+| Setting               | 	Type                                                                   | Description                                                  | Default                                                        |
+|-----------------------|-------------------------------------------------------------------------|--------------------------------------------------------------|----------------------------------------------------------------|
+| documentationFile     | File                                                                    | Location of the documentation file                           |                                                                |
+| destination           | Destination                                                             | Where to send the generated documentation                    |                                                                | 
+| key                   | String                                                                  | Key to identify it on the destination                        |                                                                |
+| tableFormatter        | TableFormatter                                                          | Formatter that can create the table                          | `MarkdownTableFormatter`                                       |
+| addDescriptionForFile | boolean                                                                 | Will add a header row containing the description of the file | false                                                          | 
+| filterTags            | String                                                                  | If specified, only tables with this filter is used           |                                                                |
+| columnFilename        | [DataDictionaryConfigurationColumn](#dataDictionaryConfigurationColumn) | Customizing filename                                         | Export: `true`<br/>Header: `Filename`<br/>Alignment: `LEFT`    |
+| columnTable           | [DataDictionaryConfigurationColumn](#dataDictionaryConfigurationColumn) | Customizing table                                            | Export: `false`<br/>Header: `Table`<br/>Alignment: `LEFT`      |
+| columnColumn          | [DataDictionaryConfigurationColumn](#dataDictionaryConfigurationColumn) | Customizing column                                           | Export: `true`<br/>Header: `Column`<br/>Alignment: `LEFT`      |
+| columnPosition        | [DataDictionaryConfigurationColumn](#dataDictionaryConfigurationColumn) | Customizing position                                         | Export: `true`<br/>Header: `Position`<br/>Alignment: `RIGHT`   |
+| columnType            | [DataDictionaryConfigurationColumn](#dataDictionaryConfigurationColumn) | Customizing data type                                        | Export: `true`<br/>Header: `Type`<br/>Alignment: `LEFT`        |
+| columnMandatory       | [DataDictionaryConfigurationColumn](#dataDictionaryConfigurationColumn) | Customizing mandatory                                        | Export: `true`<br/>Header: `Mandatory`<br/>Alignment: `LEFT`   |
+| columnKeys            | [DataDictionaryConfigurationColumn](#dataDictionaryConfigurationColumn) | Customizing keys                                             | Export: `true`<br/>Header: `Keys`<br/>Alignment: `LEFT`        |
+| columnDescription     | [DataDictionaryConfigurationColumn](#dataDictionaryConfigurationColumn) | Customizing description                                      | Export: `true`<br/>Header: `Description`<br/>Alignment: `LEFT` |
+| columnExample         | [DataDictionaryConfigurationColumn](#dataDictionaryConfigurationColumn) | Customizing example                                          | Export: `true`<br/>Header: `Example`<br/>Alignment: `LEFT`     |
+| columnSchema          | [DataDictionaryConfigurationColumn](#dataDictionaryConfigurationColumn) | Customizing schema                                           | Export: `false`<br/>Header: `Schema`<br/>Alignment: `LEFT`     |
+| schemaName            | String                                                                  | Schema name                                                  |                                                                |
+
+### DataDictionaryConfigurationColumn
+
+You may customize what to export and how it looks.
+
+| Setting   | Type                    | Description                        |
+|-----------|-------------------------|------------------------------------|
+| export    | boolean                 | Should the column be exported?     | 
+| header    | String                  | Header of the column in the export | 
+| alignment | [Alignment](#alignment) | Alignment of the column            |     
 
 ### Alignment
 
