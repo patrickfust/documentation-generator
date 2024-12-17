@@ -67,7 +67,6 @@ class ExcelBase64TableFormatterSpec extends Specification {
         DataDictionaryConfiguration ddc = configurations[0] as DataDictionaryConfiguration
         ExcelBase64TableFormatter excelBase64TableFormatter = ddc.tableFormatter as ExcelBase64TableFormatter
 
-
         excelBase64TableFormatter.columnCustomizations.size() == 3
 
         excelBase64TableFormatter.columnCustomizations[0].columnNumber == 0

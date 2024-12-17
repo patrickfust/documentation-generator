@@ -1,0 +1,11 @@
+- className: dk.fust.docgen.MockGeneratorConfiguration
+  documentationFile: documentation.yaml
+  destination:
+    className: dk.fust.docgen.destination.MarkdownDestination
+    file: README.md
+  aBigInteger: 200
+  aBigBoolean: false
+  aString: Another String
+  nestedConfiguration:
+    nestedString: overridden nested
+    nestedBoolean: false
