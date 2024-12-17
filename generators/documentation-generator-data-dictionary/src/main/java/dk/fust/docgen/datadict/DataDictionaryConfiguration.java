@@ -2,8 +2,13 @@ package dk.fust.docgen.datadict;
 
 import dk.fust.docgen.Generator;
 import dk.fust.docgen.format.table.Alignment;
+import dk.fust.docgen.model.annotation.MergeWithDefault;
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
+import java.util.List;
 
 /**
  * Configuration for the data dictionary generation
@@ -14,40 +19,20 @@ public class DataDictionaryConfiguration extends AbstractDataDictionaryConfigura
 
     private boolean addDescriptionForFile = false;
 
-    private boolean exportFilename = true;
-    private boolean exportTableName = false;
-    private boolean exportColumn = true;
-    private boolean exportPosition = true;
-    private boolean exportDataType = true;
-    private boolean exportMandatory = true;
-    private boolean exportKeys = true;
-    private boolean exportDescription = true;
-    private boolean exportExample = true;
-    private boolean exportSchema = false;
-
-    private String headerSchema = "Schema";
-    private String headerFilename = "Filename";
-    private String headerTableName = "Table";
-    private String headerColumn = "Column";
-    private String headerPosition = "Position";
-    private String headerDataType = "Type";
-    private String headerMandatory = "Mandatory";
-    private String headerKeys = "Keys";
-    private String headerDescription = "Description";
-    private String headerExample = "Example";
-
-    private Alignment alignmentSchema = Alignment.LEFT;
-    private Alignment alignmentFilename = Alignment.LEFT;
-    private Alignment alignmentTableName = Alignment.LEFT;
-    private Alignment alignmentColumn = Alignment.LEFT;
-    private Alignment alignmentPosition = Alignment.RIGHT;
-    private Alignment alignmentDataType = Alignment.LEFT;
-    private Alignment alignmentMandatory = Alignment.LEFT;
-    private Alignment alignmentKeys = Alignment.LEFT;
-    private Alignment alignmentDescription = Alignment.LEFT;
-    private Alignment alignmentExample = Alignment.LEFT;
+    @MergeWithDefault private DataDictionaryConfigurationColumn columnFilename = new DataDictionaryConfigurationColumn(true, "Filename", Alignment.LEFT);
+    @MergeWithDefault private DataDictionaryConfigurationColumn columnTable = new DataDictionaryConfigurationColumn(false, "Table", Alignment.LEFT);
+    @MergeWithDefault private DataDictionaryConfigurationColumn columnColumn = new DataDictionaryConfigurationColumn(true, "Column", Alignment.LEFT);
+    @MergeWithDefault private DataDictionaryConfigurationColumn columnPosition = new DataDictionaryConfigurationColumn(true, "Position", Alignment.RIGHT);
+    @MergeWithDefault private DataDictionaryConfigurationColumn columnType = new DataDictionaryConfigurationColumn(true, "Type", Alignment.LEFT);
+    @MergeWithDefault private DataDictionaryConfigurationColumn columnMandatory = new DataDictionaryConfigurationColumn(true, "Mandatory", Alignment.LEFT);
+    @MergeWithDefault private DataDictionaryConfigurationColumn columnKeys = new DataDictionaryConfigurationColumn(true, "Keys", Alignment.LEFT);
+    @MergeWithDefault private DataDictionaryConfigurationColumn columnDescription = new DataDictionaryConfigurationColumn(true, "Description", Alignment.LEFT);
+    @MergeWithDefault private DataDictionaryConfigurationColumn columnExample = new DataDictionaryConfigurationColumn(true, "Example", Alignment.LEFT);
+    @MergeWithDefault private DataDictionaryConfigurationColumn columnSchema = new DataDictionaryConfigurationColumn(false, "Schema", Alignment.LEFT);
 
     private String schemaName = null;
+
+    private List<DataDictionaryConfigurationColumn> columns;
 
     @Override
     public Generator getGenerator() {

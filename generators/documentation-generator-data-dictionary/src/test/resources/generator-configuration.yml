@@ -1,5 +1,12 @@
 - className: dk.fust.docgen.datadict.DataDictionaryConfiguration
   documentationFile: documentation.yaml
+  columnTable:
+    export: true
+    header: My header
+  columnMandatory:
+    export: false
+  columnDescription:
+    alignment: RIGHT
   tableFormatter:
     className: dk.fust.docgen.format.table.HTMLTableFormatter
   destination:

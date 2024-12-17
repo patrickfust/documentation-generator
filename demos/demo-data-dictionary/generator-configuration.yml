@@ -8,8 +8,11 @@
 - className: dk.fust.docgen.datadict.DataDictionaryConfiguration
   documentationFile: documentation.yaml
   key: DATA_DICTIONARY
-  alignmentExample: RIGHT
-  alignmentMandatory: CENTER
+  columnExample:
+    export: true
+    alignment: RIGHT
+  columnMandatory:
+    alignment: CENTER
   tableFormatter:
     className: dk.fust.docgen.format.table.MarkdownTableFormatter
   destination:
@@ -18,7 +21,9 @@
 - className: dk.fust.docgen.datadict.DataDictionaryConfiguration
   documentationFile: documentation.yaml
   addDescriptionForFile: true
-  alignmentExample: RIGHT
+  columnExample:
+    export: true
+    alignment: RIGHT
   tableFormatter:
     className: dk.fust.docgen.excel.format.table.ExcelBase64TableFormatter
     headerExcelStyle:
