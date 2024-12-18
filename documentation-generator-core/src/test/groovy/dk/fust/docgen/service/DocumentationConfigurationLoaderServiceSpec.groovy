@@ -2,11 +2,9 @@ package dk.fust.docgen.service
 
 import dk.fust.docgen.GeneratorConfiguration
 import dk.fust.docgen.MockEnum
-import dk.fust.docgen.MockGenerator
 import dk.fust.docgen.MockGeneratorConfiguration
 import dk.fust.docgen.TestHelper
 import dk.fust.docgen.destination.MarkdownDestination
-import dk.fust.docgen.model.annotation.MergeWithDefault
 import spock.lang.Specification
 
 class DocumentationConfigurationLoaderServiceSpec extends Specification {

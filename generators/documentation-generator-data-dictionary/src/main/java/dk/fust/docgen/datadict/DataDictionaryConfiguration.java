@@ -3,10 +3,8 @@ package dk.fust.docgen.datadict;
 import dk.fust.docgen.Generator;
 import dk.fust.docgen.format.table.Alignment;
 import dk.fust.docgen.model.annotation.MergeWithDefault;
-import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
 import java.util.List;
 
