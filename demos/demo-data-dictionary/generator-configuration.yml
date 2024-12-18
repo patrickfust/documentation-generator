@@ -26,6 +26,7 @@
     alignment: RIGHT
   tableFormatter:
     className: dk.fust.docgen.excel.format.table.ExcelBase64TableFormatter
+    sheetName: Data Dictionary
     headerExcelStyle:
       fontName: Verdana
       fontHeightInPoints: 11
