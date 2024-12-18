@@ -54,6 +54,13 @@
             <artifactId>documentation-generator-core</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <!-- Generators -->
+        <dependency>
+            <groupId>dk.fust.docgen</groupId>
+            <artifactId>documentation-generator-data-dictionary</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>dk.fust.docgen</groupId>
             <artifactId>documentation-generator-datalineage</artifactId>
@@ -67,6 +74,23 @@
         <dependency>
             <groupId>dk.fust.docgen</groupId>
             <artifactId>documentation-generator-sqlscript</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- Extensions -->
+        <dependency>
+            <groupId>dk.fust.docgen</groupId>
+            <artifactId>documentation-generator-confluence</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>dk.fust.docgen</groupId>
+            <artifactId>documentation-generator-csv</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>dk.fust.docgen</groupId>
+            <artifactId>documentation-generator-excel</artifactId>
             <version>${project.version}</version>
         </dependency>
 
