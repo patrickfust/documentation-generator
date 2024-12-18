@@ -38,6 +38,8 @@ public class ExcelBase64TableFormatter implements TableFormatter {
 
     private boolean autofilter = true;
 
+    private String sheetName = "Sheet1";
+
     @Override
     public String formatTable(FormatTable formatTable) {
         ExcelConfiguration excelConfiguration = makeExcelConfiguration();
@@ -57,6 +59,7 @@ public class ExcelBase64TableFormatter implements TableFormatter {
         excelConfiguration.setDefaultColumnWidth(defaultColumnWidth);
         excelConfiguration.setAutofilter(autofilter);
         excelConfiguration.setColumnCustomizations(columnCustomizations);
+        excelConfiguration.setSheetName(sheetName);
         excelConfiguration.validate();
         return excelConfiguration;
     }

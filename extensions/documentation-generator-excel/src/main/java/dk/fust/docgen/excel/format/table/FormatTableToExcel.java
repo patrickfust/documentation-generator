@@ -76,7 +76,7 @@ public class FormatTableToExcel {
     }
 
     private static XSSFSheet createSheet(XSSFWorkbook workbook, ExcelConfiguration excelConfiguration) {
-        XSSFSheet sheet = workbook.createSheet();
+        XSSFSheet sheet = workbook.createSheet(excelConfiguration.getSheetName());
         sheet.setActiveCell(new CellAddress(0, 0));
         sheet.setDefaultColumnWidth(excelConfiguration.getDefaultColumnWidth());
         return sheet;

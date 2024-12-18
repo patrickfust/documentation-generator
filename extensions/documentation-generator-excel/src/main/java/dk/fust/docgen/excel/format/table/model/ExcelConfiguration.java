@@ -21,12 +21,15 @@ public class ExcelConfiguration {
 
     private boolean autofilter;
 
+    private String sheetName;
+
     private List<ColumnCustomization> columnCustomizations = new ArrayList<>();
 
     /**
      * Validates the configuration
      */
     public void validate() {
+        Assert.isTrue(sheetName != null && !sheetName.isEmpty(), "Sheet name must be set");
         if (columnCustomizations != null) {
             for (ColumnCustomization columnCustomization : columnCustomizations) {
                 Assert.isFalse(columnCustomization.getColumnNumber() == null && columnCustomization.getColumnDescription() == null, "Either columnNumber or columnDescription must be set");
