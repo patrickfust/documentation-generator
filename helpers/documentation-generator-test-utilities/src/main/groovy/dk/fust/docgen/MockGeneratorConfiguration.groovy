@@ -1,9 +1,7 @@
-package dk.fust.docgen;
+package dk.fust.docgen
 
 import dk.fust.docgen.destination.Destination
-import dk.fust.docgen.model.annotation.MergeWithDefault;
-
-import java.io.File;
+import dk.fust.docgen.model.annotation.MergeWithDefault
 
 class MockGeneratorConfiguration implements GeneratorConfiguration {
 
