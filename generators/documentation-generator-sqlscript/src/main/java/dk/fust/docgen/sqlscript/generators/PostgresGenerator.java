@@ -127,7 +127,7 @@ public class PostgresGenerator implements SqlGenerator {
         if (table.getComment() != null) {
             sql.append("comment on table ");
             appendName(schemaName, table.getName(), sql);
-            sql.append(" is '%s';\n".formatted(table.getComment()));
+            sql.append(" is '%s';\n".formatted(table.getComment().replaceAll("'", "''")));
         }
         if (generationForTable.getAddCreatedAt() != null && generationForTable.getAddCreatedAt()) {
             sql.append("comment on column ");
