@@ -232,6 +232,10 @@
             "items" : {
               "type" : "object",
               "properties" : {
+                "comment" : {
+                  "type" : "string",
+                  "description" : "Comment to be added to the index"
+                },
                 "fields" : {
                   "description" : "List of fields for the index",
                   "type" : "array",

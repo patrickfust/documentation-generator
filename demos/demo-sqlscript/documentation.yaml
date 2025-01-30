@@ -1,4 +1,4 @@
-$schema:  https://patrickfust.github.io/documentation-generator/v1/documentation-schema.json
+$schema:  https://patrickfust.github.io/documentation-generator/v2/documentation-schema.json
 documentationTitle: My database
 schemaName: theSchema
 tables:

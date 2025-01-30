@@ -99,13 +99,13 @@ The documentation file or files can be yaml- or json-files.
 If you in the beginning of your file add a reference to the schema, so your IDE can validate and have code completion.
 
 ```yaml
-$schema:  https://patrickfust.github.io/documentation-generator/v1/documentation-schema.json
+$schema:  https://patrickfust.github.io/documentation-generator/v2/documentation-schema.json
 ```
 
 Example of a documentation file:
 
 ```yaml
-$schema:  https://patrickfust.github.io/documentation-generator/v1/documentation-schema.json
+$schema:  https://patrickfust.github.io/documentation-generator/v2/documentation-schema.json
 documentationTitle: My database
 schemaName: theSchema
 tables:
@@ -130,7 +130,7 @@ tables:
 or as JSON:
 ```json
 {
-    "$schema": "https://patrickfust.github.io/documentation-generator/v1/documentation-schema.json",
+    "$schema": "https://patrickfust.github.io/documentation-generator/v2/documentation-schema.json",
     "documentationTitle": "My database",
     "schemaName": "theSchema",
     "tables": [

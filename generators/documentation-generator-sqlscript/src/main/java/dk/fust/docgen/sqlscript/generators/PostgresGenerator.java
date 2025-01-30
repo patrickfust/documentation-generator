@@ -34,6 +34,7 @@ public class PostgresGenerator implements SqlGenerator {
                 sqlScript.append(describeTable(schemaName, table, generationForTable));
                 sqlScript.append(generateViews(schemaName, table));
                 sqlScript.append(generateIndexes(schemaName, table));
+                sqlScript.append(describeIndexes(schemaName, table));
                 sqlScript.append(generateTriggers(schemaName, table, generationForTable));
 
                 sqlScriptConfiguration.getDestination()
@@ -150,6 +151,21 @@ public class PostgresGenerator implements SqlGenerator {
         }
         // Don't have anything
         return "";
+    }
+
+    private String describeIndexes(String schemaName, Table table) {
+        StringBuilder sql = new StringBuilder(128);
+        if (table != null && table.getIndexes() != null) {
+            sql.append("\n");
+            table.getIndexes().forEach(index -> {
+                if (index.getComment() != null) {
+                    sql.append("comment on index ");
+                    appendName(schemaName, index.getName(), sql);
+                    sql.append(" is '%s';\n".formatted(index.getComment().replaceAll("'", "''")));
+                }
+            });
+        }
+        return sql.toString();
     }
 
     private String generateViews(String schemaName, Table table) {
