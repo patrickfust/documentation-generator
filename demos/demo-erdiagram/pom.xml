@@ -35,7 +35,7 @@
       <plugin>
         <groupId>dk.fust.docgen</groupId>
         <artifactId>documentation-generator-maven-plugin</artifactId>
-        <version>1.3.0</version>
+        <version>1.4.0</version>
         <configuration>
           <documentationConfigurationFile>generator-configuration.yml</documentationConfigurationFile>
         </configuration>
