@@ -22,7 +22,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Create documentation version if not exists
-        run: mkdir -p site/v1
+        run: mkdir -p site/v2
 
       - name: Copy Documentation Generator Schema to site
         run: cp -Rv documentation-generator-api/src/main/resources/documentation-schema.json site/v2/documentation-schema.json
