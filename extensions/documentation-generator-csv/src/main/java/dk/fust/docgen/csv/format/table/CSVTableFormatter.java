@@ -19,6 +19,7 @@ import java.util.List;
 public class CSVTableFormatter implements TableFormatter {
 
     private CSVDelimiter delimiter = CSVDelimiter.SEMICOLON;
+    private CSVRecordSeparator recordSeparator = CSVRecordSeparator.NEWLINE;
 
     @Override
     public String formatTable(FormatTable formatTable) {
@@ -26,6 +27,7 @@ public class CSVTableFormatter implements TableFormatter {
 
         CSVFormat csvFormat = CSVFormat.DEFAULT.builder()
                 .setDelimiter(delimiter.getDelimiter())
+                .setRecordSeparator(recordSeparator.getRecordSeparator())
                 .build();
 
         try (final CSVPrinter printer = new CSVPrinter(sw, csvFormat)) {
