@@ -156,9 +156,11 @@ public class PostgresGenerator implements SqlGenerator {
     private String describeIndexes(String schemaName, Table table) {
         StringBuilder sql = new StringBuilder(128);
         if (table != null && table.getIndexes() != null) {
-            sql.append("\n");
             table.getIndexes().forEach(index -> {
                 if (index.getComment() != null) {
+                    if (sql.isEmpty()) {
+                        sql.append("\n");
+                    }
                     sql.append("comment on index ");
                     appendName(schemaName, index.getName(), sql);
                     sql.append(" is '%s';\n".formatted(index.getComment().replaceAll("'", "''")));
