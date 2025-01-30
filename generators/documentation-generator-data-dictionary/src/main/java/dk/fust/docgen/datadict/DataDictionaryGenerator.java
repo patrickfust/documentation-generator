@@ -99,7 +99,7 @@ public class DataDictionaryGenerator implements Generator {
         Row row = new Row();
         List<Cell> cells = row.getCells();
         if (dataDictionaryConfiguration.getColumnSchema().getExport()) {
-            cells.add(new Cell((String) null, true));
+            cells.add(new Cell(dataDictionaryConfiguration.getSchemaName(), true));
         }
         if (dataDictionaryConfiguration.getColumnFilename().getExport()) {
             cells.add(new Cell(dataDictionaryFile.getFileName(), true));
