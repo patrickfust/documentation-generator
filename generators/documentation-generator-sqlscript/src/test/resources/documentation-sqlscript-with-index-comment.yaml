@@ -1,0 +1,22 @@
+$schema: ../../../../../documentation-generator-api/src/main/resources/documentation-schema.json
+documentationTitle: The documentation title
+databaseName: The database name
+schemaName: xxx
+generation:
+  triggerForUpdates: my_trigger
+tables:
+  - name: index_with_comment
+    createTableScript: create-index_with_comment.sql
+    fields:
+      - name: field_a
+        dataType: int
+    indexes:
+      - name: nonUniqueIdx
+        comment: a comment on nonUniqueIdx
+        fields:
+          - field_a
+      - name: uniqueIdx
+        comment: a comment on uniqueIdx
+        unique: true
+        fields:
+          - field_a
