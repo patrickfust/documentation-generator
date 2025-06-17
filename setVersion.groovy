@@ -23,7 +23,7 @@ def setVersion(String fromVersion, String toVersion) {
     replaceInFile('demos/demo-data-dictionary/gradle.properties', "(documentationGeneratorVersion = )(${fromVersion})", toVersion)
     replaceInFile('demos/demo-data-lineage/gradle.properties', "(documentationGeneratorVersion = )(${fromVersion})", toVersion)
     replaceInFile('demos/demo-erdiagram/gradle.properties', "(documentationGeneratorVersion = )(${fromVersion})", toVersion)
-    replaceInFile('demos/demo-erdiagram/pom.xml', "(.*<version>)(${fromVersion})(</version>)", toVersion)
+    replaceInFile('demos/demo-erdiagram/pom.xml', "(.*<documentation-generator.version>)(${fromVersion})(</documentation-generator.version>)", toVersion)
     replaceInFile('demos/demo-sqlscript/gradle.properties', "(documentationGeneratorVersion = )(${fromVersion})", toVersion)
     replaceInFile('documentation-generator-maven-plugin/pom.xml', "(.*<version>)(${fromVersion})(</version>)", toVersion)
     replaceInFile('documentation-generator-maven-plugin/jreleaser.yml', "(.*version: )(${fromVersion})", toVersion)
