@@ -76,3 +76,4 @@ deploy:
         sourceJar: true
         javadocJar: true
         applyMavenCentralRules: true
+        maxRetries: 100

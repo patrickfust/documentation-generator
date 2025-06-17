@@ -18,8 +18,8 @@ Every part (except the Maven plugin) can be released in the root folder.
 2. Release to GitHub and Maven Central with: `./gradlew jreleaserFullRelease`
 
 ## Release Maven plugin
-Go to the subfolder `documentation-generator-maven-plugin`
 
-1. Build the Maven plugin: `mvn install -U` (-U is force update from Maven central)
-2. Publish it locally: `mvn -Ppublication`
-3. Release it: `jreleaser full-release --git-root-search`
+1. Go to the subfolder `documentation-generator-maven-plugin`
+2. Build the Maven plugin: `mvn clean install -U` (-U is force update from Maven central)
+3. Publish it locally: `mvn -Ppublication`
+4. Release it: `jreleaser full-release --git-root-search`
