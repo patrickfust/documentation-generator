@@ -6,7 +6,7 @@ dependencies {
     implementation project(':documentation-generator-api')
     implementation project(':documentation-generator-core')
 
-    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.18.0'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.19.1'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.0'
 
     implementation platform('org.spockframework:spock-bom:2.3-groovy-4.0')
