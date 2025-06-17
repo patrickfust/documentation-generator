@@ -1,5 +1,5 @@
 {
-  "$schema": "https://patrickfust.github.io/documentation-generator/v2/documentation-schema.json",
+  "$schema": "https://patrickfust.github.io/documentation-generator/v3/documentation-schema.json",
   "documentationTitle": "The documentation title in a JSON file",
   "databaseName": "The database name",
   "schemaName": "xxx",

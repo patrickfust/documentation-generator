@@ -1,0 +1,8 @@
+$schema: ../../../../../documentation-generator-api/src/main/resources/documentation-schema.json
+tables:
+  - name: table_with_integer_array
+    createTableScript: create-something-with-integer-array.sql
+    fields:
+      - name: name
+        comment: integer array field
+        dataType: int_array
