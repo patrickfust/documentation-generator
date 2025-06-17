@@ -6,5 +6,5 @@ dependencies {
     implementation project(':documentation-generator-api')
 
     // https://github.com/victools/jsonschema-generator
-    implementation 'com.github.victools:jsonschema-generator:4.36.0'
+    implementation 'com.github.victools:jsonschema-generator:4.38.0'
 }
