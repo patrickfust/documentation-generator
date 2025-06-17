@@ -9,18 +9,8 @@ import spock.lang.Specification
 class PostgresGeneratorSpec extends Specification {
 
     def "generate without indexes"() {
-        setup:
-        PostgresGenerator generator = new PostgresGenerator()
-        String documentationFile = "documentation-sqlscript.yaml"
-        Documentation documentation = TestHelper.loadTestDocumentation(documentationFile)
-        SqlScriptConfiguration scriptConfiguration = new SqlScriptConfiguration(
-                destination: new DirectoryDestination(directory: new File('build/test-scripts-postgres'), createParentDirectories: true),
-                documentationFile: new File("src/test/resources/$documentationFile")
-        )
-        scriptConfiguration.validate()
-
         when:
-        generator.generate(documentation, scriptConfiguration)
+        generate('documentation-sqlscript.yaml', 'build/test-scripts-postgres')
 
         then:
         noExceptionThrown()
@@ -28,18 +18,10 @@ class PostgresGeneratorSpec extends Specification {
 
     def "generate with index comment"() {
         setup:
-        PostgresGenerator generator = new PostgresGenerator()
-        String documentationFile = "documentation-sqlscript-with-index-comment.yaml"
-        Documentation documentation = TestHelper.loadTestDocumentation(documentationFile)
-        File outputDirectory = new File('build/test-scripts-postgres-index-comment')
-        SqlScriptConfiguration scriptConfiguration = new SqlScriptConfiguration(
-                destination: new DirectoryDestination(directory: outputDirectory, createParentDirectories: true),
-                documentationFile: new File("src/test/resources/$documentationFile")
-        )
-        scriptConfiguration.validate()
+        String outputDirectory = 'build/test-scripts-postgres-index-comment'
 
         when:
-        generator.generate(documentation, scriptConfiguration)
+        generate('documentation-sqlscript-with-index-comment.yaml', outputDirectory)
 
         then:
         noExceptionThrown()
@@ -47,4 +29,29 @@ class PostgresGeneratorSpec extends Specification {
         indexFileText.contains("comment on index xxx.nonUniqueIdx is 'a comment on nonUniqueIdx';")
         indexFileText.contains("comment on index xxx.uniqueIdx is 'a comment on uniqueIdx';")
     }
+
+    def "generate with integer array"() {
+        setup:
+        String outputDirectory = 'build/test-scripts-postgres-integer-array'
+
+        when:
+        generate('documentation-sqlscript-integer-array.yaml', outputDirectory)
+
+        then:
+        noExceptionThrown()
+        String indexFileText = new File(outputDirectory, 'create-something-with-integer-array.sql').text
+        indexFileText.contains("name int[]")
+    }
+
+    private void generate(String documentationFile, String outputDirectory) {
+        PostgresGenerator generator = new PostgresGenerator()
+        Documentation documentation = TestHelper.loadTestDocumentation(documentationFile)
+        SqlScriptConfiguration scriptConfiguration = new SqlScriptConfiguration(
+                destination: new DirectoryDestination(directory: new File(outputDirectory), createParentDirectories: true),
+                documentationFile: new File("src/test/resources/$documentationFile")
+        )
+        scriptConfiguration.validate()
+        generator.generate(documentation, scriptConfiguration)
+    }
+
 }

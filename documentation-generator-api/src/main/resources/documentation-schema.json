@@ -25,7 +25,7 @@
           "description" : "Automatically generate id on the form `tablename_id`"
         },
         "generateIdDataType" : {
-          "enum" : [ "int", "date", "timestamptz", "numeric", "bool", "bigint", "text", "uuid" ],
+          "enum" : [ "int", "int_array", "date", "data_array", "timestamptz", "timestamptz_array", "numeric", "numeric_array", "bool", "bool_array", "bigint", "bigint_array", "text", "text_array", "uuid", "uuid_array" ],
           "description" : "Type of the generated id of the table"
         },
         "triggerForUpdates" : {
@@ -169,7 +169,7 @@
                   "type" : "string"
                 },
                 "dataType" : {
-                  "enum" : [ "int", "date", "timestamptz", "numeric", "bool", "bigint", "text", "uuid" ],
+                  "enum" : [ "int", "int_array", "date", "data_array", "timestamptz", "timestamptz_array", "numeric", "numeric_array", "bool", "bool_array", "bigint", "bigint_array", "text", "text_array", "uuid", "uuid_array" ],
                   "description" : "Data type of the column"
                 },
                 "defaultValue" : {
