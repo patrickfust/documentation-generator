@@ -1,3 +1,4 @@
+$schema: https://jreleaser.org/schema/jreleaser-schema-1.17.0.json
 project:
   name: documentation-generator
   version: 1.8.0
