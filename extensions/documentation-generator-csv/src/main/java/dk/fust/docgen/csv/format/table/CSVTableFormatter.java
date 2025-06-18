@@ -28,7 +28,7 @@ public class CSVTableFormatter implements TableFormatter {
         CSVFormat csvFormat = CSVFormat.DEFAULT.builder()
                 .setDelimiter(delimiter.getDelimiter())
                 .setRecordSeparator(recordSeparator.getRecordSeparator())
-                .build();
+                .get();
 
         try (final CSVPrinter printer = new CSVPrinter(sw, csvFormat)) {
             for (Row row : formatTable.getRows()) {
