@@ -1,4 +1,4 @@
-# $schema: "../jreleaser-schema-1,14.0.json"
+# $schema: "../jreleaser-schema-1.18.0.json"
 project:
   name: documentation-generator
   version: 1.9.0
@@ -10,10 +10,10 @@ project:
   license: Apache-2.0
   links:
     homepage: https://github.com/patrickfust/documentation-generator
-  java:
-    groupId: dk.fust.docgen
-    version: 1
-  inceptionYear: 2024
+  extraProperties:
+    java.groupId: dk.fust.docgen
+    java.version: "1"
+  inceptionYear: "2024"
 
 release:
   github:

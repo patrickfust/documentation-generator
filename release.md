@@ -23,3 +23,12 @@ Every part (except the Maven plugin) can be released in the root folder.
 2. Build the Maven plugin: `mvn clean install -U` (-U is force update from Maven central)
 3. Publish it locally: `mvn -Ppublication`
 4. Release it: `jreleaser full-release --git-root-search`
+
+# JRelease schema
+
+In order to update the JRelease schema, you can run the following command:
+
+```bash
+brew upgrade jreleaser
+jreleaser json-schema
+```
