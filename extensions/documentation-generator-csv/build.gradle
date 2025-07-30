@@ -8,7 +8,7 @@ dependencies {
     implementation project(':documentation-generator-api')
     implementation project(':documentation-generator-core')
 
-    implementation 'org.apache.commons:commons-csv:1.14.0'
+    implementation 'org.apache.commons:commons-csv:1.14.1'
 }
 
 publishing {
