@@ -1,0 +1,290 @@
+{
+  "$schema" : "https://json-schema.org/draft/2020-12/schema",
+  "$defs" : {
+    "Generation" : {
+      "type" : "object",
+      "properties" : {
+        "addCreatedAt" : {
+          "type" : "boolean",
+          "description" : "Adds `columnNameCreatedAt` column, that is populated with `now()`"
+        },
+        "addUpdatedAt" : {
+          "type" : "boolean",
+          "description" : "Adds `columnNameUpdatedAt` column, that is populated with `now()`"
+        },
+        "columnNameCreatedAt" : {
+          "type" : "string",
+          "description" : "If `addCreatedAt`, this will be the columnName"
+        },
+        "columnNameUpdatedAt" : {
+          "type" : "string",
+          "description" : "If `addUpdatedAt`, this will be the columnName"
+        },
+        "generateId" : {
+          "type" : "boolean",
+          "description" : "Automatically generate id on the form `tablename_id`"
+        },
+        "generateIdDataType" : {
+          "enum" : [ "int", "int_array", "date", "data_array", "timestamptz", "timestamptz_array", "numeric", "numeric_array", "bool", "bool_array", "bigint", "bigint_array", "text", "text_array", "uuid", "uuid_array" ],
+          "description" : "Type of the generated id of the table"
+        },
+        "triggerForUpdates" : {
+          "type" : "string",
+          "description" : "If this is non-empty, a trigger will be called with this name"
+        }
+      }
+    }
+  },
+  "type" : "object",
+  "properties" : {
+    "dataDictionary" : {
+      "type" : "object",
+      "properties" : {
+        "dataDictionaryFiles" : {
+          "description" : "List of data dictionary files",
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "columns" : {
+                "description" : "The files columns",
+                "type" : "array",
+                "items" : {
+                  "type" : "object",
+                  "properties" : {
+                    "columnDescription" : {
+                      "type" : "string",
+                      "description" : "Description of the field. May be several lines"
+                    },
+                    "columnName" : {
+                      "type" : "string",
+                      "description" : "Column name in file"
+                    },
+                    "dataType" : {
+                      "type" : "string",
+                      "description" : "Columns data type. Examples: varchar, varchar(200), numeric(17, 3)"
+                    },
+                    "example" : {
+                      "type" : "string",
+                      "description" : "Example on how the content may look. Could be a description as well: 'value between 0 and 1. eg 0,3333'"
+                    },
+                    "keys" : {
+                      "type" : "string",
+                      "description" : "Is this column a part of the unique key?"
+                    },
+                    "mandatory" : {
+                      "type" : "boolean",
+                      "description" : "If true, then the content may not be null or empty"
+                    },
+                    "maximumValue" : {
+                      "type" : "integer",
+                      "description" : "Maximum value of the content"
+                    },
+                    "minimumValue" : {
+                      "type" : "integer",
+                      "description" : "Minimum value of the content"
+                    },
+                    "regex" : {
+                      "type" : "string",
+                      "description" : "Regular expression that the contain must obey. Example: ((\\d{3}[A-Z]?)|0{4})"
+                    }
+                  },
+                  "required" : [ "columnName", "dataType" ],
+                  "description" : "The files columns"
+                }
+              },
+              "fileDescription" : {
+                "type" : "string",
+                "description" : "Description of the file"
+              },
+              "fileName" : {
+                "type" : "string",
+                "description" : "Filename for the data dictionary"
+              },
+              "tableName" : {
+                "type" : "string",
+                "description" : "Corresponding table name"
+              },
+              "tags" : {
+                "description" : "List of tags that may be used in a filter",
+                "type" : "array",
+                "items" : {
+                  "type" : "string",
+                  "description" : "List of tags that may be used in a filter"
+                }
+              },
+              "version" : {
+                "type" : "string",
+                "description" : "Data dictionary version"
+              }
+            },
+            "required" : [ "columns", "fileName", "version" ],
+            "description" : "List of data dictionary files"
+          }
+        }
+      },
+      "description" : "Data dictionary"
+    },
+    "databaseName" : {
+      "type" : "string"
+    },
+    "documentationTitle" : {
+      "type" : "string"
+    },
+    "generation" : {
+      "$ref" : "#/$defs/Generation",
+      "description" : "Default configuration on how the generation should appear - Can be overridden per table"
+    },
+    "schemaName" : {
+      "type" : "string",
+      "description" : "Schema name"
+    },
+    "tables" : {
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "properties" : {
+          "comment" : {
+            "type" : "string",
+            "description" : "Comment to be added to the table"
+          },
+          "createTableScript" : {
+            "type" : "string",
+            "description" : "Filename of sql-script-file to be generated. If left out, no files are generated"
+          },
+          "fields" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "check" : {
+                  "description" : "Constraint on the values",
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string",
+                    "description" : "Constraint on the values"
+                  }
+                },
+                "comment" : {
+                  "type" : "string"
+                },
+                "dataType" : {
+                  "enum" : [ "int", "int_array", "date", "data_array", "timestamptz", "timestamptz_array", "numeric", "numeric_array", "bool", "bool_array", "bigint", "bigint_array", "text", "text_array", "uuid", "uuid_array" ],
+                  "description" : "Data type of the column"
+                },
+                "defaultValue" : {
+                  "type" : "string",
+                  "description" : "Default value when inserting in the database"
+                },
+                "foreignKey" : {
+                  "type" : "object",
+                  "properties" : {
+                    "columnName" : {
+                      "type" : "string",
+                      "description" : "Column name the foreign key points to. Is together with tableName"
+                    },
+                    "enforceReference" : {
+                      "type" : "boolean",
+                      "description" : "Should the database enforce the reference?",
+                      "default" : false
+                    },
+                    "tableName" : {
+                      "type" : "string",
+                      "description" : "Table name the foreign key points to. Is together with columnName"
+                    }
+                  },
+                  "required" : [ "columnName", "tableName" ],
+                  "description" : "Is this a foreign key to another table"
+                },
+                "name" : {
+                  "type" : "string",
+                  "description" : "Name of the column"
+                },
+                "nullable" : {
+                  "type" : "boolean",
+                  "description" : "May the field be null?",
+                  "default" : true
+                },
+                "primaryKey" : {
+                  "type" : "boolean"
+                },
+                "source" : {
+                  "type" : "string",
+                  "description" : "Points to another table and field. Must be on the form 'table.field'"
+                },
+                "transformation" : {
+                  "type" : "string",
+                  "description" : "If the field is transformed, this is the documentation on how it's transformed"
+                },
+                "unique" : {
+                  "type" : "boolean"
+                }
+              },
+              "required" : [ "dataType", "name" ]
+            }
+          },
+          "generation" : {
+            "$ref" : "#/$defs/Generation",
+            "description" : "Configuration on how the generation should appear - Overrides the general generation on `Documentation`"
+          },
+          "indexes" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "comment" : {
+                  "type" : "string",
+                  "description" : "Comment to be added to the index"
+                },
+                "fields" : {
+                  "description" : "List of fields for the index",
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string",
+                    "description" : "List of fields for the index"
+                  }
+                },
+                "name" : {
+                  "type" : "string",
+                  "description" : "Name of the index"
+                },
+                "unique" : {
+                  "type" : "boolean"
+                }
+              },
+              "required" : [ "fields" ]
+            }
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "tags" : {
+            "description" : "List of tags that may be used in a filter",
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "description" : "List of tags that may be used in a filter"
+            }
+          },
+          "views" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "name" : {
+                  "type" : "string",
+                  "description" : "Name of the view"
+                },
+                "sql" : {
+                  "type" : "string",
+                  "description" : "SQL that defines the view"
+                }
+              },
+              "required" : [ "sql" ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
