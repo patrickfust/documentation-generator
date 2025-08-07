@@ -21,12 +21,6 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Create documentation version if not exists
-        run: mkdir -p site/v4
-
-      - name: Copy Documentation Generator Schema to site
-        run: cp -Rv documentation-generator-api/src/main/resources/documentation-schema.json site/v4/documentation-schema.json
-
       - name: Check GitHub Pages status
         uses: crazy-max/ghaction-github-status@v4
         with:
