@@ -1,5 +1,6 @@
 package dk.fust.docgen.sqlscript.generators;
 
+import dk.fust.docgen.model.CascadeAction;
 import dk.fust.docgen.model.DataType;
 import dk.fust.docgen.model.Documentation;
 import dk.fust.docgen.model.Field;
@@ -96,6 +97,8 @@ public class PostgresGenerator implements SqlGenerator {
             if (field.getForeignKey() != null && field.getForeignKey().isEnforceReference()) {
                 sql.append(" references %s(%s)".formatted(
                         field.getForeignKey().getTableName(), field.getForeignKey().getColumnName()));
+                sql.append(generateCascadeAction("update", field.getForeignKey().getOnUpdate()));
+                sql.append(generateCascadeAction("delete", field.getForeignKey().getOnDelete()));
             }
             if (field.getDefaultValue() != null && !field.getDefaultValue().isEmpty()) {
                 sql.append(" default '%s'".formatted(field.getDefaultValue()));
@@ -107,6 +110,13 @@ public class PostgresGenerator implements SqlGenerator {
             String keys = primaryKeys.stream().map(Field::getName).collect(Collectors.joining(", "));
             sql.append(keys).append(")");
         }
+    }
+
+    private String generateCascadeAction(String type, CascadeAction action) {
+        if (action == null || action == CascadeAction.NO_ACTION) {
+            return "";
+        }
+        return " on %s %s".formatted(type, action.name().toLowerCase().replaceAll("_", " "));
     }
 
     private String generateCheckConstraint(Field field) {

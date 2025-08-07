@@ -188,6 +188,14 @@
                       "description" : "Should the database enforce the reference?",
                       "default" : false
                     },
+                    "onDelete" : {
+                      "enum" : [ "cascade", "set_null", "set_default", "no_action", "restrict" ],
+                      "description" : "If the referenced record is deleted, what should happen?"
+                    },
+                    "onUpdate" : {
+                      "enum" : [ "cascade", "set_null", "set_default", "no_action", "restrict" ],
+                      "description" : "If the referenced record is updated, what should happen?"
+                    },
                     "tableName" : {
                       "type" : "string",
                       "description" : "Table name the foreign key points to. Is together with columnName"

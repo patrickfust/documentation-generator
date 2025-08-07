@@ -1,0 +1,59 @@
+$schema: ../../../../../documentation-generator-api/src/main/resources/documentation-schema.json
+schemaName: xxx
+tables:
+  - name: parent_table
+    fields:
+      - name: key
+        dataType: text
+  - name: child_table_plain
+    createTableScript: plain.sql
+    fields:
+      - name: some_id
+        dataType: int
+        primaryKey: true
+      - name: parent
+        dataType: text
+        foreignKey:
+          enforceReference: true
+          tableName: parent_table
+          columnName: key
+  - name: child_table_delete_cascade
+    createTableScript: delete_cascade.sql
+    fields:
+      - name: some_id
+        dataType: int
+        primaryKey: true
+      - name: parent
+        dataType: text
+        foreignKey:
+          enforceReference: true
+          tableName: parent_table
+          columnName: key
+          onDelete: cascade
+  - name: child_table_update_cascade
+    createTableScript: update_cascade.sql
+    fields:
+      - name: some_id
+        dataType: int
+        primaryKey: true
+      - name: parent
+        dataType: text
+        foreignKey:
+          enforceReference: true
+          tableName: parent_table
+          columnName: key
+          onUpdate: cascade
+  - name: child_table_mixed
+    createTableScript: mixed.sql
+    fields:
+      - name: some_id
+        dataType: int
+        primaryKey: true
+      - name: parent
+        dataType: text
+        foreignKey:
+          enforceReference: true
+          tableName: parent_table
+          columnName: key
+          onUpdate: set_null
+          onDelete: set_default
