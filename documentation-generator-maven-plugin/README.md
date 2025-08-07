@@ -12,7 +12,7 @@ In the `build`-section of your pom, you can add the `generateDocumentation` goal
       <plugin>
         <groupId>dk.fust.docgen</groupId>
         <artifactId>documentation-generator-maven-plugin</artifactId>
-        <version>1.12.0-SNAPSHOT</version>
+        <version>1.12.0</version>
         <configuration>
           <documentationConfigurationFile>generator-configuration.yml</documentationConfigurationFile>
         </configuration>
