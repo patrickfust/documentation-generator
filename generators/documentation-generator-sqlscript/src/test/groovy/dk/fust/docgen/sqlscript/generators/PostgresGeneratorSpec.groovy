@@ -43,6 +43,21 @@ class PostgresGeneratorSpec extends Specification {
         indexFileText.contains("name int[]")
     }
 
+    def "generate with foreign keys"() {
+        setup:
+        String outputDirectory = 'build/test-scripts-postgres-foreign-keys'
+
+        when:
+        generate('documentation-sqlscript-foreign-keys.yaml', outputDirectory)
+
+        then:
+        noExceptionThrown()
+        new File(outputDirectory, 'plain.sql').text.contains("parent text references parent_table(key),")
+        new File(outputDirectory, 'delete_cascade.sql').text.contains("parent text references parent_table(key) on delete cascade,")
+        new File(outputDirectory, 'update_cascade.sql').text.contains("parent text references parent_table(key) on update cascade,")
+        new File(outputDirectory, 'mixed.sql').text.contains("parent text references parent_table(key) on update set null on delete set default,")
+    }
+
     private void generate(String documentationFile, String outputDirectory) {
         PostgresGenerator generator = new PostgresGenerator()
         Documentation documentation = TestHelper.loadTestDocumentation(documentationFile)
