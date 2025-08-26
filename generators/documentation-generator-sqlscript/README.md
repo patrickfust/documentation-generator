@@ -45,6 +45,7 @@ Documentation
     │   │   ├── onUpdate
     │   │   └── enforceReference
     │   ├── primaryKey
+    │   ├── collate
     │   ├── unique
     │   ├── nullable
     │   ├── defaultValue

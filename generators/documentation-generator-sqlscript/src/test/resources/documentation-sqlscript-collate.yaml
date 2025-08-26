@@ -1,0 +1,11 @@
+$schema: ../../../../../documentation-generator-api/src/main/resources/documentation-schema.json
+documentationTitle: The documentation title
+tables:
+  - name: some_table
+    createTableScript: some_table.sql
+    fields:
+      - name: field_with_default_collate
+        dataType: text
+      - name: field_with_specific_collate
+        collate: C
+        dataType: text
