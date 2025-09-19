@@ -37,4 +37,7 @@ public class Field {
     @Description("Constraint on the values")
     private List<String> check;
 
+    @Description("How to collate the field. Omitted means use database default collation")
+    private String collate;
+
 }

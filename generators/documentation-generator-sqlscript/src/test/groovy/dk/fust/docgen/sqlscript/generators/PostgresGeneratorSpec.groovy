@@ -58,6 +58,20 @@ class PostgresGeneratorSpec extends Specification {
         new File(outputDirectory, 'mixed.sql').text.contains("parent text references parent_table(key) on update set null on delete set default,")
     }
 
+    def "generate with collate"() {
+        setup:
+        String outputDirectory = 'build/test-scripts-collate'
+
+        when:
+        generate('documentation-sqlscript-collate.yaml', outputDirectory)
+
+        then:
+        noExceptionThrown()
+        String someTable = new File(outputDirectory, 'some_table.sql').text
+        someTable.contains('field_with_default_collate text,')
+        someTable.contains('field_with_specific_collate text collate "C"')
+    }
+
     private void generate(String documentationFile, String outputDirectory) {
         PostgresGenerator generator = new PostgresGenerator()
         Documentation documentation = TestHelper.loadTestDocumentation(documentationFile)

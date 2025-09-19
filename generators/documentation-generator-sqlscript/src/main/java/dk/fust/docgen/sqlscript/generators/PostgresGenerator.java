@@ -88,6 +88,9 @@ public class PostgresGenerator implements SqlGenerator {
             if (field.isUnique()) {
                 sql.append(" unique");
             }
+            if (field.getCollate() != null) {
+                sql.append(" collate \"%s\"".formatted(field.getCollate()));
+            }
             if (!field.isNullable()) {
                 sql.append(" not null");
             }
