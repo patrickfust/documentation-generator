@@ -17,7 +17,7 @@ allprojects {
             implementation 'org.slf4j:slf4j-api:2.0.17'
             testRuntimeOnly 'org.slf4j:slf4j-log4j12:2.0.17'
             testRuntimeOnly 'org.apache.logging.log4j:log4j-api:2.25.1'
-            testRuntimeOnly 'org.apache.logging.log4j:log4j-core:2.25.1'
+            testRuntimeOnly 'org.apache.logging.log4j:log4j-core:2.25.2'
 
             testImplementation project(':helpers:documentation-generator-test-utilities')
             testImplementation platform('org.spockframework:spock-bom:2.3-groovy-4.0')
