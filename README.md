@@ -15,7 +15,9 @@ This document covers:
 
 ## Badges
 
+![GitHub Release](https://img.shields.io/github/v/release/patrickfust/documentation-generator)
 ![](https://github.com/patrickfust/documentation-generator/actions/workflows/build.yml/badge.svg)
+![](https://img.shields.io/badge/we_love-open_source-blue)
 
 ---
 
