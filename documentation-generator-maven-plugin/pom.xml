@@ -215,6 +215,18 @@
         </plugins>
     </build>
 
+    <repositories>
+        <!-- Sometimes repo.maven.org take a long time to sync with repo1.maven.org -->
+        <repository>
+            <id>central</id>
+            <url>https://repo1.maven.org/maven2/</url>
+        </repository>
+        <repository>
+            <id>central main</id>
+            <url>https://repo.maven.org/maven2/</url>
+        </repository>
+    </repositories>
+
     <profiles>
         <profile>
             <id>run-its</id>
