@@ -384,9 +384,9 @@ Add a dependency in your buildscript with the corresponding artifact id.
 
 | Artifact id                                                                                   | Description                        |
 |-----------------------------------------------------------------------------------------------|------------------------------------|
-| [documentation-generator-data-dictionary](generators/documentation-generator-data-dictionary) | Generates Data dicitionary         |
+| [documentation-generator-data-dictionary](generators/documentation-generator-data-dictionary) | Generates Data Dictionary          |
 | [documentation-generator-datalineage](generators/documentation-generator-datalineage)         | Generates Data lineage             |
-| [documentation-generator-erdiagram](generators/documentation-generator-erdiagram)             | Generates entity-relation diagrams |
+| [documentation-generator-erdiagram](generators/documentation-generator-erdiagram)             | Generates Entity-Relation diagrams |
 | [documentation-generator-sqlscript](generators/documentation-generator-sqlscript)             | Generates SQL-files                |
 
 ---
