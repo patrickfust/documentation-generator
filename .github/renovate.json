@@ -5,30 +5,17 @@
   "rebaseWhen": "conflicted",
   "labels": ["dependencies"],
   "automergeStrategy": "merge-commit",
-  "ignoreTests": true,
+  "ignoreTests": false,
   "packageRules": [
     {
-      "matchManagers": ["dockerfile"],
-      "matchPackagePatterns": ["alpine"],
-      "separateMinorPatch": true
-    },
-    {
-      "matchManagers": ["dockerfile"],
-      "matchPackagePatterns": ["alpine"],
       "matchUpdateTypes": ["patch"],
-      "automerge": true,
-      "schedule": ["every weekend after 5am"
-      ]
+      "automerge": true
     },
     {
       "matchManagers": ["github-actions"],
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ],
+      "matchUpdateTypes": ["minor"],
       "automerge": true,
-      "pinDigests": true,
-      "schedule": ["every weekend after 5am"]
+      "pinDigests": true
     }
   ]
 }
