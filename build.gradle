@@ -20,7 +20,7 @@ allprojects {
             testRuntimeOnly 'org.apache.logging.log4j:log4j-core:2.25.2'
 
             testImplementation project(':helpers:documentation-generator-test-utilities')
-            testImplementation platform('org.spockframework:spock-bom:2.3-groovy-4.0')
+            testImplementation platform('org.spockframework:spock-bom:2.4-groovy-5.0')
             testImplementation 'org.spockframework:spock-core'
             testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
         }
