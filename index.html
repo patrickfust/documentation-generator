@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="dk">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Documentation Generator" />
+        <meta name="author" content="Patrick Fust" />
+        <title>Documentation Generator</title>
+        <!-- Bootstrap Icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+        <!-- SimpleLightbox plugin CSS-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container px-4 px-lg-5 h-100">
+                <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
+                    <div class="col-lg-8 align-self-end">
+                        <h1 class="text-white font-weight-bold">Documentation Generator</h1>
+                        <hr class="divider" />
+                    </div>
+                    <div class="col-lg-8 align-self-baseline">
+                        <p class="text-white-75 mb-5">
+                            Generates documentation based upon a yaml- or JSON-file.<br/>
+                            Describe how your database looks, in a single file (or files) and then generate the corresponding documentation.
+                        </p>
+                        <p class="text-white-75 mb-5">
+                            The basic idea of the Documentation Generator is one place to have a single model and then generate
+                            and distribute documentation into different places.<br/>
+                            <img src="assets/img/basic-idea.svg">
+                        </p>
+                        <p class="text-white-75 mb-5">
+                            For usage and more information, go to:<br/>
+                            <a href="https://github.com/patrickfust/documentation-generator" class="btn btn-primary btn-xl">GitHub Documentation Generator</a>
+                        </p>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <h3>The documentation files must adhere to the JSON schema</h3>
+                        <table class="table table-primary table-striped">
+                            <tr>
+                                <th scope="col">Version</th>
+                                <th scope="col">Link to schema</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td><a href="v1/documentation-schema.json">Documentation Generator JSON schema</a></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><a href="v2/documentation-schema.json">Documentation Generator JSON schema with comments on index</a></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><a href="v3/documentation-schema.json">Documentation Generator JSON schema with array data types</a></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><a href="v4/documentation-schema.json">Documentation Generator JSON schema with options for applying actions to foreign keys</a></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><a href="v5/documentation-schema.json">Documentation Generator JSON schema with options for applying collate to fields</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </body>
+</html>
