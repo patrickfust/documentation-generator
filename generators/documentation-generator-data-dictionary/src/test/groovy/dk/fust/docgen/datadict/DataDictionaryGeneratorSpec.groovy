@@ -29,6 +29,7 @@ class DataDictionaryGeneratorSpec extends Specification {
         configuration.columnType.export = expType
         configuration.columnPosition.export = expPosition
         configuration.columnExample.export = expExam
+        configuration.columnFormat.export = expFormat
 
         Generator generator = configuration.getGenerator()
 
@@ -43,25 +44,26 @@ class DataDictionaryGeneratorSpec extends Specification {
         mockTableFormatter.formatTableArgument.rows[2].cells.size() == cellSize
 
         where:
-        addDescFile | expFile | expDesc | expColumn | expKeys | expType | expPosition | expExam | expSchema | schemaName | cellSize | rowSize
-        false       | true    | true    | true      | true    | true    | true        | true    | true      | 'schema'   | 9        | 4
-        false       | true    | true    | true      | true    | true    | true        | true    | false     | null       | 8        | 4
-        false       | false   | true    | true      | true    | true    | true        | true    | false     | null       | 7        | 4
-        false       | false   | false   | true      | true    | true    | true        | true    | false     | null       | 6        | 4
-        false       | false   | false   | false     | true    | true    | true        | true    | false     | null       | 5        | 4
-        false       | false   | false   | false     | false   | true    | true        | true    | false     | null       | 4        | 4
-        false       | false   | false   | false     | false   | false   | true        | true    | false     | null       | 3        | 4
-        false       | false   | false   | false     | false   | false   | false       | true    | false     | null       | 2        | 4
-        false       | false   | false   | false     | false   | false   | false       | false   | false     | null       | 1        | 4
-        true        | true    | true    | true      | true    | true    | true        | true    | true      | 'schema'   | 9        | 6
-        true        | true    | true    | true      | true    | true    | true        | true    | false     | null       | 8        | 6
-        true        | false   | true    | true      | true    | true    | true        | true    | false     | null       | 7        | 6
-        true        | false   | false   | true      | true    | true    | true        | true    | false     | null       | 6        | 6
-        true        | false   | false   | false     | true    | true    | true        | true    | false     | null       | 5        | 6
-        true        | false   | false   | false     | false   | true    | true        | true    | false     | null       | 4        | 6
-        true        | false   | false   | false     | false   | false   | true        | true    | false     | null       | 3        | 6
-        true        | false   | false   | false     | false   | false   | false       | true    | false     | null       | 2        | 6
-        true        | false   | false   | false     | false   | false   | false       | false   | false     | null       | 1        | 6
+        addDescFile | expFile | expDesc | expColumn | expKeys | expType | expPosition | expFormat | expExam | expSchema | schemaName | cellSize | rowSize
+        false       | true    | true    | true      | true    | true    | true        | false     | true    | true      | 'schema'   | 9        | 4
+        false       | true    | true    | true      | true    | true    | true        | false     | true    | false     | null       | 8        | 4
+        false       | false   | true    | true      | true    | true    | true        | false     | true    | false     | null       | 7        | 4
+        false       | false   | false   | true      | true    | true    | true        | false     | true    | false     | null       | 6        | 4
+        false       | false   | false   | false     | true    | true    | true        | false     | true    | false     | null       | 5        | 4
+        false       | false   | false   | false     | false   | true    | true        | false     | true    | false     | null       | 4        | 4
+        false       | false   | false   | false     | false   | false   | true        | false     | true    | false     | null       | 3        | 4
+        false       | false   | false   | false     | false   | false   | false       | false     | true    | false     | null       | 2        | 4
+        false       | false   | false   | false     | false   | false   | false       | false     | false   | false     | null       | 1        | 4
+        true        | true    | true    | true      | true    | true    | true        | false     | true    | true      | 'schema'   | 9        | 6
+        true        | true    | true    | true      | true    | true    | true        | false     | true    | false     | null       | 8        | 6
+        true        | false   | true    | true      | true    | true    | true        | false     | true    | false     | null       | 7        | 6
+        true        | false   | false   | true      | true    | true    | true        | false     | true    | false     | null       | 6        | 6
+        true        | false   | false   | false     | true    | true    | true        | false     | true    | false     | null       | 5        | 6
+        true        | false   | false   | false     | false   | true    | true        | false     | true    | false     | null       | 4        | 6
+        true        | false   | false   | false     | false   | false   | true        | false     | true    | false     | null       | 3        | 6
+        true        | false   | false   | false     | false   | false   | false       | false     | true    | false     | null       | 2        | 6
+        true        | false   | false   | false     | false   | false   | false       | false     | false   | false     | null       | 1        | 6
+        true        | false   | false   | false     | false   | false   | false       | true      | false   | false     | null       | 2        | 6
     }
 
     def "read using generator configuration"() {

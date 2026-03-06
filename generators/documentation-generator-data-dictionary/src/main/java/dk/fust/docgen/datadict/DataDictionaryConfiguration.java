@@ -27,6 +27,7 @@ public class DataDictionaryConfiguration extends AbstractDataDictionaryConfigura
     @MergeWithDefault private DataDictionaryConfigurationColumn columnDescription = new DataDictionaryConfigurationColumn(true, "Description", Alignment.LEFT);
     @MergeWithDefault private DataDictionaryConfigurationColumn columnExample = new DataDictionaryConfigurationColumn(true, "Example", Alignment.LEFT);
     @MergeWithDefault private DataDictionaryConfigurationColumn columnSchema = new DataDictionaryConfigurationColumn(false, "Schema", Alignment.LEFT);
+    @MergeWithDefault private DataDictionaryConfigurationColumn columnFormat = new DataDictionaryConfigurationColumn(false, "Format", Alignment.LEFT);
 
     private String schemaName = null;
 
