@@ -25,6 +25,7 @@ To use the data dictionary generator, you must configure it with `dk.fust.docgen
 | columnPosition        | [DataDictionaryConfigurationColumn](#dataDictionaryConfigurationColumn) | Customizing position                                         | Export: `true`<br/>Header: `Position`<br/>Alignment: `RIGHT`   |
 | columnType            | [DataDictionaryConfigurationColumn](#dataDictionaryConfigurationColumn) | Customizing data type                                        | Export: `true`<br/>Header: `Type`<br/>Alignment: `LEFT`        |
 | columnMandatory       | [DataDictionaryConfigurationColumn](#dataDictionaryConfigurationColumn) | Customizing mandatory                                        | Export: `true`<br/>Header: `Mandatory`<br/>Alignment: `LEFT`   |
+| columnFormat          | [DataDictionaryConfigurationColumn](#dataDictionaryConfigurationColumn) | Customizing format                                           | Export: `false`<br/>Header: `Format`<br/>Alignment: `LEFT`     |
 | columnKeys            | [DataDictionaryConfigurationColumn](#dataDictionaryConfigurationColumn) | Customizing keys                                             | Export: `true`<br/>Header: `Keys`<br/>Alignment: `LEFT`        |
 | columnDescription     | [DataDictionaryConfigurationColumn](#dataDictionaryConfigurationColumn) | Customizing description                                      | Export: `true`<br/>Header: `Description`<br/>Alignment: `LEFT` |
 | columnExample         | [DataDictionaryConfigurationColumn](#dataDictionaryConfigurationColumn) | Customizing example                                          | Export: `true`<br/>Header: `Example`<br/>Alignment: `LEFT`     |
@@ -63,6 +64,7 @@ Documentation
         │   ├── dataType
         │   ├── regex
         │   ├── example
+        │   ├── format
         │   ├── mandatory
         │   ├── minimumValue
         │   ├── maximumValue

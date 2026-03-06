@@ -21,6 +21,9 @@ public class Column {
     @Description("Regular expression that the contain must obey. Example: ((\\d{3}[A-Z]?)|0{4})")
     private String regex;
 
+    @Description("Format for dates. Example: yyyy-MM-dd HH:mm:ss.SSS")
+    private String format;
+
     @Description("Example on how the content may look. Could be a description as well: 'value between 0 and 1. eg 0,3333'")
     private String example;
 

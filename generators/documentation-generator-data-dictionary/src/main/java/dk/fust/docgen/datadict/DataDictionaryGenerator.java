@@ -64,6 +64,7 @@ public class DataDictionaryGenerator implements Generator {
         addCellIfConfigured(cells, dataDictionaryConfiguration.getColumnColumn(), column.getColumnName());
         addCellIfConfigured(cells, dataDictionaryConfiguration.getColumnPosition(), position);
         addCellIfConfigured(cells, dataDictionaryConfiguration.getColumnType(), column.getDataType());
+        addCellIfConfigured(cells, dataDictionaryConfiguration.getColumnFormat(), column.getFormat());
         addCellIfConfigured(cells, dataDictionaryConfiguration.getColumnMandatory(), column.getMandatory() ? "Yes" : "No");
         addCellIfConfigured(cells, dataDictionaryConfiguration.getColumnKeys(), column.getKeys());
         addCellIfConfigured(cells, dataDictionaryConfiguration.getColumnDescription(), column.getColumnDescription());
@@ -113,6 +114,7 @@ public class DataDictionaryGenerator implements Generator {
         emptyCells += dataDictionaryConfiguration.getColumnKeys().getExport() ? 1 : 0;
         emptyCells += dataDictionaryConfiguration.getColumnPosition().getExport() ? 1 : 0;
         emptyCells += dataDictionaryConfiguration.getColumnType().getExport() ? 1 : 0;
+        emptyCells += dataDictionaryConfiguration.getColumnFormat().getExport() ? 1 : 0;
         for (int i = 0; i < emptyCells; i++) {
             cells.add(new Cell((String) null, true));
         }
@@ -134,6 +136,7 @@ public class DataDictionaryGenerator implements Generator {
         addHeaderCellIfConfigured(headerCells, dataDictionaryConfiguration.getColumnColumn());
         addHeaderCellIfConfigured(headerCells, dataDictionaryConfiguration.getColumnPosition());
         addHeaderCellIfConfigured(headerCells, dataDictionaryConfiguration.getColumnType());
+        addHeaderCellIfConfigured(headerCells, dataDictionaryConfiguration.getColumnFormat());
         addHeaderCellIfConfigured(headerCells, dataDictionaryConfiguration.getColumnMandatory());
         addHeaderCellIfConfigured(headerCells, dataDictionaryConfiguration.getColumnKeys());
         addHeaderCellIfConfigured(headerCells, dataDictionaryConfiguration.getColumnDescription());
