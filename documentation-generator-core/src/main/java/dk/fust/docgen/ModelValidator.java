@@ -1,11 +1,6 @@
 package dk.fust.docgen;
 
-import dk.fust.docgen.model.Documentation;
-import dk.fust.docgen.model.Field;
-import dk.fust.docgen.model.Generation;
-import dk.fust.docgen.model.Index;
-import dk.fust.docgen.model.Table;
-import dk.fust.docgen.model.View;
+import dk.fust.docgen.model.*;
 import dk.fust.docgen.model.datadict.Column;
 import dk.fust.docgen.model.datadict.DataDictionaryFile;
 import dk.fust.docgen.util.Assert;
@@ -72,6 +67,17 @@ public class ModelValidator {
         table.getFields().forEach(f -> validateField(f, table));
         validateIndexes(table);
         validateViews(table);
+        validateForeignKeys(table);
+    }
+
+    private void validateForeignKeys(Table table) {
+        if (table.getForeignKeys() != null) {
+            for (CombinedForeignKey combinedForeignKey : table.getForeignKeys()) {
+                for (CombinedForeignKeyColumn column : combinedForeignKey.getColumns()) {
+                    validateForeignKey(table, column.getReferencingColumn(), combinedForeignKey.getTableName(), column.getReferenceColumn());
+                }
+            }
+        }
     }
 
     private void validateField(Field field, Table table) {
@@ -81,17 +87,22 @@ public class ModelValidator {
         Assert.isTrue(!(field.isPrimaryKey() && generationForTable.isGenerateId()), "Field " + field.getName() + " has primary key and is generating id");
 
         if (field.getForeignKey() != null) {
-            String callerField = table.getName() + "." + field.getName();
-            String foreignTableName = field.getForeignKey().getTableName();
-            String foreignColumnName = field.getForeignKey().getColumnName();
-            Assert.isNotNull(foreignTableName, callerField + " has foreign key without table name");
-            Assert.isNotNull(foreignColumnName, callerField + " has foreign key without column name");
-            Field foreignTablesField = documentation.getField(foreignTableName, foreignColumnName, generationForTable.getGenerateIdDataType());
-            String foreignTableNameColumnName = foreignTableName + "." + foreignColumnName;
-            Assert.isNotNull(foreignTablesField, foreignTableNameColumnName + " does not exist. Is foreign key in " + callerField);
-            Assert.isEquals(field.getDataType(), foreignTablesField.getDataType(), foreignTableNameColumnName + " has different data types " +
-                    "(" + foreignTablesField.getDataType() + ") compared to " + callerField + " (" + field.getDataType() + ")");
+            validateForeignKey(table, field.getName(), field.getForeignKey().getTableName(), field.getForeignKey().getColumnName());
         }
+    }
+
+    private void validateForeignKey(Table table, String callerField, String foreignTableName, String foreignColumnName) {
+        Generation generationForTable = documentation.getGenerationForTable(table);
+        String callerFieldWithTable = table.getName() + "." + callerField;
+        Assert.isNotNull(foreignTableName, callerFieldWithTable + " has foreign key without table name");
+        Assert.isNotNull(foreignColumnName, callerFieldWithTable + " has foreign key without column name");
+
+        Field field = documentation.getField(table.getName(), callerField, generationForTable.getGenerateIdDataType());
+        Field foreignTablesField = documentation.getField(foreignTableName, foreignColumnName, generationForTable.getGenerateIdDataType());
+        String foreignTableNameColumnName = foreignTableName + "." + foreignColumnName;
+        Assert.isNotNull(foreignTablesField, foreignTableNameColumnName + " does not exist. Is foreign key in " + callerFieldWithTable);
+        Assert.isEquals(field.getDataType(), foreignTablesField.getDataType(), "%s has different data types (%s) compared to %s (%s)"
+                .formatted(foreignTableNameColumnName, foreignTablesField.getDataType(), callerFieldWithTable, field.getDataType()));
     }
 
     private void validateIndexes(Table table) {

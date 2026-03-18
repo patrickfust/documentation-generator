@@ -28,6 +28,8 @@ public class Table {
 
     private List<Index> indexes;
 
+    private List<CombinedForeignKey> foreignKeys;
+
     @Description("Configuration on how the generation should appear - Overrides the general generation on `Documentation`")
     private Generation generation;
 
@@ -35,7 +37,7 @@ public class Table {
      * Retrieves the found field. If it's a generated field, it's synthesized.
      * @param fieldName name to find
      * @param generatedIdDataType if it's a generated field, this will be the data type
-     * @param documentation refernce to the complete model
+     * @param documentation reference to the complete model
      * @return found field or null if it don't exist
      */
     public Field getField(String fieldName, DataType generatedIdDataType, Documentation documentation) {
@@ -51,4 +53,28 @@ public class Table {
         }
         return foundField;
     }
+
+    /**
+     * A field is considered foreign key if it has a foreign key definition or if it is a part in the list of foreign keys on the table level.
+     * @param fieldName fieldName to search for
+     * @param documentation reference to the complete model
+     * @return true if it is a foreign key
+     */
+    public boolean isFieldForeignKey(String fieldName, Documentation documentation) {
+        Field field = getField(fieldName, null, documentation);
+        if (field != null && field.getForeignKey() != null) {
+            return true;
+        }
+        if (getForeignKeys() != null) {
+            for (CombinedForeignKey foreignKey : getForeignKeys()) {
+                for (CombinedForeignKeyColumn column : foreignKey.getColumns()) {
+                    if (fieldName.equals(column.getReferencingColumn())) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
 }

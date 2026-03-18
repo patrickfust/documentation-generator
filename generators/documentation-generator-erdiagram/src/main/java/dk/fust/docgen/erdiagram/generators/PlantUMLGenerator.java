@@ -80,7 +80,7 @@ hide empty methods
             uml.append("    $pk(\"%s_id\"): %s NOT NULL\n".formatted(table.getName(), generationForTable.getGenerateIdDataType().toLowerCase()));
         }
         table.getFields().forEach(field -> {
-            if (field.getForeignKey() != null) {
+            if (table.isFieldForeignKey(field.getName(), documentation)) {
                 uml.append(key("fk", field));
             } else if (field.isPrimaryKey()) {
                 uml.append(key("pk", field));
@@ -101,18 +101,35 @@ hide empty methods
         tables.forEach(table -> {
             table.getFields().forEach(field -> {
                 if (field.getForeignKey() != null) {
-                    if (documentation.getSchemaName() != null) {
-                        uml.append("%s.%s::%s ||--o{ %s.%s::%s\n".formatted(
-                                documentation.getSchemaName(), field.getForeignKey().getTableName(), field.getForeignKey().getColumnName(),
-                                documentation.getSchemaName(), table.getName(), field.getName()));
-                    } else {
-                        uml.append("%s::%s ||--o{ %s::%s\n".formatted(
-                                field.getForeignKey().getTableName(), field.getForeignKey().getColumnName(),
-                                table.getName(), field.getName()));
-                    }
+                    uml.append(generateForeignKey(documentation.getSchemaName(),
+                            table.getName(), field.getName(),
+                            field.getForeignKey().getTableName(), field.getForeignKey().getColumnName()));
                 }
             });
+            if (table.getForeignKeys() != null) {
+                table.getForeignKeys().forEach(combinedForeignKey -> {
+                    combinedForeignKey.getColumns().forEach(column -> {
+                        uml.append(generateForeignKey(documentation.getSchemaName(),
+                                table.getName(), column.getReferencingColumn(),
+                                combinedForeignKey.getTableName(), column.getReferenceColumn()));
+                    });
+                });
+            }
         });
         return uml.toString();
+    }
+
+    private static String generateForeignKey(String schemaName, String referencingTableName, String referencingColumn, String referenceTableName, String referenceColumn) {
+        if (schemaName != null) {
+            return "%s.%s::%s ||--o{ %s.%s::%s\n".formatted(
+                    schemaName, referenceTableName, referenceColumn,
+                    schemaName, referencingTableName, referencingColumn
+            );
+        } else {
+            return "%s::%s ||--o{ %s::%s\n".formatted(
+                    referenceTableName, referenceColumn,
+                    referencingTableName, referencingColumn
+            );
+        }
     }
 }

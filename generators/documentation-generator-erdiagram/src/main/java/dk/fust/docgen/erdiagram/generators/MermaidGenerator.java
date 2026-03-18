@@ -55,7 +55,7 @@ title: %s
                     if (field.isPrimaryKey()) {
                         uml.append(" PK");
                     }
-                    if (field.getForeignKey() != null) {
+                    if (table.isFieldForeignKey(field.getName(), documentation)) {
                         if (field.isPrimaryKey()) {
                             uml.append(", FK");
                         } else {
@@ -76,12 +76,21 @@ title: %s
         if (table.getFields() != null) {
             Stream<Field> foreignKeys = table.getFields().stream().filter(t -> t.getForeignKey() != null);
             foreignKeys.forEach(foreignKey -> {
-                String formattedForeignKey = "    %s ||--o{ %s : \"\"\n".formatted(
-                        foreignKey.getForeignKey().getTableName(),
-                        table.getName());
-                uml.append(formattedForeignKey);
+                uml.append(generateForeignKey(foreignKey.getForeignKey().getTableName(), table.getName()));
             });
+            if (table.getForeignKeys() != null) {
+                table.getForeignKeys().forEach(combinedForeignKey -> {
+                    uml.append(generateForeignKey(combinedForeignKey.getTableName(), table.getName()));
+                });
+            }
         }
         return uml.toString();
     }
+
+    private String generateForeignKey(String referencingTableName, String referenceTableName) {
+        return "    %s ||--o{ %s : \"\"\n".formatted(
+                referencingTableName,
+                referenceTableName);
+    }
+
 }

@@ -56,6 +56,8 @@ class PostgresGeneratorSpec extends Specification {
         new File(outputDirectory, 'delete_cascade.sql').text.contains("parent text references parent_table(key) on delete cascade,")
         new File(outputDirectory, 'update_cascade.sql').text.contains("parent text references parent_table(key) on update cascade,")
         new File(outputDirectory, 'mixed.sql').text.contains("parent text references parent_table(key) on update set null on delete set default,")
+        new File(outputDirectory, 'combined.sql').text.contains("foreign key(pointer_to_parent_key, pointer_to_parent_name) references parent_table(key, name) on update cascade on delete restrict")
+        new File(outputDirectory, 'combined.sql').text.contains("foreign key(pointer_to_parent_key) references child_table_mixed(parent)")
     }
 
     def "generate with collate"() {

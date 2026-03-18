@@ -23,3 +23,12 @@ tables:
     fields:
       - name: field_b
         dataType: int
+  - name: combined_foreign_key_table
+    fields:
+      - name: field_b_combined
+        dataType: int
+    foreignKeys:
+      - tableName: table_b
+        columns:
+          - referencingColumn: field_b_combined
+            referenceColumn: field_b

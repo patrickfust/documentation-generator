@@ -49,6 +49,11 @@ Documentation
     ├── name
     ├── comment
     ├── tags
+    ├── foreignKeys
+    │   ├── tableName
+    │   └── columns
+    │       ├── referencingColumn
+    │       └── referenceColumn
     └── fields
         ├── name
         ├── dataType
