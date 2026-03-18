@@ -1,0 +1,26 @@
+$schema: ../../../../../documentation-generator-api/src/main/resources/documentation-schema.json
+schemaName: xxx
+tables:
+  - name: parent_table
+    fields:
+      - name: key
+        dataType: text
+      - name: name
+        dataType: text
+  - name: child_with_combined_foreign_keys
+    createTableScript: combined.sql
+    fields:
+      - name: some_id
+        dataType: int
+        primaryKey: true
+      - name: pointer_to_parent_key
+        dataType: text
+      - name: pointer_to_parent_name
+        dataType: text
+    foreignKeys:
+      - tableName: parent_table
+        columns:
+          - referencingColumn: pointer_to_parent_key
+            referenceColumn: keyDontExists
+          - referencingColumn: pointer_to_parent_name
+            referenceColumn: name

@@ -5,6 +5,8 @@ tables:
     fields:
       - name: key
         dataType: text
+      - name: name
+        dataType: text
   - name: child_table_plain
     createTableScript: plain.sql
     fields:
@@ -57,3 +59,28 @@ tables:
           columnName: key
           onUpdate: set_null
           onDelete: set_default
+  - name: child_with_combined_foreign_keys
+    createTableScript: combined.sql
+    fields:
+      - name: some_id
+        dataType: int
+        primaryKey: true
+      - name: pointer_to_parent_key
+        dataType: text
+      - name: pointer_to_parent_name
+        dataType: text
+    foreignKeys:
+      - tableName: parent_table
+        columns:
+          - referencingColumn: pointer_to_parent_key
+            referenceColumn: key
+          - referencingColumn: pointer_to_parent_name
+            referenceColumn: name
+        enforceReference: true
+        onUpdate: cascade
+        onDelete: restrict
+      - tableName: child_table_mixed
+        columns:
+          - referencingColumn: pointer_to_parent_key
+            referenceColumn: parent
+        enforceReference: true

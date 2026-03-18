@@ -72,8 +72,31 @@ public class PostgresGenerator implements SqlGenerator {
             sql.append("    ").append(generationForTable.getColumnNameUpdatedAt()).append(" timestamp with time zone not null default now()");
         }
         generateTableFields(table, hasColumn, sql);
+        generateCombinedForeignKeys(table, sql);
         sql.append("\n);\n");
         return sql.toString();
+    }
+
+    private void generateCombinedForeignKeys(Table table, StringBuilder sql) {
+        if (table.getForeignKeys() != null && !table.getForeignKeys().isEmpty()) {
+            table.getForeignKeys().forEach(foreignKey -> {
+                if (foreignKey.isEnforceReference()) {
+                    List<String> references = new ArrayList<>();
+                    List<String> referencing = new ArrayList<>();
+                    foreignKey.getColumns().forEach(foreignKeyColumn -> {
+                        references.add(foreignKeyColumn.getReferenceColumn());
+                        referencing.add(foreignKeyColumn.getReferencingColumn());
+                    });
+                    sql.append(",\n    foreign key(");
+                    sql.append(String.join(", ", referencing));
+                    sql.append(") references ").append(foreignKey.getTableName()).append("(");
+                    sql.append(String.join(", ", references));
+                    sql.append(")");
+                    sql.append(generateCascadeAction("update", foreignKey.getOnUpdate()));
+                    sql.append(generateCascadeAction("delete", foreignKey.getOnDelete()));
+                }
+            });
+        }
     }
 
     private void generateTableFields(Table table, boolean hasColumn, StringBuilder sql) {

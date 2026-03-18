@@ -50,6 +50,14 @@ Documentation
     │   ├── nullable
     │   ├── defaultValue
     │   └── check
+    ├── foreignKeys
+    │   ├── tableName
+    │   ├── columns
+    │   │   ├── referencingColumn
+    │   │   └── referenceColumn
+    │   ├── onDelete
+    │   ├── onUpdate
+    │   └── enforceReference
     ├── views
     │   ├── name
     │   └── sql 
@@ -62,8 +70,10 @@ Documentation
 ---
 ## Foreign Keys
 
-If you want to use foreign keys, you must specify the `foreignKey` field in the table field.
-The `foreignKey` field is an object with the following fields:
+If you want to use foreign keys, you must specify the `foreignKey` field in either the table field or on the table level.
+
+### Foreign key on field level
+The `foreignKey` on a field, is an object with the following fields:
 
 | Field            | Type    | Description                                                                                                     | Default     |
 |------------------|---------|-----------------------------------------------------------------------------------------------------------------|-------------|
@@ -71,8 +81,18 @@ The `foreignKey` field is an object with the following fields:
 | columnName       | String  | Name of the column that the foreign key references                                                              |             |
 | enforceReference | Boolean | Whether to enforce the foreign key reference                                                                    |             |
 | onDelete         | String  | [Action](#actions) to take when the referenced row is deleted. <br/>Only active if `enforceReference` is `true` | `no_action` |
-| onUpdate         | String  | Action to take when the referenced row is updated  <br/>Only active if `enforceReference` is `true`             | `no_action` |
+| onUpdate         | String  | [Action](#actions) to take when the referenced row is updated  <br/>Only active if `enforceReference` is `true` | `no_action` |
 
+### Foreign key on table level
+The `foreignKeys` on the table level, is a list with the following fields:
+
+| Field            | Type    | Description                                                                                                                                                       | Default     |
+|------------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
+| tableName        | String  | Name of the table that the foreign key references                                                                                                                 |             |
+| columns          | String  | List of columns that points to the foreign table <br/>- `referencingColumn`: Column in current table<br/>- `referenceColumn: Column in the table to be referenced |             |
+| enforceReference | Boolean | Whether to enforce the foreign key reference                                                                                                                      |             |
+| onDelete         | String  | [Action](#actions) to take when the referenced row is deleted. <br/>Only active if `enforceReference` is `true`                                                   | `no_action` |
+| onUpdate         | String  | [Action](#actions) to take when the referenced row is updated  <br/>Only active if `enforceReference` is `true`                                                   | `no_action` |
 
 ### Actions
 Theses are the actions available for `onDelete` and `onUpdate`:

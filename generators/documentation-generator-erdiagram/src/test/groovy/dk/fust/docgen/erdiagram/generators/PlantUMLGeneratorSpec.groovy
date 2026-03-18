@@ -6,27 +6,25 @@ import dk.fust.docgen.erdiagram.ERDiagramConfiguration
 import dk.fust.docgen.model.Documentation
 import spock.lang.Specification
 
-class MermaidGeneratorSpec extends Specification {
+class PlantUMLGeneratorSpec extends Specification {
 
-    def "generate mermaid ER diagram"() {
+    def "generate plantUML ER diagram"() {
         given:
-        MermaidGenerator mermaidGenerator = new MermaidGenerator()
+        PlantUMLGenerator plantUMLGenerator = new PlantUMLGenerator()
         GeneratorConfiguration conf = new ERDiagramConfiguration()
         Documentation documentation = TestHelper.loadTestDocumentation('documentation-erdiagram.yaml')
 
         when:
-        String uml = mermaidGenerator.generateUML(null, documentation, conf)
+        String uml = plantUMLGenerator.generateUML(null, documentation, conf)
 
         then:
         uml.contains 'table_a'
         uml.contains 'table_b'
-        uml.contains 'table_b ||--o{ table_a : ""'
+        uml.contains 'xxx.table_b::field_b ||--o{ xxx.table_a::field_a'
 
         and: 'combined foreign keys are generated as expected'
-        uml.contains '''combined_foreign_key_table {
-    INT field_b_combined FK
-}'''
-        uml.contains 'table_b ||--o{ combined_foreign_key_table : ""\n'
+        uml.contains '$fk("field_b_combined"): int'
+        uml.contains 'xxx.table_b::field_b ||--o{ xxx.combined_foreign_key_table::field_b_combined'
     }
 
 }
