@@ -14,7 +14,7 @@ It consists of these parts:
 Every part (except the Maven plugin) can be released in the root folder.
 
 ## Release all except Maven plugin
-1. Build the packages with: `./gradlew publish`
+1. Build the packages with: `./gradlew clean publish`
 2. Release to GitHub and Maven Central with: `./gradlew jreleaserFullRelease`
 
 ## Release Maven plugin
