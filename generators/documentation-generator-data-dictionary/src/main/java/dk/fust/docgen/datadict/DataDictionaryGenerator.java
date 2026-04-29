@@ -65,6 +65,7 @@ public class DataDictionaryGenerator implements Generator {
         addCellIfConfigured(cells, dataDictionaryConfiguration.getColumnPosition(), position);
         addCellIfConfigured(cells, dataDictionaryConfiguration.getColumnType(), column.getDataType());
         addCellIfConfigured(cells, dataDictionaryConfiguration.getColumnFormat(), column.getFormat());
+        addCellIfConfigured(cells, dataDictionaryConfiguration.getColumnRegex(), column.getRegex());
         addCellIfConfigured(cells, dataDictionaryConfiguration.getColumnMandatory(), column.getMandatory() ? "Yes" : "No");
         addCellIfConfigured(cells, dataDictionaryConfiguration.getColumnKeys(), column.getKeys());
         addCellIfConfigured(cells, dataDictionaryConfiguration.getColumnDescription(), column.getColumnDescription());
@@ -108,13 +109,7 @@ public class DataDictionaryGenerator implements Generator {
         if (dataDictionaryConfiguration.getColumnTable().getExport()) {
             cells.add(new Cell(dataDictionaryFile.getTableName(), true));
         }
-        int emptyCells = 0;
-        emptyCells += dataDictionaryConfiguration.getColumnColumn().getExport() ? 1 : 0;
-        emptyCells += dataDictionaryConfiguration.getColumnMandatory().getExport() ? 1 : 0;
-        emptyCells += dataDictionaryConfiguration.getColumnKeys().getExport() ? 1 : 0;
-        emptyCells += dataDictionaryConfiguration.getColumnPosition().getExport() ? 1 : 0;
-        emptyCells += dataDictionaryConfiguration.getColumnType().getExport() ? 1 : 0;
-        emptyCells += dataDictionaryConfiguration.getColumnFormat().getExport() ? 1 : 0;
+        int emptyCells = getEmptyCells(dataDictionaryConfiguration);
         for (int i = 0; i < emptyCells; i++) {
             cells.add(new Cell((String) null, true));
         }
@@ -127,6 +122,18 @@ public class DataDictionaryGenerator implements Generator {
         return row;
     }
 
+    private static int getEmptyCells(DataDictionaryConfiguration dataDictionaryConfiguration) {
+        int emptyCells = 0;
+        emptyCells += dataDictionaryConfiguration.getColumnColumn().getExport() ? 1 : 0;
+        emptyCells += dataDictionaryConfiguration.getColumnMandatory().getExport() ? 1 : 0;
+        emptyCells += dataDictionaryConfiguration.getColumnKeys().getExport() ? 1 : 0;
+        emptyCells += dataDictionaryConfiguration.getColumnPosition().getExport() ? 1 : 0;
+        emptyCells += dataDictionaryConfiguration.getColumnType().getExport() ? 1 : 0;
+        emptyCells += dataDictionaryConfiguration.getColumnFormat().getExport() ? 1 : 0;
+        emptyCells += dataDictionaryConfiguration.getColumnRegex().getExport() ? 1 : 0;
+        return emptyCells;
+    }
+
     private static Row createHeaderRow(DataDictionaryConfiguration dataDictionaryConfiguration) {
         Row headerRow = new Row();
         List<Cell> headerCells = headerRow.getCells();
@@ -137,6 +144,7 @@ public class DataDictionaryGenerator implements Generator {
         addHeaderCellIfConfigured(headerCells, dataDictionaryConfiguration.getColumnPosition());
         addHeaderCellIfConfigured(headerCells, dataDictionaryConfiguration.getColumnType());
         addHeaderCellIfConfigured(headerCells, dataDictionaryConfiguration.getColumnFormat());
+        addHeaderCellIfConfigured(headerCells, dataDictionaryConfiguration.getColumnRegex());
         addHeaderCellIfConfigured(headerCells, dataDictionaryConfiguration.getColumnMandatory());
         addHeaderCellIfConfigured(headerCells, dataDictionaryConfiguration.getColumnKeys());
         addHeaderCellIfConfigured(headerCells, dataDictionaryConfiguration.getColumnDescription());

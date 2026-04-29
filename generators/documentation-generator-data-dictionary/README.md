@@ -3,7 +3,7 @@
 This generator can generate [data dictionaries](https://atlan.com/what-is-a-data-dictionary/).
 
 It consists of two parts: [Generate Data Dictionary](#generate-data-dictionary) 
-and [Generate Data Dictionary Meta Infomation](#generate-data-dictionary-meta-information).
+and [Generate Data Dictionary Meta Information](#generate-data-dictionary-meta-information).
 
 # Generate Data Dictionary
 
