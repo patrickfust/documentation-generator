@@ -32,6 +32,26 @@
                         <h1 class="text-white font-weight-bold">Documentation Generator</h1>
                         <hr class="divider" />
                     </div>
+
+                    <div class="alert alert-danger" role="alert">
+                        <h3>Documentation Generator is being sunset!</h3>
+                        <p>
+                            Instead of maintaining two separate projects, the Documentation Generator will be merged into:
+                        </p>
+                        <h2><a href="https://github.com/patrickfust/provenance">Provenance</a></h2>
+
+                        <p>
+                            The functionality of the Documentation Generator will be available in Provenance, and the JSON schema in Provenance is almost compatible.
+                        </p>
+                        <p>
+                            The Documentation Generator will no longer be maintained as a separate project, and users are encouraged to migrate to Provenance for continued support and updates.
+                        </p>
+                        <p>
+                            To Help you transition, you can use <a href="https://raw.githubusercontent.com/patrickfust/documentation-generator/refs/heads/main/convert_to_provenance.py">convert_to_provenance.py</a>,
+                            to convert your existing Documentation Generator JSON files to the Provenance format. The script will handle the necessary transformations to ensure compatibility with Provenance.
+                        </p>
+                    </div>
+
                     <div class="col-lg-8 align-self-baseline">
                         <p class="text-white-75 mb-5">
                             Generates documentation based upon a yaml- or JSON-file.<br/>
