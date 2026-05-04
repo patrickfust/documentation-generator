@@ -3,6 +3,13 @@
 Generates documentation based upon a yaml- or JSON-file.
 Describe how your database looks, in a single file (or files) and then generate the corresponding documentation.
 
+> [!WARNING]
+> Documentation Generator is being sunset!
+> Instead of maintaining two separate projects, the Documentation Generator will be merged into: [Provenance](https://github.com/patrickfust/provenance)
+> 
+> To Help you transition, you can use [convert_to_provenance.py](https://raw.githubusercontent.com/patrickfust/documentation-generator/refs/heads/main/convert_to_provenance.py">convert_to_provenance.py)
+> to convert your existing Documentation Generator JSON files to the Provenance format. The script will handle the necessary transformations to ensure compatibility with Provenance.
+
 This document covers:
 - [Idea of the documentaion generator](#idea-of-the-documentation-generator)
 - [Documentation structure](#documentation-structure)
